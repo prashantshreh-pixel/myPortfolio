@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prashant Shrestha | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Arrancar Descorrer Transition Overlay -->
+    <div id="descorrer-transition">
+        <div class="arrancar-door left"></div>
+        <div class="arrancar-door right"></div>
+        <div class="void-glow"></div>
+    </div>
+
+    <!-- Substitute Soul Reaper Badge Loader -->
+    <div id="loader">
+        <div class="badge-container">
+            <img src="badge.png" alt="Soul Reaper Badge" class="badge-img" onerror="this.style.display='none'">
+        </div>
+        <div class="loading-text">RELEASING REIATSU... <span class="jp-text">霊圧</span></div>
+    </div>
+
+    <!-- Parallax GIF Background -->
+    <div class="parallax-bg"></div>
+    <div class="glass-overlay"></div>
+
+    <div class="background-grid"></div>
+    <div class="kanji-bg">龍</div> <!-- Dragon -->
+    
+    <nav class="side-nav">
+        <div class="nav-brand">PS.</div>
+        <ul class="nav-links-vert">
+            <li><a href="#home" title="Home">H</a></li>
+            <li><a href="#about" title="About">A</a></li>
+            <li><a href="#skills" title="Skills">S</a></li>
+            <li><a href="#projects" title="Projects">P</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <p class="greeting">こんにちは <span class="neon-text">Welcome</span></p>
+            <h1 class="glitch" data-text="Prashant Shrestha">Prashant Shrestha</h1>
+            <h2 class="subtitle">Software Developer <span class="jp-text">ソフトウェア開発者</span></h2>
+            <p class="description">Building robust backends and sleek interfaces. Specializing in C# and Python.</p>
+            <div class="cta-group">
+                <a href="#projects" class="btn primary-btn">View Projects</a>
+                <a href="#contact" class="btn secondary-btn">Contact Me</a>
+            </div>
+        </div>
+        <div class="hero-graphic">
+            <div class="glowing-orb"></div>
+            <div class="glowing-orb orb-2"></div>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <h2 class="section-title hidden-left">About Me <span class="jp-text">私について</span></h2>
+        <div class="about-container glass-card hidden-right">
+            <p>I am a passionate software developer focused on creating highly efficient, scalable, and visually engaging applications. With a strong foundation in backend architecture and a keen eye for design, I bridge the gap between complex logic and user experience.</p>
+            <p>Whether I'm writing robust C# enterprise applications or building data-driven tools in Python, I strive for excellence in every line of code.</p>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2 class="section-title hidden-right">Core Skills <span class="jp-text">技能</span></h2>
+        <div class="skills-container">
+            <div class="skill-card glass-card hidden-left">
+                <div class="skill-icon csharp-icon">C#</div>
+                <h3>C# / .NET</h3>
+                <p>Enterprise applications, robust APIs, and scalable backend services.</p>
+                <div class="progress-bar"><div class="progress csharp-progress"></div></div>
+            </div>
+            <div class="skill-card glass-card hidden-right">
+                <div class="skill-icon python-icon">Py</div>
+                <h3>Python</h3>
+                <p>Data processing, automation, and intelligent backend solutions.</p>
+                <div class="progress-bar"><div class="progress python-progress"></div></div>
+            </div>
+            <div class="skill-card glass-card hidden-left">
+                <div class="skill-icon web-icon">Web</div>
+                <h3>Web Technologies</h3>
+                <p>HTML, CSS, JavaScript, and modern frontend design principles.</p>
+                <div class="progress-bar"><div class="progress web-progress"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title hidden-left">Featured Work <span class="jp-text">プロジェクト</span></h2>
+        <div class="projects-grid">
+            <div class="project-card glass-card hidden-left">
+                <div class="project-img-placeholder">Project Alpha</div>
+                <div class="project-info">
+                    <h3>Payment Gateway Integration</h3>
+                    <p>A secure and scalable payment processing system built with C# and .NET core, featuring robust transaction handling.</p>
+                    <div class="tags">
+                        <span>C#</span>
+                        <span>.NET</span>
+                        <span>API</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card glass-card hidden-right">
+                <div class="project-img-placeholder">Project Beta</div>
+                <div class="project-info">
+                    <h3>Data Analytics Engine</h3>
+                    <p>A Python-based service for analyzing large datasets and generating actionable insights in real-time.</p>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>Data</span>
+                        <span>Automation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content glass-card">
+            <h2>Let's Connect <span class="jp-text">連絡</span></h2>
+            <p>Interested in working together or just want to say hi?</p>
+            <a href="mailto:contact@example.com" class="btn primary-btn">Email Me</a>
+        </div>
+        <p class="copyright">© 2026 Prashant Shrestha. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
