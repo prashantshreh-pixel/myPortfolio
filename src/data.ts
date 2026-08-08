@@ -2,298 +2,357 @@ import { TimelineItem, SkillItem, ProjectItem } from './types';
 
 export const TIMELINE_DATA: TimelineItem[] = [
   {
-    id: 'true-form',
-    year: '2024 — PRESENT',
-    period: 'CURRENT / 4.5+ YRS',
+    id: 'ime-remittance',
+    year: 'DEC 2024 — PRESENT',
+    period: 'CURRENT / 4.5+ YRS EXP',
     kanji: '真の姿',
-    title: 'SENIOR .NET ARCHITECT',
-    subtitle: '[ CURRENT FORM ]',
-    description: 'Operating at peak technical resonance. Designing zero-allocation high-frequency backend services, event-driven reactive grids, real-time WebSocket telemetry engines, and resilient enterprise software architectures built to withstand extreme traffic bursts.',
+    title: 'SOFTWARE ENGINEER — IME LTD.',
+    subtitle: '[ CORE REMITTANCE PROCESSING ENGINE · KATHMANDU ]',
+    description: 'Architecting and maintaining the core IME Nepal remittance processing engine, handling high-volume transaction throughput across domestic and cross-border financial corridors. Implementing package-based modular design and the Factory Design Pattern to abstract payment gateway logic with real-time transaction reconciliation.',
     highlights: [
-      'Designed sub-millisecond memory-cached search engines using C# Ref Structs',
-      'Led technical architecture reviews for mission-critical core systems handling $10M+ daily',
-      'Pioneered automated chaos engineering scenarios to validate self-healing clusters'
+      'Architected high-volume remittance processing engine handling critical transaction corridors across Nepal and international partners',
+      'Integrated local and international banking APIs (SOAP, RESTful) ensuring low-latency data exchange, strict security protocols, and real-time reconciliation',
+      'Implemented package-based modular design and applied Factory Design Pattern to abstract payment gateway logic',
+      'Leveraged AI tools to accelerate development velocity, refactoring, and integration testing'
     ],
-    techUsed: ['.NET 9', 'C# 13', 'Kubernetes', 'Cloud Native', 'System Design', 'WebSockets'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop',
-    memoryFragmentCode: `// Memory Fragment 04: Zero-allocation Span<T> parser
-public ReadOnlySpan<char> ExtractSpiritualPulse(ReadOnlySpan<char> rawTelemetry) 
+    techUsed: ['C#', '.NET Core', 'ASP.NET Core', 'Clean Architecture', 'Factory Pattern', 'SOAP / REST APIs', 'FinTech'],
+    imagePlaceholder: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop',
+    memoryFragmentCode: `// Memory Fragment 04: Factory Pattern Payment Gateway Dispatcher
+public interface IPaymentGatewayService 
 {
-    int index = rawTelemetry.IndexOf(':');
-    return index != -1 ? rawTelemetry[(index + 1)..].Trim() : ReadOnlySpan<char>.Empty;
+    Task<RemittanceResult> ProcessTransactionAsync(TransactionPayload payload, CancellationToken ct);
+}
+
+public sealed class RemittanceGatewayFactory : IRemittanceGatewayFactory 
+{
+    private readonly IServiceProvider _serviceProvider;
+    public RemittanceGatewayFactory(IServiceProvider sp) => _serviceProvider = sp;
+
+    public IPaymentGatewayService ResolveGateway(GatewayProvider provider) => provider switch 
+    {
+        GatewayProvider.DomesticCorridor => _serviceProvider.GetRequiredService<DomesticRemittanceService>(),
+        GatewayProvider.InternationalCrossBorder => _serviceProvider.GetRequiredService<CrossBorderRemittanceService>(),
+        _ => throw new NotSupportedException($"Gateway provider '{provider}' is not supported.")
+    };
 }`
   },
   {
-    id: 'hollowfication',
-    year: '2022 — 2024',
-    period: 'YEAR 2.5 - 4.0',
+    id: 'prabhu-technology',
+    year: 'AUG 2023 — NOV 2024',
+    period: 'YEAR 2.5 — 4.0',
     kanji: '虚化',
-    title: 'DEVOPS & SYSTEMS ENGINEER',
-    subtitle: '[ KUBERNETES & CI/CD ]',
-    description: 'Embraced the raw power of infrastructure automation. Constructed blue/green Jenkins pipeline stages, Docker containerization layers, and Helm chart orchestrations for automated Zero-Downtime deployments across multi-region Kubernetes clusters.',
+    title: 'MID-LEVEL .NET DEVELOPER — PRABHU TECHNOLOGY',
+    subtitle: '[ PRABHUPAY DIGITAL BANKING & WALLET PLATFORM ]',
+    description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Designed Maker-Checker authorization workflows to govern high-value operations and ensure strict financial compliance.',
     highlights: [
-      'Authored multi-stage Docker builds reducing image footprints from 1.2GB to 85MB',
-      'Automated multi-tenant Jenkins declarative pipelines with parallel matrix testing',
-      'Deployed Kubernetes horizontal pod autoscalers responding to custom Prometheus metrics'
+      'Constructed backend microservices and core infrastructure for PrabhuPay digital banking platform across nationwide user networks',
+      'Designed and deployed Maker-Checker dual-authorization workflows within administrative portals to govern high-value financial operations',
+      'Engineered and deployed RESTful and SOAP API endpoints for third-party merchant integration and real-time payment inquiries',
+      'Optimized transaction security protocols and ensured compliance with national banking standards'
     ],
-    techUsed: ['Docker', 'Jenkins', 'Kubernetes', 'Helm', 'Prometheus', 'Bash', 'Linux'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop',
-    memoryFragmentCode: `# Memory Fragment 03: Jenkinsfile Pipeline Stage
-stage('Bankai Deployment') {
-  parallel {
-    stage('Kanji Lint') { steps { sh 'dotnet format --verify-no-changes' } }
-    stage('Container Slice') { steps { sh 'docker build -t reiatsu/engine:\${GIT_COMMIT} .' } }
-  }
+    techUsed: ['ASP.NET Core', '.NET Core', 'Microservices', 'Maker-Checker Security', 'REST / SOAP', 'SQL Server'],
+    imagePlaceholder: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop',
+    memoryFragmentCode: `// Memory Fragment 03: Maker-Checker Financial Authorization Workflow
+public async Task<Result<AuthorizationResponse>> AuthorizeTransactionAsync(Guid transactionId, Guid checkerUserId, CancellationToken ct)
+{
+    var tx = await _db.Transactions.FirstOrDefaultAsync(t => t.Id == transactionId, ct);
+    if (tx == null) return Result.Failure<AuthorizationResponse>("Transaction not found.");
+    if (tx.InitiatorUserId == checkerUserId)
+        return Result.Failure<AuthorizationResponse>("Maker-Checker Violation: Maker cannot authorize own transaction.");
+
+    tx.Authorize(checkerUserId, DateTime.UtcNow);
+    await _db.SaveChangesAsync(ct);
+    return Result.Success(new AuthorizationResponse(tx.Id, TransactionStatus.Approved));
 }`
   },
   {
-    id: 'soul-society',
-    year: '2021 — 2022',
-    period: 'YEAR 1.0 - 2.5',
+    id: 'global-square',
+    year: 'OCT 2023 — DEC 2023',
+    period: 'FREELANCE / CONSULTING',
     kanji: '瀞霊廷',
-    title: 'SOFTWARE ENGINEER I',
-    subtitle: '[ REDACTED ]',
-    description: 'Built RESTful .NET APIs powering mobile applications with 500K+ active users. Deconstructed bloated monolithic enterprise systems into resilient, fault-tolerant microservices using gRPC, Redis distributed caching, and Kafka event streaming. Introduced unit-testing culture — coverage rose from 12% to 84% in nine months.',
+    title: 'MID-LEVEL .NET DEVELOPER — GLOBAL SQUARE',
+    subtitle: '[ JAPANESE CLUB RESERVATION SYSTEM (CRS) ]',
+    description: 'Engineered a Club Reservation System (CRS) web application for Japanese hospitality networks using Jira for Agile delivery. Designed normalized relational database schemas and optimized complex SQL stored procedures and user-defined functions to maximize query throughput.',
     highlights: [
-      'Architected gRPC inter-service communication layer supporting 45k ops/sec',
-      'Implemented distributed tracing with OpenTelemetry and Jaeger',
-      'Engineered idempotent event consumers with Redis distributed locking'
+      'Engineered Japanese hospitality Club Reservation System (CRS) web platform using ASP.NET MVC and C#',
+      'Designed normalized relational database schemas and optimized complex SQL stored procedures and UDFs',
+      'Managed agile sprint tasks, user stories, and feature delivery utilizing Jira project management',
+      'Maximized query throughput and handled peak night-time reservation traffic without lock contention'
     ],
-    techUsed: ['.NET 6', 'gRPC', 'Redis', 'Apache Kafka', 'PostgreSQL', 'Serilog'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop',
-    memoryFragmentCode: `// Memory Fragment 02: Resilient Circuit Breaker
-public static IHttpClientBuilder AddReiatsuResiliencePolicy(this IHttpClientBuilder builder) =>
-    builder.AddPolicyHandler(HttpPolicyExtensions
-        .HandleTransientHttpError()
-        .CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30)));`
+    techUsed: ['C#', 'ASP.NET MVC', 'SQL Server', 'Stored Procedures', 'Database Optimization', 'Jira Agile'],
+    imagePlaceholder: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop',
+    memoryFragmentCode: `-- Memory Fragment 02: High-Concurrency Reservation Stored Procedure
+CREATE PROCEDURE dbo.sp_ReserveClubVenueSlot
+    @VenueId INT,
+    @ReservationDate DATETIME,
+    @UserId INT,
+    @ResultCode INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+        IF EXISTS (SELECT 1 FROM dbo.VenueReservations WITH (UPDLOCK, ROWLOCK) 
+                   WHERE VenueId = @VenueId AND ReservationDate = @ReservationDate AND Status = 'CONFIRMED')
+        BEGIN
+            SET @ResultCode = -1; -- Slot already reserved
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+        INSERT INTO dbo.VenueReservations (VenueId, ReservationDate, UserId, Status, CreatedAt)
+        VALUES (@VenueId, @ReservationDate, @UserId, 'CONFIRMED', GETUTCDATE());
+        SET @ResultCode = 1;
+    COMMIT TRANSACTION;
+END`
   },
   {
-    id: 'awakening',
-    year: '2020 — 2021',
-    period: 'ORIGIN',
+    id: 'dg-hub',
+    year: 'SEP 2021 — JUN 2023',
+    period: 'YEAR 1.0 — 2.5 (ORIGIN)',
     kanji: '覚醒',
-    title: 'JUNIOR DEVELOPER',
-    subtitle: '[ ORIGIN ]',
-    description: 'First steps into the field. C# fundamentals, SQL mastery, and an obsessive drive to understand every layer of the stack — from raw SQL joins to browser paint cycles. Rebuilt legacy monolithic loops into concurrent thread pipelines.',
+    title: 'DOT NET DEVELOPER & INTERN — DG HUB',
+    subtitle: '[ MULTI-WALLET SUITE · MYPAY · PAYWELL · THAILI · CHHITO PAISA ]',
+    description: 'Contributed to the backend development and maintenance of digital wallet applications including MyPay, PayWell, Chhito Paisa, and Thaili. Built Admin, Merchant, and Client management interfaces utilizing ASP.NET Core and the Repository design pattern. Authored custom DLL libraries and Web API modules facilitating utility bill payments and real-time balance inquiries.',
     highlights: [
-      'Mastered C# type safety, pattern matching, and memory allocation optimization',
-      'Built custom high-throughput async processing queues',
-      'Refactored legacy synchronous API endpoints reducing response latency by 64%'
+      'Engineered backend digital wallet modules across MyPay, PayWell, Chhito Paisa, and Thaili ecosystems',
+      'Built Admin, Merchant, and Client management portals using ASP.NET Core and the Repository pattern',
+      'Authored custom DLL libraries and Web API modules facilitating real-time utility bill payments and balance inquiries',
+      'Established solid foundations in C#, Entity Framework Core, SQL Server, and modular package architecture'
     ],
-    techUsed: ['C#', '.NET Core', 'SQL Server', 'LINQ', 'xUnit'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
-    memoryFragmentCode: `// Memory Fragment 01: Low-allocation pipeline buffer
-public async ValueTask ProcessSpiritualPayload(ReadOnlyMemory<byte> buffer, CancellationToken ct) 
+    techUsed: ['C#', 'ASP.NET Core', 'Repository Pattern', 'Digital Wallets', 'Custom DLLs', 'Web API'],
+    imagePlaceholder: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop',
+    memoryFragmentCode: `// Memory Fragment 01: Repository Pattern Digital Wallet Utility Dispatcher
+public class UtilityPaymentRepository : IUtilityPaymentRepository 
 {
-    using var owner = MemoryPool<byte>.Shared.Rent(buffer.Length);
-    buffer.CopyTo(owner.Memory);
-    await _channelWriter.WriteAsync(owner.Memory[..buffer.Length], ct);
+    private readonly AppDbContext _context;
+    public UtilityPaymentRepository(AppDbContext context) => _context = context;
+
+    public async Task<PaymentReceipt> ProcessUtilityBillAsync(UtilityRequest request, CancellationToken ct) 
+    {
+        var wallet = await _context.Wallets.FindAsync(new object[] { request.WalletId }, ct);
+        wallet.DeductBalance(request.Amount);
+        var receipt = new PaymentReceipt(Guid.NewGuid(), request.UtilityType, request.Amount, DateTime.UtcNow);
+        await _context.Receipts.AddAsync(receipt, ct);
+        await _context.SaveChangesAsync(ct);
+        return receipt;
+    }
 }`
   }
 ];
 
 export const SKILL_ITEMS: SkillItem[] = [
   {
-    id: 'dotnet-csharp',
-    name: 'C# / .NET 9',
+    id: 'csharp-dotnet',
+    name: 'C# / .NET & ASP.NET Core',
     category: 'core',
-    commandPhrase: 'Slice through execution latency, Zangetsu!',
+    commandPhrase: 'Slice through transaction latency with zero allocation, Zangetsu!',
     proficiency: 98,
     kanji: '斬魄刀',
-    description: 'Deep mastery of C# memory management (Span<T>, Memory<T>, MemoryPool), Async/Await synchronization context, LINQ expression trees, reflection, and high-performance ASP.NET Core Web API architecture.',
+    description: 'Deep expertise in C#, .NET Core, ASP.NET Core, Entity Framework Core, ASP.NET MVC, Web API, asynchronous pipelines, and high-concurrency payment processing engines.',
     iconName: 'Terminal',
-    size: 'col-span-1 md:col-span-2',
-    codeSnippet: `[HttpPost("reiatsu/execute")]
-public async ValueTask<IActionResult> ExecuteCommand([FromBody] ReiatsuPayload payload) 
+    size: 'col-span-1',
+    codeSnippet: `[HttpPost("remittance/process")]
+public async Task<IActionResult> ProcessRemittance([FromBody] RemittanceRequest request, CancellationToken ct) 
 {
-    var result = await _reiatsuEngine.ProcessAsync(payload, HttpContext.RequestAborted);
+    var gateway = _gatewayFactory.ResolveGateway(request.Provider);
+    var result = await gateway.ProcessTransactionAsync(request.Payload, ct);
     return result.IsSuccess ? Ok(result.Value) : UnprocessableEntity(result.Error);
 }`,
-    bankaiForm: 'Getsuga Tensho: Zero-Allocation Execution Engine'
+    bankaiForm: 'Getsuga Tensho: High-Concurrency FinTech Engine'
   },
   {
-    id: 'docker',
-    name: 'Docker Containerization',
-    category: 'devops',
-    commandPhrase: 'Encapsulate spiritual mass inside impenetrable layers!',
-    proficiency: 92,
-    kanji: '封印',
-    description: 'Multi-stage Dockerfile optimization, Alpine / Chiseled base images, layer caching strategies, volume mounting, network bridges, and docker-compose microservice orchestrations.',
-    iconName: 'Box',
+    id: 'architecture-patterns',
+    name: 'Enterprise Architecture & Patterns',
+    category: 'architecture',
+    commandPhrase: 'Harmonize multi-tenant payment gateways in absolute spiritual equilibrium!',
+    proficiency: 96,
+    kanji: '陣形',
+    description: 'Clean Architecture, Package-Based Modular Design, Factory Pattern for gateway abstraction, Repository Pattern, Dependency Injection, and Maker-Checker authorization workflows.',
+    iconName: 'Cpu',
     size: 'col-span-1',
-    codeSnippet: `FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
-COPY ["Engine.csproj", "./"]
-RUN dotnet restore
-COPY . .
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+    codeSnippet: `public interface IPaymentGatewayService {
+    Task<RemittanceResult> ProcessTransactionAsync(TransactionPayload payload, CancellationToken ct);
+}
 
-FROM mcr.microsoft.com/dotnet/nightly/chiseled/aspnet:9.0
-WORKDIR /app
-COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "Engine.dll"]`,
-    bankaiForm: 'Kurohitsugi: Immutable Container Isolation'
+// Clean Architecture Domain Abstraction
+public sealed class DomesticRemittanceService : IPaymentGatewayService {
+    public async Task<RemittanceResult> ProcessTransactionAsync(TransactionPayload p, CancellationToken ct) {
+        // High-volume corridor processing
+        return RemittanceResult.Success(p.TransactionId);
+    }
+}`,
+    bankaiForm: 'Daiguren Hyorinmaru: Resilient Gateway Mesh'
   },
   {
-    id: 'jenkins',
-    name: 'Jenkins CI/CD',
-    category: 'devops',
-    commandPhrase: 'Automate relentless integration pipelines!',
-    proficiency: 88,
-    kanji: '自動化',
-    description: 'Declarative and Scripted Jenkinsfiles, agent node management, automated unit/integration test gates, SonarQube quality gates, Docker image registry pushes, and Kubernetes deployment triggers.',
+    id: 'fintech-integrations',
+    name: 'FinTech Integrations & Protocols',
+    category: 'core',
+    commandPhrase: 'Bridge domestic and cross-border financial corridors with low-latency APIs!',
+    proficiency: 95,
+    kanji: '結界',
+    description: 'RESTful Web APIs, SOAP protocol integrations, Swagger / OpenAPI specifications, Payment Gateways, and third-party banking & remittance API connections with automated reconciliation.',
     iconName: 'Layers',
     size: 'col-span-1',
-    codeSnippet: `pipeline {
-    agent { label 'k8s-runner' }
-    stages {
-        stage('Quality Gate') {
-            steps { sh 'dotnet test --logger "trx;LogFileName=test_results.trx"' }
-        }
-    }
-}`,
-    bankaiForm: 'Senbonzakura Kageyoshi: Infinite Automated Pipelines'
-  },
-  {
-    id: 'systems-architecture',
-    name: 'Distributed Systems',
-    category: 'architecture',
-    commandPhrase: 'Harmonize microservices in absolute spiritual equilibrium!',
-    proficiency: 95,
-    kanji: '陣形',
-    description: 'Domain-Driven Design (DDD), Event Sourcing, CQRS with MediatR, gRPC protocol buffers, Outbox Pattern, Circuit Breaker resilience (Polly), and CAP theorem tradeoffs in distributed environments.',
-    iconName: 'Cpu',
-    size: 'col-span-1 md:col-span-2',
-    codeSnippet: `public sealed record CreateOrderCommand(Guid OrderId, decimal Amount) : IRequest<Result<Guid>>;
-
-public sealed class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Result<Guid>> 
+    codeSnippet: `public async Task<SoapRemittanceResponse> InvokeBankingSoapEndpointAsync(SoapPayload payload) 
 {
-    public async Task<Result<Guid>> Handle(CreateOrderCommand request, CancellationToken ct) 
-    {
-        // CQRS Command Pipeline execution
-        return Result.Success(request.OrderId);
-    }
+    using var client = new BankingSoapServiceClient();
+    var response = await client.ExecuteTransferAsync(payload);
+    return response.ToDomainModel();
 }`,
-    bankaiForm: 'Daiguren Hyorinmaru: Frozen Crystal Event Mesh'
+    bankaiForm: 'Senbonzakura Kageyoshi: Infinite API Streams'
   },
   {
-    id: 'kubernetes',
-    name: 'Kubernetes & Cloud',
+    id: 'databases-sql',
+    name: 'SQL Server, PostgreSQL & MySQL',
+    category: 'database',
+    commandPhrase: 'Index eternal ledger state across high-volume transaction stores!',
+    proficiency: 94,
+    kanji: '記憶',
+    description: 'Advanced SQL Server, PostgreSQL, MySQL database design, normalized relational schemas, complex stored procedures, user-defined functions (UDFs), and transaction locking strategies.',
+    iconName: 'Database',
+    size: 'col-span-1',
+    codeSnippet: `CREATE PROCEDURE dbo.sp_ReconcileCorridorBatch
+    @CorridorId VARCHAR(50),
+    @ReconciledCount INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE dbo.RemittanceTransactions
+    SET Status = 'SETTLED', ReconciledAt = GETUTCDATE()
+    WHERE CorridorId = @CorridorId AND Status = 'PENDING_SETTLEMENT';
+    SET @ReconciledCount = @@ROWCOUNT;
+END`,
+    bankaiForm: 'Ryujin Jakka: Scorching Relational Query Engine'
+  },
+  {
+    id: 'maker-checker-security',
+    name: 'Maker-Checker & Transaction Security',
+    category: 'architecture',
+    commandPhrase: 'Enforce impenetrable two-man rule authorization across administrative portals!',
+    proficiency: 92,
+    kanji: '封印',
+    description: 'Designing Maker-Checker governance, dual-custody approval pipelines, fraud prevention, audit trails, and strict transaction verification for digital banking and wallets.',
+    iconName: 'Box',
+    size: 'col-span-1',
+    codeSnippet: `if (transaction.InitiatorUserId == reviewerUserId) 
+{
+    throw new SecurityException("Maker-Checker Violation: Maker cannot approve their own high-value transaction.");
+}`,
+    bankaiForm: 'Kurohitsugi: Immutable Audit & Access Control'
+  },
+  {
+    id: 'devops-tools-ai',
+    name: 'DevOps, Agile & AI Tooling',
     category: 'devops',
-    commandPhrase: 'Command cluster nodes across cloud dimensions!',
+    commandPhrase: 'Command agile sprint pipelines and AI-accelerated delivery velocity!',
     proficiency: 90,
     kanji: '次元',
-    description: 'Kubernetes deployment manifests, StatefulSets, Ingress NGINX controllers, ConfigMaps, Secrets, Horizontal Pod Autoscaling (HPA), and Service Mesh (Istio) routing control.',
+    description: 'Git, GitHub, GitLab, TortoiseSVN, Jira Agile task management, Postman API testing, and AI-accelerated development tools for rapid refactoring and integration testing.',
     iconName: 'Server',
     size: 'col-span-1',
-    codeSnippet: `apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: shinigami-api
-spec:
-  replicas: 5
-  strategy:
-    type: RollingUpdate`,
-    bankaiForm: 'Minazuki: Self-Healing Cluster Domain'
-  },
-  {
-    id: 'postgresql-redis',
-    name: 'PostgreSQL & Redis',
-    category: 'database',
-    commandPhrase: 'Store eternal spirit energy in resilient memory stores!',
-    proficiency: 92,
-    kanji: '記憶',
-    description: 'Entity Framework Core, Dapper micro-ORM for ultra-fast queries, PostgreSQL indexing (B-Tree, GIN, BRIN), Redis distributed caching, pub/sub channels, and atomic Lua scripting.',
-    iconName: 'Database',
-    size: 'col-span-1 md:col-span-2',
-    codeSnippet: `public async Task<Option<UserDto>> GetUserCachedAsync(Guid userId) 
-{
-    string cacheKey = $"user:{userId}";
-    var cached = await _redis.GetStringAsync(cacheKey);
-    if (cached != null) return JsonSerializer.Deserialize<UserDto>(cached)!;
-    
-    var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
-    if (user != null) await _redis.SetStringAsync(cacheKey, JsonSerializer.Serialize(user), TimeSpan.FromMinutes(15));
-    return user;
-}`,
-    bankaiForm: 'Ryujin Jakka: Scorching High-Read Database Caching'
+    codeSnippet: `# Git Branching & AI-Assisted CI Pipeline Trigger
+git checkout -b feature/ime-payment-gateway
+dotnet test --filter Category=IntegrationTests`,
+    bankaiForm: 'Minazuki: Self-Healing Development Lifecycle'
   }
 ];
 
 export const PROJECTS_DATA: ProjectItem[] = [
   {
-    id: 'project-1',
+    id: 'project-ime',
     code: 'PROJECT_001',
-    title: 'Kagero / System Overdrive',
-    tagline: 'High-Frequency .NET Telemetry Mesh & Real-Time Event Bus',
-    description: 'A zero-allocation C# event stream processor engineered to ingest, validate, and broadcast up to 120,000 telemetry messages per second with under 3ms latency.',
-    category: 'Distributed Systems',
-    techStack: ['.NET 9', 'C#', 'Kafka', 'Redis', 'Docker', 'Grafana'],
+    title: 'IME Nepal / Core Remittance Processing Engine',
+    tagline: 'High-Volume Domestic & Cross-Border Remittance Corridor Backbone',
+    description: 'The core remittance processing engine powering IME Nepal, architected to handle high-volume transaction throughput across domestic and international financial corridors with real-time SOAP/RESTful banking API integrations, Factory Pattern gateway abstractions, and automated transaction reconciliation.',
+    category: 'Core FinTech & Remittance',
+    techStack: ['C#', '.NET Core', 'ASP.NET Core', 'Clean Architecture', 'Factory Pattern', 'SOAP / REST', 'SQL Server'],
     metrics: [
-      { label: 'THROUGHPUT', value: '120,000 msg/sec' },
-      { label: 'LATENCY', value: '< 2.4 ms' },
-      { label: 'ALLOCATION', value: '0 Bytes / Msg' }
+      { label: 'THROUGHPUT', value: 'Domestic & Global Corridors' },
+      { label: 'RECONCILIATION', value: 'Real-Time Automated' },
+      { label: 'GATEWAY DESIGN', value: 'Factory Pattern Abstraction' }
     ],
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1600&auto=format&fit=crop',
-    githubUrl: 'https://github.com/shinigami-dev/kagero-telemetry-engine',
-    liveUrl: 'https://github.com/shinigami-dev/kagero-telemetry-engine',
-    kanjiOverlay: '蜉蝣',
-    architectureDiagram: `[ Producer Nodes ] ---> (gRPC / TLS 1.3) ---> [ Kagero Ingestion Engine (.NET 9) ]
-                                                            |
-                                               +------------+------------+
-                                               |                         |
-                                       [ Kafka Cluster ]         [ Redis Memory Ring ]
-                                               |                         |
-                                       [ Realtime Worker ]        [ Grafana Dashboard ]`
+    image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1600&auto=format&fit=crop',
+    githubUrl: 'https://github.com/prashantshreh-pixel',
+    liveUrl: 'https://github.com/prashantshreh-pixel',
+    kanjiOverlay: '送金',
+    architectureDiagram: `[ Remittance Agent / Web Portal ] ---> [ IME API Gateway (.NET Core) ]
+                                              |
+                               +--------------+--------------+
+                               |                             |
+                [ Factory Gateway Dispatcher ]     [ Real-Time Reconciliation ]
+                               |                             |
+                [ Domestic Banking Corridors ]     [ Global Cross-Border Partners ]`
   },
   {
-    id: 'project-2',
+    id: 'project-prabhupay',
     code: 'PROJECT_002',
-    title: 'Kurohitsugi / DevSecOps Gate',
-    tagline: 'Automated Jenkins & Kubernetes Deployment Safeguard',
-    description: 'A declarative CI/CD security gate that scans container vulnerabilities, enforces zero-trust policy checks, and executes automated blue-green rollouts on Kubernetes.',
-    category: 'DevOps & Infrastructure',
-    techStack: ['Jenkins', 'Kubernetes', 'Helm', 'Docker', 'Go', 'Bash'],
+    title: 'PrabhuPay / Digital Banking & Wallet Platform',
+    tagline: 'Nationwide Wallet Infrastructure & Maker-Checker Security Governance',
+    description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Implemented Maker-Checker dual-authorization workflows for administrative operations and third-party merchant inquiry APIs.',
+    category: 'Digital Banking & Wallets',
+    techStack: ['ASP.NET Core', '.NET Core', 'Microservices', 'Maker-Checker', 'RESTful API', 'SQL Server', 'Jira'],
     metrics: [
-      { label: 'BUILD TIME', value: '-65% Faster' },
-      { label: 'DOWNTIME', value: '0.00 Seconds' },
-      { label: 'PASS RATE', value: '99.98%' }
+      { label: 'NETWORK REACH', value: 'Nationwide User Base' },
+      { label: 'SECURITY MODEL', value: 'Maker-Checker Approval' },
+      { label: 'API AVAILABILITY', value: '99.99% High Uptime' }
     ],
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop',
-    githubUrl: 'https://github.com/shinigami-dev/kurohitsugi-jenkins-gate',
-    liveUrl: 'https://github.com/shinigami-dev/kurohitsugi-jenkins-gate',
-    kanjiOverlay: '黒棺',
-    architectureDiagram: `[ Git Commit ] ---> [ Jenkinsfile Trigger ] ---> [ SonarQube & Trivy Scan ]
-                                                             |
-                                            (All Vulnerability Checks Pass)
-                                                             |
-                                           [ Docker Multi-Stage Build ] ---> [ Push to Registry ]
-                                                             |
-                                           [ Helm Upgrade (Kubernetes) ] ---> [ Blue/Green Switch ]`
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1600&auto=format&fit=crop',
+    githubUrl: 'https://github.com/prashantshreh-pixel',
+    liveUrl: 'https://github.com/prashantshreh-pixel',
+    kanjiOverlay: '銀行',
+    architectureDiagram: `[ Mobile Apps / Merchant Terminals ] ---> [ PrabhuPay Core Gateway ]
+                                                    |
+                                     +--------------+--------------+
+                                     |                             |
+                      [ Digital Wallet Microservices ]    [ Maker-Checker Admin Portal ]
+                                     |                             |
+                      [ Utility Bill Pay Modules ]        [ Compliance & Audit Engine ]`
   },
   {
-    id: 'project-3',
+    id: 'project-multiwallet',
     code: 'PROJECT_003',
-    title: 'Senbonzakura / Distributed Ledger',
-    tagline: 'CQRS & Event-Sourced High-Throughput Core Banking Engine',
-    description: 'An immutable event-sourced financial ledger built using ASP.NET Core, PostgreSQL, and MediatR, capable of processing parallel financial transactions without lock contention.',
-    category: 'Financial Core System',
-    techStack: ['.NET Core', 'CQRS', 'PostgreSQL', 'Redis', 'Docker', 'xUnit'],
+    title: 'Multi-Wallet Suite (MyPay, PayWell, Thaili, Chhito Paisa)',
+    tagline: 'Modular ASP.NET Core Digital Wallet Ecosystem & Custom DLL Utility Libraries',
+    description: 'Contributed to the backend development of digital wallet ecosystems including MyPay, PayWell, Chhito Paisa, and Thaili. Built Admin, Merchant, and Client management interfaces with the Repository pattern, and authored custom C# DLL libraries facilitating utility bill payments and real-time balance inquiries.',
+    category: 'Multi-Tenant FinTech',
+    techStack: ['C#', 'ASP.NET Core', 'Repository Pattern', 'Custom DLLs', 'Entity Framework', 'RESTful APIs'],
     metrics: [
-      { label: 'CONCURRENCY', value: '50k Ops/Sec' },
-      { label: 'CONSISTENCY', value: 'ACID Compliant' },
-      { label: 'REPLAY TIME', value: '1.2s / 1M events' }
+      { label: 'ECOSYSTEM', value: '4+ Digital Wallets' },
+      { label: 'DESIGN PATTERN', value: 'Repository Pattern' },
+      { label: 'UTILITY MODULES', value: 'Custom C# DLLs' }
     ],
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop',
-    githubUrl: 'https://github.com/shinigami-dev/senbonzakura-cqrs-ledger',
-    liveUrl: 'https://github.com/shinigami-dev/senbonzakura-cqrs-ledger',
-    kanjiOverlay: '千本桜',
-    architectureDiagram: `[ API Endpoint ] ---> [ MediatR Command ] ---> [ Event Store (PostgreSQL) ]
-                                                          |
-                                           [ Event Publisher (Channel) ]
-                                                          |
-                                           +--------------+--------------+
-                                           |                             |
-                                   [ Read Model Sync ]          [ Audit Log Storage ]`
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop',
+    githubUrl: 'https://github.com/prashantshreh-pixel',
+    liveUrl: 'https://github.com/prashantshreh-pixel',
+    kanjiOverlay: '財布',
+    architectureDiagram: `[ Multi-Wallet Clients (MyPay / PayWell / Thaili) ] ---> [ Admin & Merchant Portals ]
+                                                                      |
+                                                       [ Repository Data Access Layer ]
+                                                                      |
+                                                       +--------------+--------------+
+                                                       |                             |
+                                            [ Custom Utility DLLs ]        [ Real-Time Balance Inquiry ]`
+  },
+  {
+    id: 'project-crs',
+    code: 'PROJECT_004',
+    title: 'Japanese Club Reservation System (CRS)',
+    tagline: 'High-Concurrency Venue Booking Engine & Normalized Stored Procedure Architecture',
+    description: 'An enterprise web application developed for Japanese hospitality networks, managing venue capacities, host availability, and real-time reservation scheduling with optimized SQL stored procedures and UDFs to handle peak night-time reservation traffic.',
+    category: 'Enterprise Hospitality Platform',
+    techStack: ['C#', 'ASP.NET MVC', 'SQL Server', 'Stored Procedures', 'Agile / Jira', 'Normalized Schemas'],
+    metrics: [
+      { label: 'TARGET MARKET', value: 'Japan Hospitality' },
+      { label: 'DATABASE TUNING', value: 'Optimized Stored Procs' },
+      { label: 'AGILE WORKFLOW', value: 'Jira Task Tracking' }
+    ],
+    image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop',
+    githubUrl: 'https://github.com/prashantshreh-pixel',
+    liveUrl: 'https://github.com/prashantshreh-pixel',
+    kanjiOverlay: '予約',
+    architectureDiagram: `[ Venue Host UI / Client Booking Portal ] ---> [ ASP.NET MVC Application Layer ]
+                                                                 |
+                                                 [ Normalized Relational Schema ]
+                                                                 |
+                                                 [ High-Speed Stored Procedures & UDFs ]`
   }
 ];
