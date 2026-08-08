@@ -65,7 +65,13 @@ export const TechStackZanpakuto: React.FC = () => {
       </div>
 
       {/* Bento Box Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+      <div className={`grid gap-4 sm:gap-5 w-full ${
+        filteredSkills.length === 1 
+          ? 'grid-cols-1 max-w-2xl' 
+          : filteredSkills.length === 2 
+            ? 'grid-cols-1 md:grid-cols-2' 
+            : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+      }`}>
         {filteredSkills.map((skill, index) => {
           return (
             <motion.div
@@ -79,7 +85,7 @@ export const TechStackZanpakuto: React.FC = () => {
                 audioEngine.playSlash();
                 setSelectedSkill(skill);
               }}
-              className={`${skill.size || 'col-span-1'} relative group cursor-pointer overflow-hidden rounded-none glass-panel border border-white/10 hover:border-red-600/70 transition-all duration-500 min-h-[200px] sm:min-h-[220px] flex flex-col justify-between p-5 sm:p-6 bg-[#0a0a0d] w-full`}
+              className="col-span-1 relative group cursor-pointer overflow-hidden rounded-none glass-panel border border-white/10 hover:border-red-600/70 transition-all duration-500 min-h-[220px] flex flex-col justify-between p-5 sm:p-6 bg-[#0a0a0d] w-full"
             >
               {/* Background Glow Effect on Hover */}
               <div className="absolute -right-20 -top-20 w-48 h-48 bg-red-600/0 group-hover:bg-red-600/15 rounded-full blur-3xl transition-all duration-700 pointer-events-none" />

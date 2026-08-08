@@ -21,7 +21,7 @@ export interface SkillItem {
   kanji: string;
   description: string;
   iconName: string;
-  size: 'col-span-1' | 'col-span-1 md:col-span-2' | 'col-span-1 lg:col-span-2';
+  size: 'col-span-1';
   codeSnippet: string;
   bankaiForm: string;
 }

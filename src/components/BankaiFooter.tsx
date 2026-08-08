@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Check, HelpCircle, Github, Linkedin } from 'lucide-react';
+import { Check, HelpCircle, Github, Linkedin, Mail, GraduationCap, FileDown } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
 export const BankaiFooter: React.FC = () => {
@@ -40,21 +40,21 @@ export const BankaiFooter: React.FC = () => {
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.4em] text-red-500 mb-2 font-bold">
-            <span>04 // CONTACT</span>
+            <span>04 // CONTACT & CREDENTIALS</span>
           </div>
           <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-display tracking-tight text-white uppercase">
             CONTACT
           </h2>
           <div className="h-[2px] w-12 bg-red-600 my-3 sm:my-4" />
           <p className="text-xs sm:text-sm font-mono text-red-500 uppercase tracking-[0.2em] sm:tracking-[0.3em] font-semibold">
-            FINAL FORM · DIRECT LINE · NO INTERMEDIARIES
+            PRASHANT SHRESTHA · DIRECT LINE · KATHMANDU, NEPAL
           </p>
         </div>
 
-        {/* Content Grid (Form Left, Social/Availability Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+        {/* Content Grid (Form Left, Social/Credentials Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Left Column: Form */}
-          <div>
+          <div className="flex flex-col justify-between">
             {isSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -65,10 +65,10 @@ export const BankaiFooter: React.FC = () => {
                   <Check size={24} />
                 </div>
                 <h4 className="text-2xl font-black uppercase text-white font-display">
-                  MISSION TRANSMITTED
+                  TRANSMISSION RECEIVED
                 </h4>
                 <p className="text-xs font-mono text-zinc-300">
-                  Your message has been sent directly to the Shinigami Developer's soul queue.
+                  Your message has been delivered directly to Prashant Shrestha's FinTech dispatch queue.
                 </p>
                 <button
                   onClick={() => {
@@ -81,19 +81,19 @@ export const BankaiFooter: React.FC = () => {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* NAME */}
                 <div>
                   <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
-                    NAME
+                    NAME / DESIGNATION
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Your designation"
-                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-3 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2"
+                    placeholder="Your name or company"
+                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2"
                   />
                 </div>
 
@@ -108,22 +108,22 @@ export const BankaiFooter: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your@domain.com"
-                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-3 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2"
+                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2"
                   />
                 </div>
 
                 {/* MESSAGE */}
                 <div>
                   <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
-                    MESSAGE
+                    MESSAGE / PROJECT INQUIRY
                   </label>
                   <textarea
                     required
-                    rows={4}
+                    rows={3}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="State your mission..."
-                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-3 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2 resize-none"
+                    placeholder="State your technical mission or opportunity..."
+                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2 resize-none"
                   />
                 </div>
 
@@ -132,7 +132,7 @@ export const BankaiFooter: React.FC = () => {
                   type="submit"
                   disabled={isSubmitting}
                   onClick={() => audioEngine.playSlash()}
-                  className="w-full py-4 bg-[#cc0000] hover:bg-black text-white hover:text-red-500 border border-transparent hover:border-red-600 font-mono font-bold uppercase tracking-[0.25em] transition-all duration-300 text-xs sm:text-sm active:scale-[0.99]"
+                  className="w-full py-3.5 bg-[#cc0000] hover:bg-white text-white hover:text-black border border-transparent font-mono font-bold uppercase tracking-[0.25em] transition-all duration-300 text-xs sm:text-sm active:scale-[0.99] shadow-[0_0_20px_rgba(204,0,0,0.4)]"
                 >
                   {isSubmitting ? 'TRANSMITTING...' : 'INITIATE CONTACT'}
                 </button>
@@ -140,75 +140,103 @@ export const BankaiFooter: React.FC = () => {
             )}
           </div>
 
-          {/* Right Column: Social Channels & Availability */}
-          <div className="space-y-10 lg:pl-8">
+          {/* Right Column: Direct Channels & Executive Credentials (Flush Aligned with Submit Button) */}
+          <div className="flex flex-col justify-between space-y-3.5 font-mono">
             <div>
-              <h3 className="text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] font-bold mb-8">
-                FIND ME IN THE SOUL SOCIETY
+              <h3 className="text-xs text-zinc-500 uppercase tracking-[0.25em] font-bold mb-3">
+                DIRECT CHANNELS & RESUME
               </h3>
 
-              <div className="space-y-6">
-                {/* GITHUB WITH LOGO */}
-                <div>
-                  <div className="text-[11px] font-mono text-red-500 uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
-                    <Github size={14} className="text-red-500" />
-                    <span>GITHUB</span>
+              <div className="space-y-3">
+                {/* DIRECT RESUME PDF DOWNLOAD */}
+                <a
+                  href="./Prashant Shrestha - Executive Resume 2026.pdf"
+                  download="Prashant_Shrestha_Resume_2026.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => audioEngine.playSlash()}
+                  className="flex items-center justify-between p-3.5 bg-zinc-950 border border-red-600/60 hover:border-red-500 group transition-all"
+                >
+                  <div className="flex items-center gap-3">
+                    <FileDown size={17} className="text-red-500 group-hover:scale-110 transition-transform" />
+                    <div>
+                      <div className="text-xs uppercase font-bold text-white tracking-wider">OFFICIAL RESUME 2026 (PDF)</div>
+                      <div className="text-[10px] text-zinc-400">Prashant Shrestha - Executive Resume</div>
+                    </div>
+                  </div>
+                  <span className="text-xs text-red-500 group-hover:text-white font-bold">DOWNLOAD →</span>
+                </a>
+
+                {/* EMAIL */}
+                <div className="p-3 glass-panel border border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <Mail size={13} className="text-red-500" />
+                    <span className="text-xs text-zinc-200">prashantmessi08@gmail.com</span>
                   </div>
                   <a
-                    href="https://github.com/shinigami-dev"
-                    target="_blank"
-                    rel="noreferrer"
+                    href="mailto:prashantmessi08@gmail.com"
                     onClick={() => audioEngine.playHover()}
-                    className="inline-flex items-center gap-2.5 font-mono text-sm text-zinc-200 hover:text-white transition-colors group"
+                    className="text-[10px] text-red-500 hover:text-white font-bold uppercase tracking-wider"
                   >
-                    <span className="text-red-500 font-bold group-hover:translate-x-1 transition-transform">→</span>
-                    <span>github.com/shinigami-dev</span>
+                    SEND EMAIL →
                   </a>
                 </div>
 
-                {/* LINKEDIN WITH LOGO */}
-                <div>
-                  <div className="text-[11px] font-mono text-red-500 uppercase tracking-widest font-bold mb-2 flex items-center gap-2">
-                    <Linkedin size={14} className="text-red-500" />
-                    <span>LINKEDIN</span>
-                  </div>
+                {/* GITHUB & LINKEDIN */}
+                <div className="grid grid-cols-2 gap-3">
                   <a
-                    href="https://linkedin.com/in/shinigami-dev"
+                    href="https://github.com/prashantshreh-pixel"
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => audioEngine.playHover()}
-                    className="inline-flex items-center gap-2.5 font-mono text-sm text-zinc-200 hover:text-white transition-colors group"
+                    className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group"
                   >
-                    <span className="text-red-500 font-bold group-hover:translate-x-1 transition-transform">→</span>
-                    <span>linkedin.com/in/shinigami-dev</span>
+                    <div className="flex items-center gap-2">
+                      <Github size={14} className="text-red-500" />
+                      <span className="text-xs text-zinc-300 group-hover:text-white font-bold">GITHUB</span>
+                    </div>
+                    <span className="text-red-500 text-xs font-bold">→</span>
+                  </a>
+
+                  <a
+                    href="https://linkedin.com/in/prashant-shrestha-dev"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => audioEngine.playHover()}
+                    className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Linkedin size={14} className="text-red-500" />
+                      <span className="text-xs text-zinc-300 group-hover:text-white font-bold">LINKEDIN</span>
+                    </div>
+                    <span className="text-red-500 text-xs font-bold">→</span>
                   </a>
                 </div>
-              </div>
-            </div>
 
-            {/* AVAILABILITY */}
-            <div className="pt-4">
-              <h3 className="text-xs font-mono text-zinc-500 uppercase tracking-[0.25em] font-bold mb-4">
-                AVAILABILITY
-              </h3>
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.9)] animate-pulse" />
-                <span className="font-mono text-sm text-zinc-200 font-medium">
-                  Open to contract work — 2026
-                </span>
+                {/* EDUCATION & ACADEMIC CREDENTIALS */}
+                <div className="p-3 bg-zinc-950/80 border border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <GraduationCap size={15} className="text-red-500 shrink-0" />
+                    <div>
+                      <div className="text-[11px] font-bold text-white uppercase">B.Sc. Computer Science</div>
+                      <div className="text-[10px] text-zinc-400">Herald College · Wolverhampton</div>
+                    </div>
+                  </div>
+                  <span className="text-[10px] text-zinc-500 font-mono">2018–2021</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-24 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center text-[11px] font-mono text-zinc-500 tracking-wider uppercase gap-4">
-          <p>© 2026 · SHINIGAMI DEVELOPER · ALL SPIRITUAL RIGHTS RESERVED</p>
+        <div className="mt-16 sm:mt-24 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center text-[11px] font-mono text-zinc-500 tracking-wider uppercase gap-4">
+          <p>© 2026 · PRASHANT SHRESTHA · ALL RIGHTS RESERVED</p>
 
           <button
             onClick={() => setShowHelp(!showHelp)}
             className="w-7 h-7 rounded-full border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors"
-            title="Help & System Info"
+            title="System Info"
           >
             <HelpCircle size={14} />
           </button>
@@ -221,11 +249,10 @@ export const BankaiFooter: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mt-4 p-4 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400"
           >
-            <p>Soul Society Command Terminal v2.4 // Built with .NET 9, React, and Tailwind CSS.</p>
+            <p>Soul Society Command Terminal v2.5 // .NET 9, React 19, Clean Architecture, FinTech Engine.</p>
           </motion.div>
         )}
       </div>
     </footer>
   );
 };
-

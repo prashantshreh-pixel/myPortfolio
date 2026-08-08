@@ -5,6 +5,7 @@ import { audioEngine } from '../utils/AudioEngine';
 
 export const ScrollControls: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,8 +16,17 @@ export const ScrollControls: React.FC = () => {
       }
     };
 
+    const handleModalChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isOpen: boolean }>;
+      setIsModalOpen(customEvent.detail?.isOpen ?? false);
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('modal-state-change', handleModalChange);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('modal-state-change', handleModalChange);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -31,13 +41,13 @@ export const ScrollControls: React.FC = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isVisible && !isModalOpen && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col gap-1.5 sm:gap-2"
+          className="scroll-controls fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col gap-1.5 sm:gap-2"
         >
           {/* Scroll To Top Button */}
           <button
