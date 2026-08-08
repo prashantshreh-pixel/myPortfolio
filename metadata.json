@@ -1,0 +1,6 @@
+{
+  "name": "Shinigami Developer Portfolio",
+  "description": "High-contrast dark-mode developer portfolio with Bleach (TYBW) & Tokyo Ghoul minimalist aesthetic",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
