@@ -1,7 +1,7 @@
 <div align="center">
 
-<!-- Bleach Bankai Animated Header Banner -->
-<img src="https://media.giphy.com/media/8qXJTU5oXeQog/giphy.gif" width="100%" alt="Bleach Bankai Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
+<!-- Bleach Getsuga Tensho Animated Header Banner -->
+<img src="https://media1.tenor.com/m/rOf2yOnzg54AAAAC/getsuga-tensho-ichigo.gif" width="100%" alt="Bleach Getsuga Tensho Ichigo Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
 
 # ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
 ### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
@@ -31,50 +31,6 @@
 
 </div>
 
-## 🌌 Professional Executive Summary
-
-* **4.5+ Years in High-Concurrency FinTech**: Proven record engineering high-throughput remittance backbones, multi-tenant digital wallet platforms, and domestic/international payment corridors.
-* **Core Remittance & Banking Integrations**: Architecting the core **IME Nepal** remittance processing engine and **PrabhuPay** digital banking microservices.
-* **Architectural Mastery**: Implementation of **Clean Architecture**, **Package-Based Modular Design**, **Factory Pattern** for gateway dispatching, **Repository Pattern**, and strict **Maker-Checker** dual-authorization workflows.
-* **Database & High Performance**: Complex SQL stored procedures, normalized schemas, and transaction locking optimizations across **SQL Server**, **PostgreSQL**, and **MySQL**.
-* **Education**: Bachelor of Computer Science — **Herald College** (*Affiliated with University of Wolverhampton*), Kathmandu, Nepal.
-
----
-
-## ✨ Signature Features
-
-<div align="center">
-  <img src="https://media.giphy.com/media/12p5byldHRgyu4/giphy.gif" width="45%" alt="Ichigo Hollow Mask" style="border: 1px solid #333; margin: 4px;" />
-  <img src="https://media.giphy.com/media/Cfv6gmSRepdzG/giphy.gif" width="45%" alt="Zangetsu Release" style="border: 1px solid #333; margin: 4px;" />
-</div>
-
-### 1. ⚔️ Interactive Reiatsu Particle Canvas (`ReiatsuCanvas.tsx`)
-* Custom HTML5 Canvas running a 60 FPS continuous particle physics loop.
-* Dynamic mouse attraction, velocity sweeps, slash trails, and ambient red radial gradients.
-* Intensifies into an aggressive burst storm when **Bankai Mode** is triggered.
-
-### 2. 🔊 Procedural Web Audio Synthesizer (`AudioEngine.ts`)
-* **Zero external audio files / 0 KB downloaded assets**: Uses the native browser **Web Audio API**.
-* Synthesizes metallic **katana slash sounds**, **sub-bass Bankai bursts**, and **tactile hover clicks** using oscillators (`sawtooth`, `sine`, `triangle`), dynamic gain ramps, and biquad high-pass filters.
-
-### 3. 📜 The Arc — 4.5+ Year Career Timeline (`AboutArc.tsx` & `MemoryFragmentModal.tsx`)
-* **IME Ltd.** (Dec 2024 – Present): Core IME Nepal remittance processing engine & Factory pattern payment gateways.
-* **Prabhu Technology** (Aug 2023 – Nov 2024): PrabhuPay digital banking microservices & Maker-Checker authorization.
-* **Global Square** (Oct 2023 – Dec 2023): Japanese Club Reservation System (CRS) & high-concurrency SQL stored procedures.
-* **DG Hub** (Sep 2021 – Jun 2023): Multi-wallet suite (MyPay, PayWell, Thaili, Chhito Paisa) & custom C# payment DLL modules.
-
-### 4. 🗡️ TechStack Zanpakuto Bento Grid (`TechStackZanpakuto.tsx` & `ZanpakutoDrawer.tsx`)
-* Responsive categorized bento grid (`Core`, `DevOps`, `Architecture`, `Database`).
-* Sliding Zanpakuto Specification Drawer displaying spiritual proficiency gauges, release command quotes, and code implementation snippets.
-
-### 5. 🏛️ Distributed FinTech Missions (`Projects.tsx` & `ProjectModal.tsx`)
-* Real-world system case studies with metrics (throughput, reconciliation, gateway designs) and ASCII architecture flows.
-
-### 6. 🔥 Dynamic Bankai Mode (`App.tsx`)
-* Global state toggle releasing spiritual pressure across all UI layers, intensifying particle density and triggering sub-bass acoustic resonance.
-
----
-
 ## 🛠️ Core Competencies & Tech Stack
 
 | Domain | Technologies & Frameworks |
@@ -103,12 +59,13 @@
     ├── 📄 data.ts                      # Resume timeline, Zanpakuto skill arsenal & FinTech project metrics
     ├── 📄 types.ts                     # TypeScript domain interfaces
     ├── 📁 utils/
-    │   └── 📄 AudioEngine.ts           # Web Audio API procedural sound synthesizer
+    │   ├── 📄 AudioEngine.ts           # Web Audio API procedural sound synthesizer
+    │   └── 📄 scrollLock.ts            # Viewport scroll freeze hook
     └── 📁 components/
         ├── 📄 ReiatsuPreloader.tsx     # Staggered vertical screen slit reveal animation
         ├── 📄 ReiatsuCanvas.tsx        # Interactive HTML5 background particle canvas
-        ├── 📄 Navbar.tsx               # Fixed header with mobile drawer, resume link & Bankai toggle
-        ├── 📄 Hero.tsx                 # Centerpiece typography, credentials & resume download button
+        ├── 📄 Navbar.tsx               # Fixed centered header with mobile drawer
+        ├── 📄 Hero.tsx                 # Centerpiece typography & Transmit Mission action
         ├── 📄 AboutArc.tsx             # 4.5+ Year engineering timeline with parallax
         ├── 📄 MemoryFragmentModal.tsx  # C# architecture code inspector modal
         ├── 📄 TechStackZanpakuto.tsx   # Skill bento grid with category filters
@@ -145,17 +102,6 @@ npm run dev
 ```bash
 npm run build
 ```
-
----
-
-## 📬 Contact & Official Channels
-
-* **Name**: Prashant Shrestha
-* **Location**: Panipokhari, Kathmandu, Nepal
-* **Phone**: +977-9823299998
-* **Email**: [prashantmessi08@gmail.com](mailto:prashantmessi08@gmail.com)
-* **GitHub**: [github.com/prashantshreh-pixel](https://github.com/prashantshreh-pixel)
-* **LinkedIn**: [linkedin.com/in/prashant-shrestha-dev](https://linkedin.com/in/prashant-shrestha-dev)
 
 ---
 

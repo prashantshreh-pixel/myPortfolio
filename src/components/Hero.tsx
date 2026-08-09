@@ -13,21 +13,14 @@ export const Hero: React.FC<HeroProps> = ({ isBankaiActive }) => {
       id="home"
       className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-4 sm:px-6 pt-24 sm:pt-28 pb-16 bg-[#050505] selection:bg-red-600 selection:text-white"
     >
-      {/* Background Manga Ink Grid & Red Reiatsu Aura Overlay */}
+      {/* Background Manga Ink Grid & Dark Aesthetic Overlay */}
       <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
-        {/* Reiatsu Glow */}
-        <div
-          className={`w-[500px] h-[500px] sm:w-[750px] sm:h-[750px] rounded-full blur-[150px] transition-all duration-1000 ${
-            isBankaiActive
-              ? 'bg-red-600/35 animate-pulse'
-              : 'bg-red-950/20 animate-reiatsu'
-          }`}
-        />
+        {/* Minimalist Halftone Dots */}
+        <div className="absolute inset-0 bg-manga-dots opacity-15" />
 
-        {/* Minimalist Grid Lines */}
-        <div className="absolute inset-0 bg-manga-dots opacity-25" />
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600/20 to-transparent" />
-        <div className="absolute top-0 left-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-zinc-800/40 to-transparent" />
+        {/* Crisp Crosshair Intersecting Grid Hairlines */}
+        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/[0.04]" />
+        <div className="absolute top-0 left-1/2 w-[1px] h-full bg-white/[0.04]" />
       </div>
 
       {/* Main Content Box */}

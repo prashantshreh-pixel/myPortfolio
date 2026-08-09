@@ -3,6 +3,7 @@ import { TimelineItem, SkillItem, ProjectItem } from './types';
 export const TIMELINE_DATA: TimelineItem[] = [
   {
     id: 'ime-remittance',
+    projectId: 'project-ime',
     year: 'DEC 2024 — PRESENT',
     period: 'CURRENT / 4.5+ YRS EXP',
     kanji: '真の姿',
@@ -38,10 +39,11 @@ public sealed class RemittanceGatewayFactory : IRemittanceGatewayFactory
   },
   {
     id: 'prabhu-technology',
+    projectId: 'project-prabhupay',
     year: 'AUG 2023 — NOV 2024',
     period: 'YEAR 2.5 — 4.0',
     kanji: '虚化',
-    title: 'MID-LEVEL .NET DEVELOPER — PRABHU TECHNOLOGY',
+    title: '.NET DEVELOPER — PRABHU TECHNOLOGY',
     subtitle: '[ PRABHUPAY DIGITAL BANKING & WALLET PLATFORM ]',
     description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Designed Maker-Checker authorization workflows to govern high-value operations and ensure strict financial compliance.',
     highlights: [
@@ -51,7 +53,7 @@ public sealed class RemittanceGatewayFactory : IRemittanceGatewayFactory
       'Optimized transaction security protocols and ensured compliance with national banking standards'
     ],
     techUsed: ['ASP.NET Core', '.NET Core', 'Microservices', 'Maker-Checker Security', 'REST / SOAP', 'SQL Server'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop',
+    imagePlaceholder: '/assets/prabhuPay.png',
     memoryFragmentCode: `// Memory Fragment 03: Maker-Checker Financial Authorization Workflow
 public async Task<Result<AuthorizationResponse>> AuthorizeTransactionAsync(Guid transactionId, Guid checkerUserId, CancellationToken ct)
 {
@@ -63,14 +65,15 @@ public async Task<Result<AuthorizationResponse>> AuthorizeTransactionAsync(Guid 
     tx.Authorize(checkerUserId, DateTime.UtcNow);
     await _db.SaveChangesAsync(ct);
     return Result.Success(new AuthorizationResponse(tx.Id, TransactionStatus.Approved));
-}`
+} `
   },
   {
     id: 'global-square',
+    projectId: 'project-crs',
     year: 'OCT 2023 — DEC 2023',
     period: 'FREELANCE / CONSULTING',
     kanji: '瀞霊廷',
-    title: 'MID-LEVEL .NET DEVELOPER — GLOBAL SQUARE',
+    title: '.NET DEVELOPER — GLOBAL SQUARE',
     subtitle: '[ JAPANESE CLUB RESERVATION SYSTEM (CRS) ]',
     description: 'Engineered a Club Reservation System (CRS) web application for Japanese hospitality networks using Jira for Agile delivery. Designed normalized relational database schemas and optimized complex SQL stored procedures and user-defined functions to maximize query throughput.',
     highlights: [
@@ -80,7 +83,7 @@ public async Task<Result<AuthorizationResponse>> AuthorizeTransactionAsync(Guid 
       'Maximized query throughput and handled peak night-time reservation traffic without lock contention'
     ],
     techUsed: ['C#', 'ASP.NET MVC', 'SQL Server', 'Stored Procedures', 'Database Optimization', 'Jira Agile'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop',
+    imagePlaceholder: '/assets/G.S.I.C.jpg',
     memoryFragmentCode: `-- Memory Fragment 02: High-Concurrency Reservation Stored Procedure
 CREATE PROCEDURE dbo.sp_ReserveClubVenueSlot
     @VenueId INT,
@@ -106,10 +109,11 @@ END`
   },
   {
     id: 'dg-hub',
+    projectId: 'project-multiwallet',
     year: 'SEP 2021 — JUN 2023',
-    period: 'YEAR 1.0 — 2.5 (ORIGIN)',
+    period: 'ORIGIN',
     kanji: '覚醒',
-    title: 'DOT NET DEVELOPER & INTERN — DG HUB',
+    title: 'INTERN / JUNIOR DEVELOPER — DG HUB',
     subtitle: '[ MULTI-WALLET SUITE · MYPAY · PAYWELL · THAILI · CHHITO PAISA ]',
     description: 'Contributed to the backend development and maintenance of digital wallet applications including MyPay, PayWell, Chhito Paisa, and Thaili. Built Admin, Merchant, and Client management interfaces utilizing ASP.NET Core and the Repository design pattern. Authored custom DLL libraries and Web API modules facilitating utility bill payments and real-time balance inquiries.',
     highlights: [
@@ -119,22 +123,27 @@ END`
       'Established solid foundations in C#, Entity Framework Core, SQL Server, and modular package architecture'
     ],
     techUsed: ['C#', 'ASP.NET Core', 'Repository Pattern', 'Digital Wallets', 'Custom DLLs', 'Web API'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop',
-    memoryFragmentCode: `// Memory Fragment 01: Repository Pattern Digital Wallet Utility Dispatcher
-public class UtilityPaymentRepository : IUtilityPaymentRepository 
+    imagePlaceholder: '/assets/DgHub.png',
+    memoryFragmentCode: `[HttpPost, ValidateAntiForgeryToken]
+public JsonResult EnableCategory(string ChargeCategoryId)
 {
-    private readonly AppDbContext _context;
-    public UtilityPaymentRepository(AppDbContext context) => _context = context;
-
-    public async Task<PaymentReceipt> ProcessUtilityBillAsync(UtilityRequest request, CancellationToken ct) 
+    var Common = new ChargeCategoryCommon();
+    ChargeCategoryId = ChargeCategoryId.DecryptParameter();
+    if (string.IsNullOrEmpty(ChargeCategoryId))
     {
-        var wallet = await _context.Wallets.FindAsync(new object[] { request.WalletId }, ct);
-        wallet.DeductBalance(request.Amount);
-        var receipt = new PaymentReceipt(Guid.NewGuid(), request.UtilityType, request.Amount, DateTime.UtcNow);
-        await _context.Receipts.AddAsync(receipt, ct);
-        await _context.SaveChangesAsync(ct);
-        return receipt;
+        this.ShowPopup(1, "Invalid category.");
+        return Json(new { Code = 1, Message = "Invalid User" });
     }
+
+    Common.IsActive = "y";
+    Common.ChargeCategoryId = ChargeCategoryId;
+    Common.ActionUser = ApplicationUtilities.GetSessionValue("UserName").ToString();
+    Common.IpAddress = ApplicationUtilities.GetIP();
+    Common.BrowserInfo = ApplicationUtilities.GetBrowserInfo();
+
+    var dbresp = _buss.EnableDisableCategory(Common);
+    dbresp.Extra1 = "true"; // For Reloading page after clicking Close
+    return Json(dbresp.SetMessageInTempData(this));
 }`
   }
 ];
@@ -295,7 +304,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { label: 'SECURITY MODEL', value: 'Maker-Checker Approval' },
       { label: 'API AVAILABILITY', value: '99.99% High Uptime' }
     ],
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1600&auto=format&fit=crop',
+    image: '/assets/prabhuTech.jpg',
+    imagePosition: 'object-left sm:object-[15%_center]',
     githubUrl: 'https://github.com/prashantshreh-pixel',
     liveUrl: 'https://github.com/prashantshreh-pixel',
     kanjiOverlay: '銀行',
@@ -320,9 +330,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { label: 'DESIGN PATTERN', value: 'Repository Pattern' },
       { label: 'UTILITY MODULES', value: 'Custom C# DLLs' }
     ],
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop',
-    githubUrl: 'https://github.com/prashantshreh-pixel',
-    liveUrl: 'https://github.com/prashantshreh-pixel',
+    image: '/assets/wallet-cover.png',
+    liveUrls: [
+      { label: 'MYPAY WALLET (LIVE)', url: 'https://mypay.com.np/' },
+      { label: 'THAILI WALLET (LIVE)', url: 'https://thaili.com.np/#/login' }
+    ],
     kanjiOverlay: '財布',
     architectureDiagram: `[ Multi-Wallet Clients (MyPay / PayWell / Thaili) ] ---> [ Admin & Merchant Portals ]
                                                                       |
@@ -345,9 +357,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { label: 'DATABASE TUNING', value: 'Optimized Stored Procs' },
       { label: 'AGILE WORKFLOW', value: 'Jira Task Tracking' }
     ],
-    image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop',
-    githubUrl: 'https://github.com/prashantshreh-pixel',
-    liveUrl: 'https://github.com/prashantshreh-pixel',
+    image: '/assets/CRS background image.jpg',
     kanjiOverlay: '予約',
     architectureDiagram: `[ Venue Host UI / Client Booking Portal ] ---> [ ASP.NET MVC Application Layer ]
                                                                  |

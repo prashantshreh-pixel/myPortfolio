@@ -16,7 +16,6 @@ export const Projects: React.FC = () => {
     offset: ['start end', 'end start'],
   });
 
-  const watermarkParallaxY = useTransform(scrollYProgress, [0, 1], ['-15%', '15%']);
   const bgScaleParallax = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.05]);
 
   return (
@@ -24,14 +23,6 @@ export const Projects: React.FC = () => {
       {/* Background Top & Bottom Smooth Section Gradient Blends */}
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />
-
-      {/* Floating Parallax Background Kanji Watermark */}
-      <motion.div
-        style={{ y: watermarkParallaxY }}
-        className="absolute top-1/3 left-4 text-[20vw] font-black text-white/[0.02] font-display select-none pointer-events-none z-0 tracking-tighter leading-none"
-      >
-        任務
-      </motion.div>
 
       {/* Title Container */}
       <div className="px-4 sm:px-6 max-w-7xl mx-auto mb-12 sm:mb-16 relative z-10">
@@ -66,7 +57,8 @@ export const Projects: React.FC = () => {
                 audioEngine.playSlash();
                 setActiveProject(project);
               }}
-              className="relative min-h-[460px] sm:min-h-[520px] lg:h-[68vh] w-full overflow-hidden group cursor-pointer border-b border-white/10"
+              id={project.id}
+              className="relative min-h-[460px] sm:min-h-[520px] lg:h-[68vh] w-full overflow-hidden group cursor-pointer border-b border-white/10 scroll-mt-24"
             >
               {/* Background Image with Subtle Vertical Parallax Scale */}
               <motion.div style={{ scale: bgScaleParallax }} className="absolute inset-0 bg-zinc-900 overflow-hidden">
@@ -74,7 +66,7 @@ export const Projects: React.FC = () => {
                   src={project.image}
                   alt={project.title}
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 opacity-30 group-hover:opacity-75"
+                  className={`w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 opacity-30 group-hover:opacity-75 ${project.imagePosition || 'object-center'}`}
                 />
               </motion.div>
 
@@ -102,9 +94,10 @@ export const Projects: React.FC = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight font-display group-hover:text-red-400 transition-all duration-500 transform group-hover:-translate-y-1">
+                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white group-hover:text-zinc-100 uppercase tracking-tight font-display transition-all duration-500 transform group-hover:-translate-y-1">
                   {project.title}
                 </h3>
+                <div className="h-0.5 w-0 group-hover:w-16 bg-red-600 transition-all duration-500 mt-1.5" />
 
                 {/* Subtitle / Tagline */}
                 <p className="text-zinc-400 text-xs sm:text-sm font-mono mt-1.5 sm:mt-2 opacity-90 group-hover:opacity-100 transition-opacity max-w-xl leading-relaxed">

@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { TIMELINE_DATA } from '../data';
 import { TimelineItem } from '../types';
 import { MemoryFragmentModal } from './MemoryFragmentModal';
-import { ExternalLink, Terminal, ChevronRight } from 'lucide-react';
+import { Terminal, ChevronRight } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
 export const AboutArc: React.FC = () => {
@@ -16,9 +16,7 @@ export const AboutArc: React.FC = () => {
     offset: ['start end', 'end start'],
   });
 
-  const kanjiParallaxY = useTransform(scrollYProgress, [0, 1], ['-20%', '20%']);
   const linesParallaxY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
-  const opacityFade = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.1, 1, 1, 0.1]);
 
   return (
     <section
@@ -29,14 +27,6 @@ export const AboutArc: React.FC = () => {
       {/* Background Smooth Gradient Blends (Top & Bottom) */}
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />
-
-      {/* Subtle Vertical Parallax Scroll Background Kanji Watermark */}
-      <motion.div
-        style={{ y: kanjiParallaxY }}
-        className="absolute top-1/4 right-0 text-[20vw] sm:text-[24vw] font-black text-white/[0.025] font-display select-none pointer-events-none z-0 tracking-tighter leading-none"
-      >
-        死神
-      </motion.div>
 
       {/* Subtle Vertical Parallax Scroll Manga Lines */}
       <motion.div
@@ -65,8 +55,11 @@ export const AboutArc: React.FC = () => {
           </p>
         </div>
 
-        {/* Vertical Timeline with Left Spine and Red Diamond Anchors */}
-        <div className="relative border-l border-zinc-800/80 ml-3 sm:ml-6 md:ml-8 space-y-14 sm:space-y-20 my-10 sm:my-12">
+        {/* Vertical Timeline with Continuous Visible Spine Line */}
+        <div className="relative ml-3 sm:ml-6 md:ml-8 my-10 sm:my-12">
+          {/* Unbroken High-Visibility Vertical Spine Line */}
+          <div className="absolute top-3 bottom-8 left-0 w-[2px] bg-gradient-to-b from-red-600 via-zinc-700 to-red-600/30 z-0 shadow-[0_0_8px_rgba(220,38,38,0.3)]" />
+
           {TIMELINE_DATA.map((item, index) => {
             return (
               <motion.div
@@ -75,10 +68,10 @@ export const AboutArc: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.7, delay: index * 0.1 }}
-                className="relative ml-6 sm:ml-8 md:ml-12 group"
+                className="relative pl-6 sm:pl-8 md:pl-12 pb-14 sm:pb-20 last:pb-0 group z-10"
               >
-                {/* Timeline Red Diamond Anchor Node */}
-                <div className="absolute -left-[31px] sm:-left-[39px] md:-left-[57px] top-1.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-red-600 rotate-45 border-2 border-black group-hover:scale-125 group-hover:bg-white group-hover:shadow-[0_0_15px_rgba(204,0,0,0.9)] transition-all duration-300" />
+                {/* Timeline Red Diamond Anchor Node (Centered exactly on spine) */}
+                <div className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-red-600 rotate-45 border-2 border-black group-hover:scale-125 group-hover:bg-white group-hover:shadow-[0_0_15px_rgba(204,0,0,0.9)] transition-all duration-300 z-10" />
 
                 <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start justify-between">
                   {/* Left Block: Year & Meta */}
@@ -145,25 +138,14 @@ export const AboutArc: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Right Block: High-Contrast Greyscale Image Placeholder */}
-                  <div
-                    onClick={() => {
-                      audioEngine.playHover();
-                      setSelectedFragment(item);
-                    }}
-                    className="lg:w-1/4 w-full h-44 sm:h-56 relative overflow-hidden group/img cursor-pointer border border-white/10 hover:border-red-600 transition-all duration-500 bg-zinc-950"
-                  >
+                  {/* Right Block: Image / Logo Exhibit (Non-link, turns colorful on hover) */}
+                  <div className="lg:w-1/4 w-full h-44 sm:h-56 relative overflow-hidden group/img border border-white/10 hover:border-red-600/60 transition-all duration-500 bg-zinc-950 flex items-center justify-center p-3 select-none">
                     <img
                       src={item.imagePlaceholder}
                       alt={item.title}
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover grayscale contrast-125 group-hover/img:scale-110 group-hover/img:grayscale-0 transition-all duration-700 opacity-90 group-hover/img:opacity-100"
+                      className="w-full h-full object-contain grayscale contrast-125 group-hover/img:grayscale-0 group-hover/img:contrast-100 group-hover/img:scale-105 transition-all duration-500 opacity-85 group-hover/img:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono text-zinc-400">
-                      <span className="uppercase tracking-widest text-white font-bold">FRAGMENT_0{index + 1}</span>
-                      <ExternalLink size={12} className="text-red-500 group-hover/img:text-white transition-colors" />
-                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -180,4 +162,3 @@ export const AboutArc: React.FC = () => {
     </section>
   );
 };
-
