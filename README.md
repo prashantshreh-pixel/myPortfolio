@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Bleach Getsuga Tensho Animated Header Banner -->
-<img src="https://media1.tenor.com/m/rOf2yOnzg54AAAAC/getsuga-tensho-ichigo.gif" width="100%" alt="Bleach Getsuga Tensho Ichigo Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
+<div class="tenor-gif-embed" data-postid="24179171" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/getsuga-tensho-ichigo-ichigo-kurosaki-bleach-gif-24179171">Getsuga Tensho Ichigo GIF</a>from <a href="https://tenor.com/search/getsuga+tensho-gifs">Getsuga Tensho GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 # ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
 ### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
