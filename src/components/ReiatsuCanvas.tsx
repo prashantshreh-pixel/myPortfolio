@@ -91,22 +91,18 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Render subtle red ambient gradient aura center
-      const auraGradient = ctx.createRadialGradient(
-        width / 2, height / 2, 50,
-        width / 2, height / 2, Math.max(width, height) * 0.65
-      );
+      // Render ambient gradient aura center only when Bankai is triggered
       if (isBankaiActive) {
-        auraGradient.addColorStop(0, 'rgba(220, 38, 38, 0.18)');
-        auraGradient.addColorStop(0.5, 'rgba(127, 29, 29, 0.08)');
+        const auraGradient = ctx.createRadialGradient(
+          width / 2, height / 2, 50,
+          width / 2, height / 2, Math.max(width, height) * 0.65
+        );
+        auraGradient.addColorStop(0, 'rgba(220, 38, 38, 0.15)');
+        auraGradient.addColorStop(0.5, 'rgba(127, 29, 29, 0.05)');
         auraGradient.addColorStop(1, 'rgba(5, 5, 5, 0)');
-      } else {
-        auraGradient.addColorStop(0, 'rgba(185, 28, 28, 0.08)');
-        auraGradient.addColorStop(0.5, 'rgba(50, 10, 10, 0.03)');
-        auraGradient.addColorStop(1, 'rgba(5, 5, 5, 0)');
+        ctx.fillStyle = auraGradient;
+        ctx.fillRect(0, 0, width, height);
       }
-      ctx.fillStyle = auraGradient;
-      ctx.fillRect(0, 0, width, height);
 
       // Render particles
       for (let i = 0; i < particles.length; i++) {

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Code, Terminal, CheckCircle2 } from 'lucide-react';
+import { X, Code, Terminal, CheckCircle2, ArrowRight, Eye } from 'lucide-react';
 import { TimelineItem } from '../types';
 import { audioEngine } from '../utils/AudioEngine';
 import { useBodyScrollLock } from '../utils/scrollLock';
@@ -24,6 +24,22 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
   }, [item]);
 
   if (!item) return null;
+
+  const handleJumpToProject = () => {
+    if (!item) return;
+    audioEngine.playSlash();
+    const targetId = item.projectId || 'projects';
+    onClose();
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        const sec = document.getElementById('projects');
+        if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 120);
+  };
 
   return (
     <AnimatePresence>
@@ -121,14 +137,25 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
             </div>
           </div>
 
-          {/* Footer close button */}
-          <div className="mt-8 pt-4 border-t border-white/10 flex justify-end">
+          {/* Footer Actions */}
+          <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap justify-between items-center gap-3">
+            {item.projectId && (
+              <button
+                onClick={handleJumpToProject}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 hover:border-red-500 transition-all shadow-md active:scale-95"
+              >
+                <Eye size={15} className="text-red-500" />
+                <span>VIEW PROJECT MISSION</span>
+                <ArrowRight size={14} />
+              </button>
+            )}
+
             <button
               onClick={() => {
                 audioEngine.playSlash();
                 onClose();
               }}
-              className="px-7 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]"
+              className="px-7 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] ml-auto active:scale-95"
             >
               CLOSE FRAGMENT
             </button>

@@ -1,35 +1,33 @@
 import { useEffect } from 'react';
 
 /**
- * Ultimate bulletproof scroll lock that uses position: fixed on body
- * with scroll position retention and wheel event boundary trapping.
+ * Seamless scroll lock that freezes body/html scrolling without changing body.position,
+ * guaranteeing zero scroll position jump or flicker when opening/closing modals.
  */
 export const useBodyScrollLock = (isLocked: boolean) => {
   useEffect(() => {
     if (!isLocked) return;
 
-    // Capture current exact scroll position
-    const scrollY = window.scrollY;
-
     // Cache original inline styles
-    const originalBodyPosition = document.body.style.position;
-    const originalBodyTop = document.body.style.top;
-    const originalBodyWidth = document.body.style.width;
     const originalBodyOverflow = document.body.style.overflow;
     const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
 
-    // Add modal-open markers for CSS rules
+    // Calculate scrollbar width to prevent layout shift
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Add modal-open markers
     document.body.classList.add('modal-open');
     document.documentElement.classList.add('modal-open');
 
-    // Bulletproof position: fixed body freeze
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
+    // Freeze scrolling seamlessly without moving the page
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
+    if (scrollBarWidth > 0) {
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    }
 
-    // Broadcast modal state event to Navbar and ScrollControls
+    // Broadcast modal state event
     window.dispatchEvent(new CustomEvent('modal-state-change', { detail: { isOpen: true } }));
 
     // Trap wheel events outside of modal scroll container
@@ -55,14 +53,9 @@ export const useBodyScrollLock = (isLocked: boolean) => {
       document.body.classList.remove('modal-open');
       document.documentElement.classList.remove('modal-open');
 
-      document.body.style.position = originalBodyPosition;
-      document.body.style.top = originalBodyTop;
-      document.body.style.width = originalBodyWidth;
       document.body.style.overflow = originalBodyOverflow;
       document.documentElement.style.overflow = originalHtmlOverflow;
-
-      // Instantly restore exact scroll position
-      window.scrollTo(0, scrollY);
+      document.body.style.paddingRight = originalPaddingRight;
 
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchmove', handleTouchMove);

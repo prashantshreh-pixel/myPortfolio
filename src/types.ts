@@ -1,5 +1,6 @@
 export interface TimelineItem {
   id: string;
+  projectId?: string;
   year: string;
   period: string;
   kanji: string;
@@ -36,8 +37,10 @@ export interface ProjectItem {
   techStack: string[];
   metrics: { label: string; value: string }[];
   image: string;
-  githubUrl: string;
+  imagePosition?: string;
+  githubUrl?: string;
   liveUrl?: string;
+  liveUrls?: { label: string; url: string }[];
   kanjiOverlay: string;
   architectureDiagram?: string;
 }

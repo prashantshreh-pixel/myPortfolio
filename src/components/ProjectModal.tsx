@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Github, Cpu, BarChart2, Layers } from 'lucide-react';
+import { X, Github, Cpu, BarChart2, Layers, ExternalLink } from 'lucide-react';
 import { ProjectItem } from '../types';
 import { audioEngine } from '../utils/AudioEngine';
 import { useBodyScrollLock } from '../utils/scrollLock';
@@ -80,7 +80,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   src={project.image}
                   alt={project.title}
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover contrast-125"
+                  className={`w-full h-full object-cover contrast-125 ${project.imagePosition || 'object-center'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#070709] via-transparent to-transparent" />
                 <div className="absolute top-4 left-4 px-3 py-1 bg-red-600 text-white font-mono text-xs uppercase font-bold tracking-widest">
@@ -152,24 +152,59 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Footer Links */}
-          <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-between items-center gap-4">
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => audioEngine.playSlash()}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 transition-all shadow-md"
-            >
-              <Github size={16} />
-              <span>SOURCE REPOSITORY</span>
-            </a>
+          <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-between items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Multiple Live URLs */}
+              {project.liveUrls &&
+                project.liveUrls.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => audioEngine.playSlash()}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95"
+                  >
+                    <ExternalLink size={15} />
+                    <span>{link.label}</span>
+                  </a>
+                ))}
+
+              {/* Single Live URL fallback */}
+              {project.liveUrl && !project.liveUrls && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => audioEngine.playSlash()}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95"
+                >
+                  <ExternalLink size={15} />
+                  <span>VISIT LIVE PLATFORM</span>
+                </a>
+              )}
+
+              {/* Source Code Repository (Only if present) */}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => audioEngine.playSlash()}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 transition-all shadow-md active:scale-95"
+                >
+                  <Github size={15} />
+                  <span>SOURCE REPOSITORY</span>
+                </a>
+              )}
+            </div>
 
             <button
               onClick={() => {
                 audioEngine.playSlash();
                 onClose();
               }}
-              className="px-8 py-3 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]"
+              className="px-7 py-2.5 bg-zinc-800 hover:bg-red-600 text-zinc-300 hover:text-white font-black uppercase text-xs tracking-widest border border-white/10 hover:border-red-500 transition-all shadow-md ml-auto active:scale-95"
             >
               CLOSE CASE STUDY
             </button>
