@@ -80,7 +80,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   src={project.image}
                   alt={project.title}
                   referrerPolicy="no-referrer"
-                  className={`w-full h-full object-cover contrast-125 ${project.imagePosition || 'object-center'}`}
+                  className={`w-full h-full contrast-125 ${project.imagePosition || 'object-cover object-center'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#070709] via-transparent to-transparent" />
                 <div className="absolute top-4 left-4 px-3 py-1 bg-red-600 text-white font-mono text-xs uppercase font-bold tracking-widest">
@@ -152,8 +152,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           </div>
 
           {/* Footer Links */}
-          <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-between items-center gap-3">
-            <div className="flex flex-wrap items-center gap-3">
+          <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5">
               {/* Multiple Live URLs */}
               {project.liveUrls &&
                 project.liveUrls.map((link) => (
@@ -163,7 +163,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => audioEngine.playSlash()}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95 text-center"
                   >
                     <ExternalLink size={15} />
                     <span>{link.label}</span>
@@ -177,7 +177,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => audioEngine.playSlash()}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95 text-center"
                 >
                   <ExternalLink size={15} />
                   <span>VISIT LIVE PLATFORM</span>
@@ -191,7 +191,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => audioEngine.playSlash()}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 transition-all shadow-md active:scale-95"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 transition-all shadow-md active:scale-95 text-center"
                 >
                   <Github size={15} />
                   <span>SOURCE REPOSITORY</span>
@@ -204,7 +204,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 audioEngine.playSlash();
                 onClose();
               }}
-              className="px-7 py-2.5 bg-zinc-800 hover:bg-red-600 text-zinc-300 hover:text-white font-black uppercase text-xs tracking-widest border border-white/10 hover:border-red-500 transition-all shadow-md ml-auto active:scale-95"
+              className="px-7 py-2.5 bg-zinc-800 hover:bg-red-600 text-zinc-300 hover:text-white font-black uppercase text-xs tracking-widest border border-white/10 hover:border-red-500 transition-all shadow-md sm:ml-auto active:scale-95 text-center flex items-center justify-center"
             >
               CLOSE CASE STUDY
             </button>

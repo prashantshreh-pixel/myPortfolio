@@ -16,8 +16,8 @@ export const TIMELINE_DATA: TimelineItem[] = [
       'Implemented package-based modular design and applied Factory Design Pattern to abstract payment gateway logic',
       'Leveraged AI tools to accelerate development velocity, refactoring, and integration testing'
     ],
-    techUsed: ['C#', '.NET Core', 'ASP.NET Core', 'Clean Architecture', 'Factory Pattern', 'SOAP / REST APIs', 'FinTech'],
-    imagePlaceholder: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1200&auto=format&fit=crop',
+    techUsed: ['C#', '.NET Core', 'ASP.NET Core', 'ASP.NET Web Forms', 'Package-based Modular Design', 'SOAP / REST APIs', 'SSMS', 'Unit Testing', 'Integration Testing', 'FinTech'],
+    imagePlaceholder: '/assets/IME remittance.jpeg',
     memoryFragmentCode: `// Memory Fragment 04: Factory Pattern Payment Gateway Dispatcher
 public interface IPaymentGatewayService 
 {
@@ -45,27 +45,30 @@ public sealed class RemittanceGatewayFactory : IRemittanceGatewayFactory
     kanji: '虚化',
     title: '.NET DEVELOPER — PRABHU TECHNOLOGY',
     subtitle: '[ PRABHUPAY DIGITAL BANKING & WALLET PLATFORM ]',
-    description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Designed Maker-Checker authorization workflows to govern high-value operations and ensure strict financial compliance.',
+    description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Implemented Entity Framework data access layers, SOAP/REST service integration, and Bitbucket agile workflows.',
     highlights: [
       'Constructed backend microservices and core infrastructure for PrabhuPay digital banking platform across nationwide user networks',
-      'Designed and deployed Maker-Checker dual-authorization workflows within administrative portals to govern high-value financial operations',
+      'Engineered high-performance Entity Framework Core data queries, repositories, and transactional pipelines',
       'Engineered and deployed RESTful and SOAP API endpoints for third-party merchant integration and real-time payment inquiries',
-      'Optimized transaction security protocols and ensured compliance with national banking standards'
+      'Optimized transaction security protocols and managed distributed version control with Bitbucket'
     ],
-    techUsed: ['ASP.NET Core', '.NET Core', 'Microservices', 'Maker-Checker Security', 'REST / SOAP', 'SQL Server'],
+    techUsed: ['ASP.NET Core', '.NET Core', 'Microservices', 'SOAP / REST', 'Entity Framework', 'Bitbucket', 'SQL Server'],
     imagePlaceholder: '/assets/prabhuPay.png',
-    memoryFragmentCode: `// Memory Fragment 03: Maker-Checker Financial Authorization Workflow
-public async Task<Result<AuthorizationResponse>> AuthorizeTransactionAsync(Guid transactionId, Guid checkerUserId, CancellationToken ct)
+    memoryFragmentCode: `// Memory Fragment 03: Entity Framework Core Account Repository
+public async Task<AccountBalanceDto> GetAccountBalanceAsync(Guid accountId, CancellationToken ct)
 {
-    var tx = await _db.Transactions.FirstOrDefaultAsync(t => t.Id == transactionId, ct);
-    if (tx == null) return Result.Failure<AuthorizationResponse>("Transaction not found.");
-    if (tx.InitiatorUserId == checkerUserId)
-        return Result.Failure<AuthorizationResponse>("Maker-Checker Violation: Maker cannot authorize own transaction.");
-
-    tx.Authorize(checkerUserId, DateTime.UtcNow);
-    await _db.SaveChangesAsync(ct);
-    return Result.Success(new AuthorizationResponse(tx.Id, TransactionStatus.Approved));
-} `
+    return await _context.Accounts
+        .AsNoTracking()
+        .Where(a => a.Id == accountId && a.IsActive)
+        .Select(a => new AccountBalanceDto
+        {
+            AccountId = a.Id,
+            AvailableBalance = a.Balance - a.HoldAmount,
+            Currency = a.CurrencyCode,
+            LastUpdated = a.UpdatedAt
+        })
+        .FirstOrDefaultAsync(ct) ?? throw new KeyNotFoundException($"Account {accountId} not found.");
+}`
   },
   {
     id: 'global-square',
@@ -75,14 +78,14 @@ public async Task<Result<AuthorizationResponse>> AuthorizeTransactionAsync(Guid 
     kanji: '瀞霊廷',
     title: '.NET DEVELOPER — GLOBAL SQUARE',
     subtitle: '[ JAPANESE CLUB RESERVATION SYSTEM (CRS) ]',
-    description: 'Engineered a Club Reservation System (CRS) web application for Japanese hospitality networks using Jira for Agile delivery. Designed normalized relational database schemas and optimized complex SQL stored procedures and user-defined functions to maximize query throughput.',
+    description: 'Engineered a Club Reservation System (CRS) web application for Japanese hospitality networks using Jira for Agile delivery. Designed normalized relational database schemas with Clean Architecture and optimized complex SQL stored procedures and user-defined functions to maximize query throughput.',
     highlights: [
-      'Engineered Japanese hospitality Club Reservation System (CRS) web platform using ASP.NET MVC and C#',
+      'Engineered Japanese hospitality Club Reservation System (CRS) web platform using ASP.NET MVC and Clean Architecture',
       'Designed normalized relational database schemas and optimized complex SQL stored procedures and UDFs',
       'Managed agile sprint tasks, user stories, and feature delivery utilizing Jira project management',
       'Maximized query throughput and handled peak night-time reservation traffic without lock contention'
     ],
-    techUsed: ['C#', 'ASP.NET MVC', 'SQL Server', 'Stored Procedures', 'Database Optimization', 'Jira Agile'],
+    techUsed: ['C#', 'ASP.NET MVC', 'Clean Architecture', 'SQL Server', 'Stored Procedures', 'Database Optimization', 'Jira Agile'],
     imagePlaceholder: '/assets/G.S.I.C.jpg',
     memoryFragmentCode: `-- Memory Fragment 02: High-Concurrency Reservation Stored Procedure
 CREATE PROCEDURE dbo.sp_ReserveClubVenueSlot
@@ -115,14 +118,14 @@ END`
     kanji: '覚醒',
     title: 'INTERN / JUNIOR DEVELOPER — DG HUB',
     subtitle: '[ MULTI-WALLET SUITE · MYPAY · PAYWELL · THAILI · CHHITO PAISA ]',
-    description: 'Contributed to the backend development and maintenance of digital wallet applications including MyPay, PayWell, Chhito Paisa, and Thaili. Built Admin, Merchant, and Client management interfaces utilizing ASP.NET Core and the Repository design pattern. Authored custom DLL libraries and Web API modules facilitating utility bill payments and real-time balance inquiries.',
+    description: 'Contributed to the backend development and maintenance of digital wallet applications including MyPay, PayWell, Chhito Paisa, and Thaili. Built Admin, Merchant, and Client management interfaces utilizing ASP.NET Core, .NET MVC, and the Repository design pattern. Authored custom DLL libraries and Web API modules facilitating utility bill payments and real-time balance inquiries.',
     highlights: [
       'Engineered backend digital wallet modules across MyPay, PayWell, Chhito Paisa, and Thaili ecosystems',
-      'Built Admin, Merchant, and Client management portals using ASP.NET Core and the Repository pattern',
+      'Built Admin, Merchant, and Client management portals using ASP.NET Core, .NET MVC, and the Repository pattern',
       'Authored custom DLL libraries and Web API modules facilitating real-time utility bill payments and balance inquiries',
-      'Established solid foundations in C#, Entity Framework Core, SQL Server, and modular package architecture'
+      'Established solid foundations in C#, .NET MVC, SQL Server, and modular package architecture'
     ],
-    techUsed: ['C#', 'ASP.NET Core', 'Repository Pattern', 'Digital Wallets', 'Custom DLLs', 'Web API'],
+    techUsed: ['C#', 'ASP.NET Core', '.NET MVC', 'Repository Pattern', 'Digital Wallets', 'Custom DLLs', 'Web API'],
     imagePlaceholder: '/assets/DgHub.png',
     memoryFragmentCode: `[HttpPost, ValidateAntiForgeryToken]
 public JsonResult EnableCategory(string ChargeCategoryId)
@@ -273,15 +276,18 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tagline: 'High-Volume Domestic & Cross-Border Remittance Corridor Backbone',
     description: 'The core remittance processing engine powering IME Nepal, architected to handle high-volume transaction throughput across domestic and international financial corridors with real-time SOAP/RESTful banking API integrations, Factory Pattern gateway abstractions, and automated transaction reconciliation.',
     category: 'Core FinTech & Remittance',
-    techStack: ['C#', '.NET Core', 'ASP.NET Core', 'Clean Architecture', 'Factory Pattern', 'SOAP / REST', 'SQL Server'],
+    techStack: ['C#', '.NET Core', 'ASP.NET Core', 'ASP.NET Web Forms', 'Package-based Modular Design', 'SOAP / REST', 'SSMS', 'Unit Testing', 'Integration Testing'],
     metrics: [
       { label: 'THROUGHPUT', value: 'Domestic & Global Corridors' },
       { label: 'RECONCILIATION', value: 'Real-Time Automated' },
       { label: 'GATEWAY DESIGN', value: 'Factory Pattern Abstraction' }
     ],
-    image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1600&auto=format&fit=crop',
-    githubUrl: 'https://github.com/prashantshreh-pixel',
-    liveUrl: 'https://github.com/prashantshreh-pixel',
+    image: '/assets/ImeBg.png',
+    imagePosition: 'object-cover sm:object-contain object-center bg-[#7e080e]',
+    liveUrls: [
+      { label: 'IME REMIT (LIVE)', url: 'https://imeremit.com.np/' }
+    ],
+    liveUrl: 'https://imeremit.com.np/',
     kanjiOverlay: '送金',
     architectureDiagram: `[ Remittance Agent / Web Portal ] ---> [ IME API Gateway (.NET Core) ]
                                               |
@@ -296,18 +302,20 @@ export const PROJECTS_DATA: ProjectItem[] = [
     code: 'PROJECT_002',
     title: 'PrabhuPay / Digital Banking & Wallet Platform',
     tagline: 'Nationwide Wallet Infrastructure & Maker-Checker Security Governance',
-    description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Implemented Maker-Checker dual-authorization workflows for administrative operations and third-party merchant inquiry APIs.',
+    description: 'Developed backend microservices and core infrastructure for PrabhuPay, enabling digital banking and multi-tenant digital wallet services for nationwide user networks. Implemented Entity Framework data access layers, SOAP/REST service integration, and Bitbucket agile workflows.',
     category: 'Digital Banking & Wallets',
-    techStack: ['ASP.NET Core', '.NET Core', 'Microservices', 'Maker-Checker', 'RESTful API', 'SQL Server', 'Jira'],
+    techStack: ['ASP.NET Core', '.NET Core', 'Microservices', 'SOAP', 'Entity Framework', 'Bitbucket', 'RESTful API', 'SQL Server'],
     metrics: [
       { label: 'NETWORK REACH', value: 'Nationwide User Base' },
       { label: 'SECURITY MODEL', value: 'Maker-Checker Approval' },
       { label: 'API AVAILABILITY', value: '99.99% High Uptime' }
     ],
     image: '/assets/prabhuTech.jpg',
-    imagePosition: 'object-left sm:object-[15%_center]',
-    githubUrl: 'https://github.com/prashantshreh-pixel',
-    liveUrl: 'https://github.com/prashantshreh-pixel',
+    imagePosition: 'object-right sm:object-[20%_center]',
+    liveUrls: [
+      { label: 'PRABHUPAY PORTAL (LIVE)', url: 'https://prabhupay.com/' }
+    ],
+    liveUrl: 'https://prabhupay.com/',
     kanjiOverlay: '銀行',
     architectureDiagram: `[ Mobile Apps / Merchant Terminals ] ---> [ PrabhuPay Core Gateway ]
                                                     |
@@ -324,7 +332,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tagline: 'Modular ASP.NET Core Digital Wallet Ecosystem & Custom DLL Utility Libraries',
     description: 'Contributed to the backend development of digital wallet ecosystems including MyPay, PayWell, Chhito Paisa, and Thaili. Built Admin, Merchant, and Client management interfaces with the Repository pattern, and authored custom C# DLL libraries facilitating utility bill payments and real-time balance inquiries.',
     category: 'Multi-Tenant FinTech',
-    techStack: ['C#', 'ASP.NET Core', 'Repository Pattern', 'Custom DLLs', 'Entity Framework', 'RESTful APIs'],
+    techStack: ['C#', 'ASP.NET Core', '.NET MVC', 'Repository Pattern', 'Custom DLLs', 'RESTful APIs'],
     metrics: [
       { label: 'ECOSYSTEM', value: '4+ Digital Wallets' },
       { label: 'DESIGN PATTERN', value: 'Repository Pattern' },
@@ -351,7 +359,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     tagline: 'High-Concurrency Venue Booking Engine & Normalized Stored Procedure Architecture',
     description: 'An enterprise web application developed for Japanese hospitality networks, managing venue capacities, host availability, and real-time reservation scheduling with optimized SQL stored procedures and UDFs to handle peak night-time reservation traffic.',
     category: 'Enterprise Hospitality Platform',
-    techStack: ['C#', 'ASP.NET MVC', 'SQL Server', 'Stored Procedures', 'Agile / Jira', 'Normalized Schemas'],
+    techStack: ['C#', 'ASP.NET MVC', 'Clean Architecture', 'SQL Server', 'Stored Procedures', 'Agile / Jira', 'Normalized Schemas'],
     metrics: [
       { label: 'TARGET MARKET', value: 'Japan Hospitality' },
       { label: 'DATABASE TUNING', value: 'Optimized Stored Procs' },

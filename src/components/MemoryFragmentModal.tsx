@@ -138,11 +138,11 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
           </div>
 
           {/* Footer Actions */}
-          <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap justify-between items-center gap-3">
+          <div className="mt-8 pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
             {item.projectId && (
               <button
                 onClick={handleJumpToProject}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 hover:border-red-500 transition-all shadow-md active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 hover:border-red-500 transition-all shadow-md active:scale-95 text-center w-full sm:w-auto"
               >
                 <Eye size={15} className="text-red-500" />
                 <span>VIEW PROJECT MISSION</span>
@@ -155,7 +155,7 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
                 audioEngine.playSlash();
                 onClose();
               }}
-              className="px-7 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] ml-auto active:scale-95"
+              className={`px-7 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95 text-center flex items-center justify-center w-full sm:w-auto ${item.projectId ? 'sm:ml-auto' : 'sm:ml-auto'}`}
             >
               CLOSE FRAGMENT
             </button>

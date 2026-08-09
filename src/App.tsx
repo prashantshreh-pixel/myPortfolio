@@ -15,24 +15,32 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'thearc', 'zanpakuto', 'projects', 'bankai'];
-      const scrollPosition = window.scrollY + 200;
+    let ticking = false;
 
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sections = ['home', 'thearc', 'zanpakuto', 'projects', 'bankai'];
+          const scrollPosition = window.scrollY + 200;
+
+          for (const sectionId of sections) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                setActiveSection(sectionId);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

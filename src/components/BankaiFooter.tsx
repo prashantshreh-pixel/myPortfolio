@@ -214,15 +214,23 @@ export const BankaiFooter: React.FC = () => {
                 </div>
 
                 {/* EDUCATION & ACADEMIC CREDENTIALS */}
-                <div className="p-3 bg-zinc-950/80 border border-white/10 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
+                <div className="relative overflow-hidden p-3 bg-zinc-950/80 border border-white/10 hover:border-red-600/50 transition-all group flex items-center justify-between shadow-md">
+                  {/* College Logo sitting in the middle: grayscale by default, full vibrant color on hover */}
+                  <img
+                    src="/assets/Herald colz.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-auto object-contain grayscale opacity-25 group-hover:grayscale-0 group-hover:opacity-85 group-hover:scale-105 transition-all duration-500 pointer-events-none"
+                  />
+
+                  <div className="flex items-center gap-2.5 relative z-10">
                     <GraduationCap size={15} className="text-red-500 shrink-0" />
                     <div>
-                      <div className="text-[11px] font-bold text-white uppercase">B.Sc. Computer Science</div>
+                      <div className="text-[11px] font-bold text-white uppercase group-hover:text-red-400 transition-colors">B.Sc. Computer Science</div>
                       <div className="text-[10px] text-zinc-400">Herald College · Wolverhampton</div>
                     </div>
                   </div>
-                  <span className="text-[10px] text-zinc-500 font-mono">2018–2021</span>
+                  <span className="text-[10px] text-zinc-500 font-mono relative z-10">2018–2021</span>
                 </div>
               </div>
             </div>
