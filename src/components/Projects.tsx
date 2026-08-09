@@ -66,7 +66,7 @@ export const Projects: React.FC = () => {
                   src={project.image}
                   alt={project.title}
                   referrerPolicy="no-referrer"
-                  className={`w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 opacity-30 group-hover:opacity-75 ${project.imagePosition || 'object-center'}`}
+                  className={`w-full h-full grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000 opacity-30 group-hover:opacity-85 ${project.imagePosition || 'object-cover object-center'}`}
                 />
               </motion.div>
 
@@ -94,10 +94,10 @@ export const Projects: React.FC = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white group-hover:text-zinc-100 uppercase tracking-tight font-display transition-all duration-500 transform group-hover:-translate-y-1">
+                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white group-hover:text-red-400 group-hover:drop-shadow-[0_0_20px_rgba(239,68,68,0.7)] uppercase tracking-tight font-display transition-all duration-500 transform group-hover:-translate-y-1">
                   {project.title}
                 </h3>
-                <div className="h-0.5 w-0 group-hover:w-16 bg-red-600 transition-all duration-500 mt-1.5" />
+                <div className="h-0.5 w-0 group-hover:w-20 bg-red-600 transition-all duration-500 mt-1.5 shadow-[0_0_10px_rgba(220,38,38,0.8)]" />
 
                 {/* Subtitle / Tagline */}
                 <p className="text-zinc-400 text-xs sm:text-sm font-mono mt-1.5 sm:mt-2 opacity-90 group-hover:opacity-100 transition-opacity max-w-xl leading-relaxed">

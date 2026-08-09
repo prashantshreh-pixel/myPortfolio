@@ -32,8 +32,6 @@ export const Hero: React.FC<HeroProps> = ({ isBankaiActive }) => {
           transition={{ duration: 0.8 }}
           className="inline-flex items-center gap-2 text-[10px] sm:text-xs md:text-sm font-mono tracking-[0.25em] sm:tracking-[0.4em] text-red-500 font-bold uppercase mb-6 sm:mb-8 px-2"
         >
-          <ShieldCheck size={14} className="text-red-500" />
-          <span>[ SOFTWARE ENGINEER · .NET & FINTECH SPECIALIST ]</span>
         </motion.div>
 
         {/* Centerpiece Massive Typography */}
@@ -63,7 +61,6 @@ export const Hero: React.FC<HeroProps> = ({ isBankaiActive }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-6 sm:mt-8 flex flex-col items-center gap-1 font-mono text-[11px] sm:text-xs md:text-sm tracking-[0.15em] sm:tracking-[0.3em] text-zinc-300 font-medium uppercase px-2 text-center"
         >
-          <p className="text-zinc-300">4.5+ YEARS EXP · CORE REMITTANCE & DIGITAL WALLETS · KATHMANDU, NEPAL</p>
           <p className="text-red-500 text-[10px] sm:text-xs font-bold tracking-[0.2em] mt-1">
             C# · ASP.NET CORE · CLEAN ARCHITECTURE · HIGH-CONCURRENCY FINTECH
           </p>

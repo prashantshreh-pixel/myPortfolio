@@ -21,7 +21,7 @@ export const ScrollControls: React.FC = () => {
       setIsModalOpen(customEvent.detail?.isOpen ?? false);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('modal-state-change', handleModalChange);
     return () => {
       window.removeEventListener('scroll', handleScroll);

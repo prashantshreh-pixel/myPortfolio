@@ -18,17 +18,23 @@ interface Particle {
 
 export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const mousePos = useRef({ x: -1000, y: -1000, lastX: -1000, lastY: -1000, speed: 0 });
+  const mousePos = useRef({ x: -1000, y: -1000, speed: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animationFrameId: number;
+    let isRunning = true;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
+
+    const isMobile = width < 768;
+    const maxParticles = isMobile
+      ? (isBankaiActive ? 70 : 35)
+      : (isBankaiActive ? 140 : 65);
 
     const handleResize = () => {
       if (!canvas) return;
@@ -36,25 +42,24 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
     const particles: Particle[] = [];
-    const maxParticles = isBankaiActive ? 180 : 80;
 
-    const createParticle = (x?: number, y?: number, forceVelocity = false): Particle => {
+    const createParticle = (x?: number, y?: number): Particle => {
       const pX = x !== undefined ? x : Math.random() * width;
       const pY = y !== undefined ? y : Math.random() * height;
-      const speedMultiplier = isBankaiActive ? 2.5 : 1;
+      const speedMultiplier = isBankaiActive ? 2.2 : 1;
 
       return {
         x: pX,
         y: pY,
-        vx: (Math.random() - 0.5) * 1.5 * speedMultiplier,
-        vy: -Math.random() * 2.2 * speedMultiplier - 0.5,
-        size: Math.random() * (isBankaiActive ? 4 : 2.5) + 0.8,
-        alpha: Math.random() * 0.7 + 0.2,
-        color: Math.random() > 0.2 ? '#dc2626' : '#ffffff',
-        maxLife: Math.random() * 120 + 60,
+        vx: (Math.random() - 0.5) * 1.4 * speedMultiplier,
+        vy: -Math.random() * 2.0 * speedMultiplier - 0.4,
+        size: Math.random() * (isBankaiActive ? 3.5 : 2.2) + 0.8,
+        alpha: Math.random() * 0.6 + 0.2,
+        color: Math.random() > 0.25 ? '#dc2626' : '#ffffff',
+        maxLife: Math.random() * 100 + 50,
         life: 0
       };
     };
@@ -70,55 +75,71 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       mousePos.current.speed = dist;
-      mousePos.current.lastX = mousePos.current.x;
-      mousePos.current.lastY = mousePos.current.y;
       mousePos.current.x = e.clientX;
       mousePos.current.y = e.clientY;
 
       // Spawn slash trail particles if moving fast
-      if (dist > 8) {
-        for (let i = 0; i < Math.min(Math.floor(dist / 4), 6); i++) {
-          particles.push(createParticle(e.clientX + (Math.random() - 0.5) * 20, e.clientY + (Math.random() - 0.5) * 20, true));
-          if (particles.length > maxParticles + 40) {
-            particles.shift();
-          }
+      if (dist > 12 && particles.length < maxParticles + 25) {
+        for (let i = 0; i < Math.min(Math.floor(dist / 6), 3); i++) {
+          particles.push(
+            createParticle(
+              e.clientX + (Math.random() - 0.5) * 16,
+              e.clientY + (Math.random() - 0.5) * 16
+            )
+          );
         }
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isRunning = false;
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        isRunning = true;
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const render = () => {
+      if (!isRunning) return;
+
       ctx.clearRect(0, 0, width, height);
 
-      // Render ambient gradient aura center only when Bankai is triggered
+      // Render ambient gradient aura center only when Bankai is active
       if (isBankaiActive) {
         const auraGradient = ctx.createRadialGradient(
-          width / 2, height / 2, 50,
-          width / 2, height / 2, Math.max(width, height) * 0.65
+          width / 2, height / 2, 40,
+          width / 2, height / 2, Math.max(width, height) * 0.6
         );
-        auraGradient.addColorStop(0, 'rgba(220, 38, 38, 0.15)');
-        auraGradient.addColorStop(0.5, 'rgba(127, 29, 29, 0.05)');
+        auraGradient.addColorStop(0, 'rgba(220, 38, 38, 0.12)');
+        auraGradient.addColorStop(0.5, 'rgba(127, 29, 29, 0.04)');
         auraGradient.addColorStop(1, 'rgba(5, 5, 5, 0)');
         ctx.fillStyle = auraGradient;
         ctx.fillRect(0, 0, width, height);
       }
 
-      // Render particles
-      for (let i = 0; i < particles.length; i++) {
+      // Update & Render particles
+      const len = particles.length;
+      for (let i = 0; i < len; i++) {
         const p = particles[i];
         p.life++;
         p.x += p.vx;
         p.y += p.vy;
 
-        // Mouse repulsion / attraction effect
+        // Interactive mouse repulsion
         const dx = mousePos.current.x - p.x;
         const dy = mousePos.current.y - p.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const angle = Math.atan2(dy, dx);
-          p.x -= Math.cos(angle) * 1.5;
-          p.y -= Math.sin(angle) * 1.5;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < 10000 && distSq > 0) {
+          const dist = Math.sqrt(distSq);
+          const force = (100 - dist) / 100;
+          p.x -= (dx / dist) * force * 2;
+          p.y -= (dy / dist) * force * 2;
         }
 
         const lifeRatio = 1 - p.life / p.maxLife;
@@ -130,9 +151,14 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Respawn expired particles
+        // Respawn expired or out of bounds particles
         if (p.life >= p.maxLife || p.y < -20 || p.x < -20 || p.x > width + 20) {
-          particles[i] = createParticle();
+          if (particles.length > maxParticles) {
+            particles.splice(i, 1);
+            i--;
+          } else {
+            particles[i] = createParticle();
+          }
         }
       }
 
@@ -140,11 +166,13 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    animationFrameId = requestAnimationFrame(render);
 
     return () => {
+      isRunning = false;
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, [isBankaiActive]);
