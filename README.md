@@ -1,7 +1,8 @@
 <div align="center">
 
-<!-- Bleach Getsuga Tensho Animated Header Banner -->
-[<div class="tenor-gif-embed" data-postid="24179171" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/getsuga-tensho-ichigo-ichigo-kurosaki-bleach-gif-24179171">Getsuga Tensho Ichigo GIF</a>from <a href="https://tenor.com/search/getsuga+tensho-gifs">Getsuga Tensho GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif)
+<!-- Bleach Aizen Hado 99 Animated Header Banner -->
+<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif" width="100%" alt="Aizen Hado 99 Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
+
 
 # ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
 ### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
@@ -58,6 +59,8 @@
     ├── 📄 index.css                    # Base Tailwind v4 rules, scrollbars & manga textures
     ├── 📄 data.ts                      # Resume timeline, Zanpakuto skill arsenal & FinTech project metrics
     ├── 📄 types.ts                     # TypeScript domain interfaces
+    ├── 📁 assets/
+    │   └── 📄 DgHub.png                # Asset images
     ├── 📁 utils/
     │   ├── 📄 AudioEngine.ts           # Web Audio API procedural sound synthesizer
     │   └── 📄 scrollLock.ts            # Viewport scroll freeze hook
