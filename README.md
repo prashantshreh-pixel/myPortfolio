@@ -1,7 +1,7 @@
 <div align="center">
 
-<!-- Bleach Getsuga Tensho Animated Header Banner -->
-<img src="https://media1.tenor.com/m/rOf2yOnzg54AAAAC/getsuga-tensho-ichigo.gif" width="100%" alt="Bleach Getsuga Tensho Ichigo Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
+<!-- Bleach Aizen Hado 99 Animated Header Banner -->
+<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif" width="100%" alt="Aizen Hado 99 Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
 
 # ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
 ### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
@@ -58,6 +58,8 @@
     ├── 📄 index.css                    # Base Tailwind v4 rules, scrollbars & manga textures
     ├── 📄 data.ts                      # Resume timeline, Zanpakuto skill arsenal & FinTech project metrics
     ├── 📄 types.ts                     # TypeScript domain interfaces
+    ├── 📁 assets/
+    │   └── 📄 DgHub.png                # Asset images
     ├── 📁 utils/
     │   ├── 📄 AudioEngine.ts           # Web Audio API procedural sound synthesizer
     │   └── 📄 scrollLock.ts            # Viewport scroll freeze hook

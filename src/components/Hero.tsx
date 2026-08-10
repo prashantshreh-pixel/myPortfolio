@@ -13,14 +13,17 @@ export const Hero: React.FC<HeroProps> = ({ isBankaiActive }) => {
       id="home"
       className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-4 sm:px-6 pt-24 sm:pt-28 pb-16 bg-[#050505] selection:bg-red-600 selection:text-white"
     >
-      {/* Background Manga Ink Grid & Dark Aesthetic Overlay */}
-      <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
+      {/* Background Animated Aizen Hado 99 Dragon */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden bg-black">
+        <div 
+          className="absolute inset-0 bg-center bg-cover bg-no-repeat opacity-40 mix-blend-screen"
+          style={{ backgroundImage: "url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif')" }}
+        />
+        {/* Dark Aesthetic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 via-[#050505]/40 to-[#050505]" />
+        
         {/* Minimalist Halftone Dots */}
-        <div className="absolute inset-0 bg-manga-dots opacity-15" />
-
-        {/* Crisp Crosshair Intersecting Grid Hairlines */}
-        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/[0.04]" />
-        <div className="absolute top-0 left-1/2 w-[1px] h-full bg-white/[0.04]" />
+        <div className="absolute inset-0 bg-manga-dots opacity-20 mix-blend-overlay" />
       </div>
 
       {/* Main Content Box */}
@@ -66,22 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ isBankaiActive }) => {
           </p>
         </motion.div>
 
-        {/* Action Button: Transmit Mission */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-8 sm:mt-10 flex justify-center items-center font-mono text-xs uppercase tracking-widest z-20"
-        >
-          <a
-            href="#bankai"
-            onClick={() => audioEngine.playSlash()}
-            className="inline-flex items-center gap-2.5 px-7 sm:px-8 py-3 sm:py-3.5 bg-red-600 hover:bg-white text-white hover:text-black font-black border border-red-500 transition-all duration-300 shadow-[0_0_25px_rgba(220,38,38,0.6)] active:scale-95 text-xs sm:text-sm"
-          >
-            <Send size={15} className="text-white group-hover:text-black" />
-            <span>TRANSMIT MISSION</span>
-          </a>
-        </motion.div>
+
 
         {/* Scroll Indicator */}
         <motion.div
