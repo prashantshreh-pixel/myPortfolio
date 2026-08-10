@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Bleach Getsuga Tensho Animated Header Banner -->
-<div class="tenor-gif-embed" data-postid="24179171" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/getsuga-tensho-ichigo-ichigo-kurosaki-bleach-gif-24179171">Getsuga Tensho Ichigo GIF</a>from <a href="https://tenor.com/search/getsuga+tensho-gifs">Getsuga Tensho GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+[<div class="tenor-gif-embed" data-postid="24179171" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/getsuga-tensho-ichigo-ichigo-kurosaki-bleach-gif-24179171">Getsuga Tensho Ichigo GIF</a>from <a href="https://tenor.com/search/getsuga+tensho-gifs">Getsuga Tensho GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif)
 
 # ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
 ### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
