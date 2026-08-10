@@ -321,9 +321,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
                                                     |
                                      +--------------+--------------+
                                      |                             |
-                      [ Digital Wallet Microservices ]    [ Maker-Checker Admin Portal ]
+                      [ Digital Wallet Microservices ]    [ Admin Portal & Audit Engine ]
                                      |                             |
-                      [ Utility Bill Pay Modules ]        [ Compliance & Audit Engine ]`
+                      [ Utility Bill Pay Modules ]        [ Compliance & SOAP Integration ]`
   },
   {
     id: 'project-multiwallet',
@@ -358,7 +358,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     title: 'Japanese Club Reservation System (CRS)',
     tagline: 'High-Concurrency Venue Booking Engine & Normalized Stored Procedure Architecture',
     description: 'An enterprise web application developed for Japanese hospitality networks, managing venue capacities, host availability, and real-time reservation scheduling with optimized SQL stored procedures and UDFs to handle peak night-time reservation traffic.',
-    category: 'Enterprise Hospitality Platform',
+    category: 'System Hospitality Platform',
     techStack: ['C#', 'ASP.NET MVC', 'Clean Architecture', 'SQL Server', 'Stored Procedures', 'Agile / Jira', 'Normalized Schemas'],
     metrics: [
       { label: 'TARGET MARKET', value: 'Japan Hospitality' },

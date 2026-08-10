@@ -3,8 +3,8 @@
 <!-- Bleach Aizen Hado 99 Animated Header Banner -->
 <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif" width="100%" alt="Aizen Hado 99 Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
 
-# ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
-### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
+# ⚔️ PRASHANT SHRESTHA (SHINIGAMI)
+### Software Engineer · .NET & FinTech
 
 <p align="center">
   <a href="https://dotnet.microsoft.com/"><img src="https://img.shields.io/badge/C%23_%2F_.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET" /></a>
@@ -18,11 +18,6 @@
   <img src="https://img.shields.io/badge/LOCATION-KATHMANDU%2C%20NEPAL-red?style=flat-square" alt="Kathmandu, Nepal" />
   <img src="https://img.shields.io/badge/EXPERTISE-CORE%20REMITTANCE%20%26%20WALLETS-dc2626?style=flat-square" alt="FinTech Specialist" />
   <img src="https://img.shields.io/badge/AUDIO-PROCEDURAL%20SYNTHESIZER-white?style=flat-square&color=050505" alt="Web Audio API" />
-</p>
-
-<p align="center">
-  <b>High-concurrency FinTech software engineer with 4.5+ years experience building core remittance processing engines (IME Nepal), digital banking microservices (PrabhuPay), multi-wallet ecosystems (MyPay, Thaili), and clean enterprise architectures.</b><br/>
-  Immersed in an aesthetic inspired by <i>Bleach: Thousand-Year Blood War</i> and <i>Tokyo Ghoul</i> dark minimalism.
 </p>
 
 ---
