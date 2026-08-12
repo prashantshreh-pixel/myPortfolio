@@ -94,7 +94,7 @@ export const Projects: React.FC = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white group-hover:text-red-400 group-hover:drop-shadow-[0_0_20px_rgba(239,68,68,0.7)] uppercase tracking-tight font-display transition-all duration-500 transform group-hover:-translate-y-1">
+                <h3 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white group-hover:text-red-400 uppercase tracking-tight font-display transition-all duration-500 transform group-hover:-translate-y-1">
                   {project.title}
                 </h3>
                 <div className="h-0.5 w-0 group-hover:w-20 bg-red-600 transition-all duration-500 mt-1.5 shadow-[0_0_10px_rgba(220,38,38,0.8)]" />

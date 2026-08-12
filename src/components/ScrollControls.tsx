@@ -6,6 +6,7 @@ import { audioEngine } from '../utils/AudioEngine';
 export const ScrollControls: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showIchigo, setShowIchigo] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +33,10 @@ export const ScrollControls: React.FC = () => {
   const scrollToTop = () => {
     audioEngine.playSlash();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowIchigo(true);
+    setTimeout(() => {
+      setShowIchigo(false);
+    }, 1800); // 1.8 seconds - roughly the time it takes for the blue burst
   };
 
   const scrollToBottom = () => {
@@ -69,6 +74,18 @@ export const ScrollControls: React.FC = () => {
             <ChevronDown size={16} className="sm:w-5 sm:h-5 group-hover:translate-y-0.5 transition-transform" />
           </button>
         </motion.div>
+      )}
+
+      {/* Ichigo Scroll Up Easter Egg */}
+      {showIchigo && (
+        <motion.img
+          initial={{ opacity: 0, scale: 0.5, y: 50 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 1.2, y: -50 }}
+          src="/assets/gif/Ichigo.gif"
+          alt="Ichigo burst"
+          className="fixed bottom-20 right-4 sm:right-6 z-50 w-48 h-48 object-contain pointer-events-none drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] mix-blend-screen"
+        />
       )}
     </AnimatePresence>
   );

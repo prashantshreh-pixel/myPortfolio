@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { audioEngine } from '../utils/AudioEngine';
-import { HollowMaskLogo } from './HollowMaskLogo';
 
 interface NavbarProps {
   isBankaiActive: boolean;
@@ -16,13 +15,23 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeSection
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 30);
+      
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
     };
 
     const handleModalChange = (e: Event) => {
@@ -51,7 +60,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Home', href: '#home', id: 'home', code: '00' },
     { label: 'The Arc', href: '#thearc', id: 'thearc', code: '01' },
     { label: 'Skills', href: '#zanpakuto', id: 'zanpakuto', code: '02' },
-    { label: 'Projects', href: '#projects', id: 'projects', code: '03' }
+    { label: 'Projects', href: '#projects', id: 'projects', code: '03' },
+    { label: 'Contact', href: '#bankai', id: 'bankai', code: '04' }
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -70,21 +80,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header
       className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 border-b ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      } ${
         isScrolled
           ? 'bg-[#050505]/95 backdrop-blur-md border-white/10 py-3 sm:py-4 shadow-2xl'
           : 'bg-transparent border-transparent py-4 sm:py-6 md:py-8'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center relative">
-        {/* Brand Logo - Substitute Shinigami Badge */}
-        <a
-          href="#home"
-          onClick={(e) => handleNavClick(e, '#home')}
-          className="flex items-center gap-2 group text-white font-bold transition-transform duration-300 active:scale-95 shrink-0 z-10"
-          title="Substitute Shinigami Badge"
-        >
-          <HollowMaskLogo className="w-7 h-9 sm:w-8 sm:h-10" />
-        </a>
+        {/* Brand Space Placeholder (Removed Logo) */}
+        <div className="w-8 shrink-0 z-10" />
 
         {/* Desktop Centered Navigation Links */}
         <nav className="hidden md:flex items-center justify-center gap-8 lg:gap-12 text-xs font-bold uppercase tracking-[0.3em] absolute left-1/2 -translate-x-1/2 z-10">

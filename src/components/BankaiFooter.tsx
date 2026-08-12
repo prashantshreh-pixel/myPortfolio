@@ -1,30 +1,126 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
-import { Check, HelpCircle, Github, Linkedin, Mail, GraduationCap, FileDown } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import { Check, AlertCircle, HelpCircle, Github, Linkedin, Mail, GraduationCap, FileDown, Loader2 } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
+// EmailJS configuration — replace these with your actual keys
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+}
+
 export const BankaiFooter: React.FC = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateEmail = (email: string): boolean => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
+  };
+
+  const validateField = (field: string, value: string): string | undefined => {
+    switch (field) {
+      case 'name':
+        if (!value.trim()) return 'Name is required';
+        if (value.trim().length < 2) return 'Name must be at least 2 characters';
+        return undefined;
+      case 'email':
+        if (!value.trim()) return 'Email is required';
+        if (!validateEmail(value.trim())) return 'Please enter a valid email address';
+        return undefined;
+      default:
+        return undefined;
+    }
+  };
+
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const error = validateField(field, formData[field as keyof typeof formData]);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setSubmitError(null);
+    // Clear error on change if already touched
+    if (touched[field]) {
+      const error = validateField(field, value);
+      setErrors((prev) => ({ ...prev, [field]: error }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    setSubmitError(null);
+
+    // Validate all required fields
+    const nameError = validateField('name', formData.name);
+    const emailError = validateField('email', formData.email);
+
+    const newErrors: FormErrors = {};
+    if (nameError) newErrors.name = nameError;
+    if (emailError) newErrors.email = emailError;
+
+    setErrors(newErrors);
+    setTouched({ name: true, email: true });
+
+    // If there are errors, don't submit
+    if (Object.keys(newErrors).length > 0) {
+      audioEngine.playHover();
+      return;
+    }
 
     audioEngine.playSlash();
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name.trim(),
+          from_email: formData.email.trim(),
+          message: formData.message.trim() || '(No message provided)',
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1000);
+    } catch (error: any) {
+      setIsSubmitting(false);
+      setSubmitError(
+        error?.text || 'Failed to send message. Please try emailing directly.'
+      );
+    }
+  };
+
+  const inputBaseClass =
+    'w-full bg-transparent border-0 border-b px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none';
+
+  const getInputClass = (field: string) => {
+    const hasError = touched[field] && errors[field as keyof FormErrors];
+    return `${inputBaseClass} ${
+      hasError
+        ? 'border-red-500 focus:border-red-400 focus:border-b-2'
+        : 'border-zinc-800 hover:border-red-600/60 focus:border-red-600 focus:border-b-2'
+    }`;
   };
 
   return (
@@ -68,12 +164,15 @@ export const BankaiFooter: React.FC = () => {
                   TRANSMISSION RECEIVED
                 </h4>
                 <p className="text-xs font-mono text-zinc-300">
-                  Your message has been delivered directly to Prashant Shrestha's FinTech dispatch queue.
+                  Your message has been delivered directly to Prashant Shrestha's inbox.
                 </p>
                 <button
                   onClick={() => {
                     setIsSubmitted(false);
                     setFormData({ name: '', email: '', message: '' });
+                    setErrors({});
+                    setTouched({});
+                    setSubmitError(null);
                   }}
                   className="mt-4 px-6 py-2 bg-zinc-900 border border-white/20 text-xs font-mono text-zinc-400 hover:text-white uppercase tracking-widest"
                 >
@@ -81,68 +180,112 @@ export const BankaiFooter: React.FC = () => {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* NAME */}
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
+                {/* NAME — Required */}
                 <div>
-                  <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
+                  <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
                     NAME / DESIGNATION
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
-                    required
+                    name="from_name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    onBlur={() => handleBlur('name')}
                     placeholder="Your name or company"
-                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2"
+                    className={getInputClass('name')}
+                    autoComplete="name"
                   />
+                  {touched.name && errors.name && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-1.5 text-[11px] font-mono text-red-400 flex items-center gap-1"
+                    >
+                      <AlertCircle size={12} /> {errors.name}
+                    </motion.p>
+                  )}
                 </div>
 
-                {/* EMAIL */}
+                {/* EMAIL — Required */}
                 <div>
-                  <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
+                  <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
                     EMAIL
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
-                    required
+                    name="from_email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    onBlur={() => handleBlur('email')}
                     placeholder="your@domain.com"
-                    className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2"
+                    className={getInputClass('email')}
+                    autoComplete="email"
                   />
+                  {touched.email && errors.email && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-1.5 text-[11px] font-mono text-red-400 flex items-center gap-1"
+                    >
+                      <AlertCircle size={12} /> {errors.email}
+                    </motion.p>
+                  )}
                 </div>
 
-                {/* MESSAGE */}
+                {/* MESSAGE — Optional */}
                 <div>
-                  <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
+                  <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
                     MESSAGE / PROJECT INQUIRY
+                    <span className="text-zinc-600 text-[9px] ml-1">(OPTIONAL)</span>
                   </label>
                   <textarea
-                    required
+                    name="message"
                     rows={3}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) => handleChange('message', e.target.value)}
                     placeholder="State your technical mission or opportunity..."
                     className="w-full bg-transparent border-0 border-b border-zinc-800 px-1 py-2.5 text-white placeholder-zinc-700 text-sm font-mono transition-all duration-300 focus:outline-none hover:border-red-600/60 focus:border-red-600 focus:border-b-2 resize-none"
                   />
                 </div>
 
+                {/* Submission Error */}
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-3 bg-red-950/30 border border-red-600/40 text-xs font-mono text-red-400 flex items-start gap-2"
+                  >
+                    <AlertCircle size={14} className="shrink-0 mt-0.5" />
+                    <span>{submitError}</span>
+                  </motion.div>
+                )}
+
                 {/* Solid Red Full-Width Submit Button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  onClick={() => audioEngine.playSlash()}
-                  className="w-full py-3.5 bg-[#cc0000] hover:bg-white text-white hover:text-black border border-transparent font-mono font-bold uppercase tracking-[0.25em] transition-all duration-300 text-xs sm:text-sm active:scale-[0.99] shadow-[0_0_20px_rgba(204,0,0,0.4)]"
+                  className="w-full py-3.5 bg-[#cc0000] hover:bg-white text-white hover:text-black border border-transparent font-mono font-bold uppercase tracking-[0.25em] transition-all duration-300 text-xs sm:text-sm active:scale-[0.99] shadow-[0_0_20px_rgba(204,0,0,0.4)] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {isSubmitting ? 'TRANSMITTING...' : 'INITIATE CONTACT'}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      TRANSMITTING...
+                    </>
+                  ) : (
+                    'INITIATE CONTACT'
+                  )}
                 </button>
               </form>
             )}
           </div>
 
-          {/* Right Column: Direct Channels & Executive Credentials (Flush Aligned with Submit Button) */}
-          <div className="flex flex-col justify-between space-y-3.5 font-mono">
-            <div>
+          {/* Right Column: Direct Channels & Executive Credentials */}
+          <div className="flex flex-col justify-between space-y-3.5 font-mono relative">
+
+            <div className="relative z-10">
               <h3 className="text-xs text-zinc-500 uppercase tracking-[0.25em] font-bold mb-3">
                 DIRECT CHANNELS & RESUME
               </h3>
@@ -155,7 +298,7 @@ export const BankaiFooter: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => audioEngine.playSlash()}
-                  className="flex items-center justify-between p-3.5 bg-zinc-950 border border-red-600/60 hover:border-red-500 group transition-all"
+                  className="flex items-center justify-between p-3.5 bg-zinc-950/80 border border-red-600/60 hover:border-red-500 group transition-all backdrop-blur-md"
                 >
                   <div className="flex items-center gap-3">
                     <FileDown size={17} className="text-red-500 group-hover:scale-110 transition-transform" />
@@ -168,7 +311,7 @@ export const BankaiFooter: React.FC = () => {
                 </a>
 
                 {/* EMAIL */}
-                <div className="p-3 glass-panel border border-white/10 flex items-center justify-between">
+                <div className="p-3 glass-panel border border-white/10 flex items-center justify-between backdrop-blur-md bg-black/60">
                   <div className="flex items-center gap-2.5">
                     <Mail size={13} className="text-red-500" />
                     <span className="text-xs text-zinc-200">prashantmessi08@gmail.com</span>
@@ -189,10 +332,10 @@ export const BankaiFooter: React.FC = () => {
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => audioEngine.playHover()}
-                    className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group"
+                    className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group backdrop-blur-md bg-black/60"
                   >
                     <div className="flex items-center gap-2">
-                      <Github size={14} className="text-red-500" />
+                       <Github size={14} className="text-red-500" />
                       <span className="text-xs text-zinc-300 group-hover:text-white font-bold">GITHUB</span>
                     </div>
                     <span className="text-red-500 text-xs font-bold">→</span>
@@ -203,7 +346,7 @@ export const BankaiFooter: React.FC = () => {
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => audioEngine.playHover()}
-                    className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group"
+                    className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group backdrop-blur-md bg-black/60"
                   >
                     <div className="flex items-center gap-2">
                       <Linkedin size={14} className="text-red-500" />
@@ -214,7 +357,7 @@ export const BankaiFooter: React.FC = () => {
                 </div>
 
                 {/* EDUCATION & ACADEMIC CREDENTIALS */}
-                <div className="relative overflow-hidden p-3 bg-zinc-950/80 border border-white/10 hover:border-red-600/50 transition-all group flex items-center justify-between shadow-md">
+                <div className="relative overflow-hidden p-3 bg-zinc-950/80 border border-white/10 hover:border-red-600/50 transition-all group flex items-center justify-between shadow-md backdrop-blur-md">
                   {/* College Logo sitting in the middle: grayscale by default, full vibrant color on hover */}
                   <img
                     src="/assets/Herald colz.svg"

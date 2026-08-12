@@ -153,6 +153,42 @@ public JsonResult EnableCategory(string ChargeCategoryId)
 
 export const SKILL_ITEMS: SkillItem[] = [
   {
+    id: 'nextjs-react',
+    name: 'Next.js 15 & React Ecosystem',
+    category: 'frontend',
+    commandPhrase: 'Manifest instantaneous routing with the App Router!',
+    proficiency: 95,
+    kanji: '瞬歩',
+    description: 'Mastery over Next.js 15 App Router, React 19, Server Components (RSC), Suspense, and highly performant hydration strategies.',
+    iconName: 'Globe',
+    size: 'col-span-1',
+    codeSnippet: `export default async function AnimeDashboard() {
+    const data = await fetchAnimeList();
+    return (
+        <Suspense fallback={<LoadingGlassPanel />}>
+            <AnimeGrid initialData={data} />
+        </Suspense>
+    );
+}`,
+    bankaiForm: 'Tensa Zangetsu: Hyper-Speed Server Rendering'
+  },
+  {
+    id: 'offline-first',
+    name: 'IndexedDB & Offline-First Data',
+    category: 'database',
+    commandPhrase: 'Seal the data within local domains for zero-latency access!',
+    proficiency: 90,
+    kanji: '結界',
+    description: 'Architecting robust offline-first applications using IndexedDB, LocalStorage fallbacks, and instantaneous cache invalidation techniques.',
+    iconName: 'Database',
+    size: 'col-span-1',
+    codeSnippet: `export async function getLocalCache(key: string) {
+    const db = await openDB('ShioriVault', 1);
+    return await db.get('anime_progress', key) || fallbackData;
+}`,
+    bankaiForm: 'Kido: Absolute Data Containment'
+  },
+  {
     id: 'csharp-dotnet',
     name: 'C# / .NET & ASP.NET Core',
     category: 'core',
@@ -270,6 +306,34 @@ dotnet test --filter Category=IntegrationTests`,
 
 export const PROJECTS_DATA: ProjectItem[] = [
   {
+    id: 'project-shiori',
+    code: 'PROJECT_000',
+    title: 'Shiori / Personal Anime Tracker',
+    tagline: 'High-Performance Offline-First Anime & Manga Library',
+    description: 'A modern, high-performance, offline-first personal tracker for Anime and Manga. Designed with an iOS-inspired glassmorphism UI, real-time live discovery via Jikan/Kitsu APIs, chapter & episode progress logging, and instant local caching via IndexedDB.',
+    category: 'React / Next.js Web App',
+    techStack: ['Next.js 15', 'React', 'Tailwind CSS', 'IndexedDB', 'Jikan API', 'Kitsu API'],
+    metrics: [
+      { label: 'ARCHITECTURE', value: 'Offline-First LocalStorage' },
+      { label: 'UI DESIGN', value: 'iOS Glassmorphism' },
+      { label: 'DATA SYNC', value: 'Zero-Latency Caching' }
+    ],
+    image: '/assets/miyamoto-musashi.jpg',
+    imagePosition: 'object-cover object-center',
+    liveUrls: [
+      { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/Shiori' }
+    ],
+    liveUrl: 'https://github.com/prashantshreh-pixel/Shiori',
+    kanjiOverlay: '栞',
+    architectureDiagram: `[ Next.js 15 App Router ] ---> [ Glassmorphism UI (Tailwind) ]
+                                      |
+                       +--------------+--------------+
+                       |                             |
+        [ Jikan/Kitsu REST APIs ]        [ IndexedDB Local Cache ]
+                       |                             |
+        [ Real-Time Anime Discovery ]    [ Zero-Latency Offline Sync ]`
+  },
+  {
     id: 'project-ime',
     code: 'PROJECT_001',
     title: 'IME Nepal / Core Remittance Processing Engine',
@@ -321,9 +385,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
                                                     |
                                      +--------------+--------------+
                                      |                             |
-                      [ Digital Wallet Microservices ]    [ Maker-Checker Admin Portal ]
+                      [ Digital Wallet Microservices ]    [ Admin Portal & Audit Engine ]
                                      |                             |
-                      [ Utility Bill Pay Modules ]        [ Compliance & Audit Engine ]`
+                      [ Utility Bill Pay Modules ]        [ Compliance & SOAP Integration ]`
   },
   {
     id: 'project-multiwallet',
@@ -358,7 +422,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
     title: 'Japanese Club Reservation System (CRS)',
     tagline: 'High-Concurrency Venue Booking Engine & Normalized Stored Procedure Architecture',
     description: 'An enterprise web application developed for Japanese hospitality networks, managing venue capacities, host availability, and real-time reservation scheduling with optimized SQL stored procedures and UDFs to handle peak night-time reservation traffic.',
-    category: 'Enterprise Hospitality Platform',
+    category: 'System Hospitality Platform',
     techStack: ['C#', 'ASP.NET MVC', 'Clean Architecture', 'SQL Server', 'Stored Procedures', 'Agile / Jira', 'Normalized Schemas'],
     metrics: [
       { label: 'TARGET MARKET', value: 'Japan Hospitality' },

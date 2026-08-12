@@ -48,18 +48,20 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
 
     const createParticle = (x?: number, y?: number): Particle => {
       const pX = x !== undefined ? x : Math.random() * width;
-      const pY = y !== undefined ? y : Math.random() * height;
-      const speedMultiplier = isBankaiActive ? 2.2 : 1;
+      // Start particles randomly on screen initially, or at bottom when respawning
+      const pY = y !== undefined ? y : (Math.random() * height);
+      const speedMultiplier = isBankaiActive ? 2.0 : 0.8;
 
       return {
         x: pX,
         y: pY,
-        vx: (Math.random() - 0.5) * 1.4 * speedMultiplier,
-        vy: -Math.random() * 2.0 * speedMultiplier - 0.4,
-        size: Math.random() * (isBankaiActive ? 3.5 : 2.2) + 0.8,
+        vx: (Math.random() - 0.5) * 0.5 * speedMultiplier,
+        // Always negative vy to move strictly upwards
+        vy: -Math.random() * 2.5 * speedMultiplier - 0.5,
+        size: Math.random() * (isBankaiActive ? 4.5 : 3.0) + 1.2,
         alpha: Math.random() * 0.6 + 0.2,
         color: Math.random() > 0.25 ? '#dc2626' : '#ffffff',
-        maxLife: Math.random() * 100 + 50,
+        maxLife: Math.random() * 250 + 150, // Longer life so they travel further
         life: 0
       };
     };
@@ -93,18 +95,7 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        isRunning = false;
-        cancelAnimationFrame(animationFrameId);
-      } else {
-        isRunning = true;
-        animationFrameId = requestAnimationFrame(render);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
+    // Force animation loop without visibility pausing to fix hot-reload freezing
     const render = () => {
       if (!isRunning) return;
 
@@ -128,7 +119,8 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
       for (let i = 0; i < len; i++) {
         const p = particles[i];
         p.life++;
-        p.x += p.vx;
+        // Add sine wave wobble based on life to mimic floating bubbles
+        p.x += p.vx + Math.sin(p.life * 0.05) * 0.6;
         p.y += p.vy;
 
         // Interactive mouse repulsion
@@ -157,7 +149,8 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
             particles.splice(i, 1);
             i--;
           } else {
-            particles[i] = createParticle();
+            // Respawn strictly at the bottom
+            particles[i] = createParticle(Math.random() * width, height + 10);
           }
         }
       }
@@ -172,7 +165,6 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
       isRunning = false;
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, [isBankaiActive]);

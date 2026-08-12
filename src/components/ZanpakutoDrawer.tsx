@@ -75,16 +75,7 @@ export const ZanpakutoDrawer: React.FC<ZanpakutoDrawerProps> = ({ skill, onClose
               </button>
             </div>
 
-            {/* Release Phrase Box */}
-            <div className="mt-6 p-4 glass-panel border-l-4 border-red-600 bg-red-950/20">
-              <div className="text-xs font-mono text-zinc-400 uppercase tracking-widest mb-1.5 flex justify-between items-center">
-                <span>RELEASE COMMAND</span>
-                <span className="text-white font-mono font-bold text-sm bg-black/50 px-2 py-0.5 border border-white/10">{skill.kanji}</span>
-              </div>
-              <p className="text-sm font-serif italic text-red-400 font-semibold leading-relaxed">
-                "{skill.commandPhrase}"
-              </p>
-            </div>
+
 
             {/* Description & Technical Breakdown */}
             <div className="mt-6 space-y-6">
@@ -113,16 +104,7 @@ export const ZanpakutoDrawer: React.FC<ZanpakutoDrawerProps> = ({ skill, onClose
                 </div>
               </div>
 
-              {/* Bankai Form Name */}
-              <div className="pt-2">
-                <div className="text-xs font-mono text-zinc-400 uppercase tracking-widest mb-1.5">
-                  BANKAI FORM EVOLUTION
-                </div>
-                <div className="p-3 bg-zinc-950 border border-white/10 text-white font-mono text-xs uppercase tracking-wider text-red-400 font-bold flex items-center gap-2">
-                  <span className="text-red-500">⚡</span>
-                  <span>{skill.bankaiForm}</span>
-                </div>
-              </div>
+
 
               {/* Code Implementation Extract */}
               <div className="pt-2">
