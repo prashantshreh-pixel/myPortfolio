@@ -37,11 +37,16 @@ export const ScrollControls: React.FC = () => {
     const distance = window.scrollY;
     const duration = Math.min(Math.max(distance * 0.8, 600), 1800);
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowIchigo(true);
+    
+    // Slight delay so the user can see the GIF before the viewport rushes to top
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+
     setTimeout(() => {
       setShowIchigo(false);
-    }, duration);
+    }, duration + 300);
   };
 
   const scrollToBottom = () => {

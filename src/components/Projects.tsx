@@ -19,7 +19,7 @@ export const Projects: React.FC = () => {
   const bgScaleParallax = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 1.05]);
 
   return (
-    <section ref={sectionRef} id="projects" className="pt-20 sm:pt-24 pb-20 sm:pb-36 relative z-10 overflow-hidden">
+    <section ref={sectionRef} id="projects" className={`pt-20 sm:pt-24 pb-20 sm:pb-36 relative overflow-hidden ${activeProject ? 'z-50' : 'z-10'}`}>
       {/* Background Top & Bottom Smooth Section Gradient Blends */}
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />

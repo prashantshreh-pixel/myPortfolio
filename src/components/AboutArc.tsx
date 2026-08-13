@@ -22,7 +22,7 @@ export const AboutArc: React.FC = () => {
     <section
       ref={sectionRef}
       id="thearc"
-      className="py-20 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto relative overflow-hidden text-zinc-100"
+      className={`py-20 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto relative overflow-hidden text-zinc-100 ${selectedFragment ? 'z-50' : 'z-10'}`}
     >
       {/* Background Smooth Gradient Blends (Top & Bottom) */}
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-10" />

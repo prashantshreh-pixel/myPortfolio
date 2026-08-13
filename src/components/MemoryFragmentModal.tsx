@@ -44,7 +44,7 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
   return (
     <AnimatePresence>
       <div 
-        className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-hidden select-none"
+        className="fixed inset-0 z-[100] flex justify-end bg-black/85 backdrop-blur-md overflow-hidden select-none"
         onWheel={(e) => e.stopPropagation()}
         onTouchMove={(e) => {
           if (e.target === e.currentTarget) e.preventDefault();
@@ -58,11 +58,11 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
       >
         <motion.div
           ref={scrollContainerRef}
-          initial={{ opacity: 0, scale: 0.92, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.92, y: 20 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-          className="modal-scrollable overscroll-contain relative w-full max-w-3xl max-h-[90vh] border border-red-600/60 p-6 sm:p-8 bg-[#08080a] text-white shadow-[0_0_50px_rgba(220,38,38,0.3)] overflow-y-auto flex flex-col justify-between"
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '100%' }}
+          transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+          className="modal-scrollable overscroll-contain relative w-full max-w-2xl h-full border-l border-red-600/70 p-6 sm:p-8 bg-[#08080a] text-white shadow-[-25px_0_60px_rgba(220,38,38,0.4)] overflow-y-auto flex flex-col justify-between z-[101]"
         >
           {/* Header */}
           <div>

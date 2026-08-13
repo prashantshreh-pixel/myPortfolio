@@ -368,12 +368,12 @@ export const BankaiFooter: React.FC = () => {
 
                   <div className="flex items-center gap-2.5 relative z-10">
                     <GraduationCap size={15} className="text-red-500 shrink-0" />
-                    <div>
-                      <div className="text-[11px] font-bold text-white uppercase group-hover:text-red-400 transition-colors">B.Sc. Computer Science</div>
-                      <div className="text-[10px] text-zinc-400">Herald College · Wolverhampton</div>
+                    <div className="max-w-[140px] sm:max-w-none">
+                      <div className="text-[11px] font-bold text-white uppercase group-hover:text-red-400 transition-colors leading-tight mb-0.5">B.Sc. Computer Science</div>
+                      <div className="text-[10px] text-zinc-400 leading-tight">Herald College · Wolverhampton</div>
                     </div>
                   </div>
-                  <span className="text-[10px] text-zinc-500 font-mono relative z-10">2018–2021</span>
+                  <span className="text-[10px] text-zinc-500 font-mono relative z-10 shrink-0">2018–2021</span>
                 </div>
               </div>
             </div>
