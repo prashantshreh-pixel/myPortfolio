@@ -62,7 +62,7 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-          className="modal-scrollable overscroll-contain relative w-full max-w-3xl max-h-[90vh] glass-panel border border-red-600/60 p-6 sm:p-8 bg-[#0a0a0c] text-white shadow-[0_0_50px_rgba(220,38,38,0.3)] overflow-y-auto flex flex-col justify-between"
+          className="modal-scrollable overscroll-contain relative w-full max-w-3xl max-h-[90vh] border border-red-600/60 p-6 sm:p-8 bg-[#08080a] text-white shadow-[0_0_50px_rgba(220,38,38,0.3)] overflow-y-auto flex flex-col justify-between"
         >
           {/* Header */}
           <div>

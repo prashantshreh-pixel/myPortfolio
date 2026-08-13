@@ -45,7 +45,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 30 }}
-          className="modal-scrollable overscroll-contain relative w-full max-w-4xl max-h-[90vh] glass-panel border border-red-600/60 p-6 sm:p-10 bg-[#070709] text-white shadow-[0_0_60px_rgba(220,38,38,0.35)] overflow-y-auto flex flex-col justify-between"
+          className="modal-scrollable overscroll-contain relative w-full max-w-4xl max-h-[90vh] border border-red-600/60 p-6 sm:p-10 bg-[#070709] text-white shadow-[0_0_60px_rgba(220,38,38,0.35)] overflow-y-auto flex flex-col justify-between"
         >
           {/* Header */}
           <div>
