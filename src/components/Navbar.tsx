@@ -68,19 +68,24 @@ export const Navbar: React.FC<NavbarProps> = ({
     e.preventDefault();
     audioEngine.playSlash();
     setIsMobileMenuOpen(false);
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.hash = href;
-    }
+    
+    // Delay scroll to allow mobile menu exit animation to begin/finish
+    // so the layout doesn't conflict with scroll coordinates.
+    setTimeout(() => {
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.hash = href;
+      }
+    }, 250);
   };
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 border-b ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
+        (isVisible && !isModalOpen) ? 'translate-y-0' : '-translate-y-full'
       } ${
         isScrolled
           ? 'bg-[#050505]/95 backdrop-blur-md border-white/10 py-3 sm:py-4 shadow-2xl'

@@ -84,13 +84,18 @@ export const Projects: React.FC = () => {
               {/* Bottom Left Content Block */}
               <div className="absolute bottom-6 left-4 sm:bottom-12 sm:left-10 max-w-3xl z-10 pr-4">
                 {/* Code Tag */}
-                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 flex-wrap">
                   <span className="text-red-500 font-mono font-extrabold tracking-[0.2em] sm:tracking-[0.3em] text-[11px] sm:text-xs bg-red-950/80 px-2.5 py-0.5 sm:px-3 sm:py-1 border border-red-600/50">
                     {project.code}
                   </span>
                   <span className="text-zinc-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest">
                     {project.category}
                   </span>
+                  {index === PROJECTS_DATA.length - 1 && (
+                    <span className="text-red-500 font-mono font-bold text-[9px] sm:text-[10px] uppercase tracking-widest border border-red-500/50 px-2 py-0.5 animate-pulse bg-red-950/30">
+                      RECENTLY ADDED
+                    </span>
+                  )}
                 </div>
 
                 {/* Title */}

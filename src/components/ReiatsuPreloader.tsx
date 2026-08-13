@@ -10,14 +10,36 @@ export const ReiatsuPreloader: React.FC<ReiatsuPreloaderProps> = ({ onComplete }
   const [isOpen, setIsOpen] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
-  // Number of vertical sky slit columns
-  const COLUMN_COUNT = 10;
+  const COLUMN_COUNT = 35;
 
-  // Generate randomized delays for each column so they open staggered & slowly
-  const columnDelays = useMemo(() => {
-    // Random delays between 0.1s and 0.9s
-    const delays = [0.25, 0.05, 0.55, 0.1, 0.7, 0.3, 0.8, 0.15, 0.4, 0.65];
-    return delays;
+  const columns = useMemo(() => {
+    const cols = [];
+    let totalWidth = 0;
+    const widths = [];
+    
+    // Generate random uneven widths
+    for (let i = 0; i < COLUMN_COUNT; i++) {
+      const w = 2 + Math.random() * 4;
+      widths.push(w);
+      totalWidth += w;
+    }
+    
+    for (let i = 0; i < COLUMN_COUNT; i++) {
+      const widthPct = (widths[i] / totalWidth) * 100;
+      const normalizedPosition = Math.abs((i / (COLUMN_COUNT - 1)) * 2 - 1);
+      
+      // Base height forms an oval (center is shorter, edges are longer)
+      const baseHeight = 50 + Math.pow(normalizedPosition, 1.5) * 40; 
+      
+      const topHeight = Math.min(120, Math.max(50, baseHeight + (Math.random() * 40) - 10));
+      const bottomHeight = Math.min(120, Math.max(50, baseHeight + (Math.random() * 40) - 10));
+      
+      // Delay: center opens slightly earlier
+      const delay = 0.1 + (normalizedPosition * 0.4) + (Math.random() * 0.2);
+      
+      cols.push({ width: widthPct, topHeight, bottomHeight, delay });
+    }
+    return cols;
   }, []);
 
   useEffect(() => {
@@ -31,7 +53,7 @@ export const ReiatsuPreloader: React.FC<ReiatsuPreloaderProps> = ({ onComplete }
     }, 400);
 
     // Complete transition after longest delay + duration
-    const maxDelay = Math.max(...columnDelays);
+    const maxDelay = Math.max(...columns.map(c => c.delay));
     const endTimer = setTimeout(() => {
       setIsFinished(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -42,7 +64,7 @@ export const ReiatsuPreloader: React.FC<ReiatsuPreloaderProps> = ({ onComplete }
       clearTimeout(startTimer);
       clearTimeout(endTimer);
     };
-  }, [columnDelays, onComplete]);
+  }, [columns, onComplete]);
 
   if (isFinished) return null;
 
@@ -51,21 +73,20 @@ export const ReiatsuPreloader: React.FC<ReiatsuPreloaderProps> = ({ onComplete }
       <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden select-none">
         {/* Sky Split Grid Container */}
         <div className="absolute inset-0 flex w-full h-full z-40">
-          {Array.from({ length: COLUMN_COUNT }).map((_, index) => {
-            const delay = columnDelays[index % columnDelays.length];
-
+          {columns.map((col, index) => {
             return (
-              <div key={index} className="relative flex-1 h-full flex flex-col border-r border-black/40">
+              <div key={index} className="relative h-full border-r border-black/40" style={{ width: `${col.width}%` }}>
                 {/* TOP SLIT PANEL */}
                 <motion.div
                   initial={{ y: 0 }}
                   animate={{ y: isOpen ? '-101%' : 0 }}
                   transition={{
                     duration: 1.5,
-                    delay: delay,
+                    delay: col.delay,
                     ease: [0.76, 0, 0.24, 1], // Cinematic smooth easing
                   }}
-                  className="w-full flex-1 bg-[#0a0202] relative overflow-hidden border-b border-red-900/60 backdrop-blur-md"
+                  className="w-full absolute top-0 left-0 bg-[#0a0202] overflow-hidden border-b border-red-900/60 backdrop-blur-md"
+                  style={{ height: `${col.topHeight}%` }}
                 >
                   {/* Crimson Spiritual Energy Texture Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-b from-[#1c0404] via-[#0d0202] to-[#050505] opacity-95" />
@@ -85,10 +106,11 @@ export const ReiatsuPreloader: React.FC<ReiatsuPreloaderProps> = ({ onComplete }
                   animate={{ y: isOpen ? '101%' : 0 }}
                   transition={{
                     duration: 1.5,
-                    delay: delay,
+                    delay: col.delay,
                     ease: [0.76, 0, 0.24, 1],
                   }}
-                  className="w-full flex-1 bg-[#0a0202] relative overflow-hidden border-t border-red-900/60 backdrop-blur-md"
+                  className="w-full absolute bottom-0 left-0 bg-[#0a0202] overflow-hidden border-t border-red-900/60 backdrop-blur-md"
+                  style={{ height: `${col.bottomHeight}%` }}
                 >
                   {/* Crimson Spiritual Energy Texture Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1c0404] via-[#0d0202] to-[#050505] opacity-95" />
@@ -105,6 +127,15 @@ export const ReiatsuPreloader: React.FC<ReiatsuPreloaderProps> = ({ onComplete }
             );
           })}
         </div>
+
+        {/* Center Loader GIF */}
+        <motion.div
+          animate={{ opacity: isOpen ? 0 : 1, scale: isOpen ? 1.5 : 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none mix-blend-screen"
+        >
+          <img src="/assets/loading v2.gif" alt="Loading..." className="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-[50%] overflow-hidden drop-shadow-[0_0_20px_rgba(220,38,38,0.8)]" />
+        </motion.div>
       </div>
     </AnimatePresence>
   );

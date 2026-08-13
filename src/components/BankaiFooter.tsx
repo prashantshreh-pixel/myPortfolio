@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import emailjs from '@emailjs/browser';
 import { Check, AlertCircle, HelpCircle, Github, Linkedin, Mail, GraduationCap, FileDown, Loader2 } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
@@ -116,11 +116,10 @@ export const BankaiFooter: React.FC = () => {
 
   const getInputClass = (field: string) => {
     const hasError = touched[field] && errors[field as keyof FormErrors];
-    return `${inputBaseClass} ${
-      hasError
+    return `${inputBaseClass} ${hasError
         ? 'border-red-500 focus:border-red-400 focus:border-b-2'
         : 'border-zinc-800 hover:border-red-600/60 focus:border-red-600 focus:border-b-2'
-    }`;
+      }`;
   };
 
   return (
@@ -157,7 +156,7 @@ export const BankaiFooter: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-8 border border-red-600/50 bg-red-950/20 text-center space-y-4"
               >
-                <div className="w-12 h-12 bg-red-600 text-white mx-auto flex items-center justify-center rounded-full shadow-[0_0_15px_rgba(204,0,0,0.8)]">
+                <div className="w-12 h-12 bg-green-600 text-white mx-auto flex items-center justify-center rounded-full shadow-[0_0_15px_rgba(22,163,74,0.8)]">
                   <Check size={24} />
                 </div>
                 <h4 className="text-2xl font-black uppercase text-white font-display">
@@ -235,15 +234,16 @@ export const BankaiFooter: React.FC = () => {
                   )}
                 </div>
 
-                {/* MESSAGE — Optional */}
+                {/* MESSAGE */}
                 <div>
                   <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 uppercase tracking-widest font-bold mb-2">
                     MESSAGE / PROJECT INQUIRY
-                    <span className="text-zinc-600 text-[9px] ml-1">(OPTIONAL)</span>
+                    <span className="text-red-500 text-[14px] ml-1">*</span>
                   </label>
                   <textarea
                     name="message"
                     rows={3}
+                    required
                     value={formData.message}
                     onChange={(e) => handleChange('message', e.target.value)}
                     placeholder="State your technical mission or opportunity..."
@@ -335,7 +335,7 @@ export const BankaiFooter: React.FC = () => {
                     className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group backdrop-blur-md bg-black/60"
                   >
                     <div className="flex items-center gap-2">
-                       <Github size={14} className="text-red-500" />
+                      <Github size={14} className="text-red-500" />
                       <span className="text-xs text-zinc-300 group-hover:text-white font-bold">GITHUB</span>
                     </div>
                     <span className="text-red-500 text-xs font-bold">→</span>
@@ -394,15 +394,23 @@ export const BankaiFooter: React.FC = () => {
         </div>
 
         {/* Modal Info if Help clicked */}
-        {showHelp && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400"
-          >
-            <p>Soul Society Command Terminal v2.5 // .NET 9, React 19, Clean Architecture, FinTech Engine.</p>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {showHelp && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="mt-4 p-6 bg-zinc-950 border border-zinc-800 text-sm font-mono text-zinc-300 italic text-center shadow-2xl relative max-w-2xl mx-auto"
+            >
+              <div className="absolute top-0 left-0 w-1 h-full bg-red-600" />
+              <p className="leading-relaxed">
+                "There is no such thing as 'perfect' in this world..."
+              </p>
+              <p className="mt-4 text-[10px] text-red-500 font-bold uppercase not-italic tracking-[0.2em]">— Kurotsuchi Mayuri</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </footer>
   );

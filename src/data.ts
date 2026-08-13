@@ -318,7 +318,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { label: 'UI DESIGN', value: 'iOS Glassmorphism' },
       { label: 'DATA SYNC', value: 'Zero-Latency Caching' }
     ],
-    image: '/assets/miyamoto-musashi.jpg',
+    image: '/assets/anime-bg-cover.png',
     imagePosition: 'object-cover object-center',
     liveUrls: [
       { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/Shiori' }
@@ -402,7 +402,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       { label: 'DESIGN PATTERN', value: 'Repository Pattern' },
       { label: 'UTILITY MODULES', value: 'Custom C# DLLs' }
     ],
-    image: '/assets/wallet-cover.png',
+    image: '/assets/ThailiLogo.jpg',
     liveUrls: [
       { label: 'MYPAY WALLET (LIVE)', url: 'https://mypay.com.np/' },
       { label: 'THAILI WALLET (LIVE)', url: 'https://thaili.com.np/#/login' }
@@ -436,5 +436,33 @@ export const PROJECTS_DATA: ProjectItem[] = [
                                                  [ Normalized Relational Schema ]
                                                                  |
                                                  [ High-Speed Stored Procedures & UDFs ]`
+  },
+  {
+    id: 'project-flexpulse',
+    code: 'PROJECT_005',
+    title: 'FlexPulse / Workout Tracker OS',
+    tagline: 'Brutalist Local-First Fitness Tracking Platform',
+    description: 'A modern, aesthetics-first workout tracking OS focusing on performance, local-first data persistence, and beautiful UI/UX. Features custom CSS animations, dynamic live workout tracking with PR detection, and a rich exercise library.',
+    category: 'React / Next.js Web App',
+    techStack: ['React 19', 'TypeScript', 'Vite', 'Tailwind CSS 4', 'IndexedDB'],
+    metrics: [
+      { label: 'ARCHITECTURE', value: 'Local-First Persistence' },
+      { label: 'UI DESIGN', value: 'Brutalist High-Contrast' },
+      { label: 'DATA MODEL', value: 'Universal Unit Toggle (KG/LBS)' }
+    ],
+    image: '/assets/DumbellV2.jpg',
+    imagePosition: 'object-cover object-center',
+    liveUrls: [
+      { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/FlexPulse' }
+    ],
+    liveUrl: 'https://github.com/prashantshreh-pixel/FlexPulse',
+    kanjiOverlay: '力',
+    architectureDiagram: `[ React 19 Client ] ---> [ Custom CSS Animations ]
+                                  |
+                   +--------------+--------------+
+                   |                             |
+    [ Dynamic State Management ]       [ Persistent LocalStorage ]
+                   |                             |
+    [ Live Workout Sessions ]          [ Universal Unit Conversion ]`
   }
 ];

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const GIFS = [
-  '/assets/gif/getsuga.gif',
-  '/assets/gif/hollow.gif',
-  '/assets/gif/Ichigo.gif',
-  '/assets/gif/ICHIGOZ.gif',
-  '/assets/gif/kiuske.gif',
-  '/assets/gif/toshiro.gif'
+  '/assets/getsuga.gif',
+  '/assets/hollow.gif',
+  '/assets/Ichigo.gif',
+  '/assets/ICHIGOZ.gif',
+  '/assets/kiuske.gif'
 ];
 
 export const InteractiveGifs: React.FC = () => {

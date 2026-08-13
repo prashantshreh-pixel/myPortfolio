@@ -7,7 +7,7 @@ export const ScrollControls: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showIchigo, setShowIchigo] = useState(false);
-
+  const [showScrolldown, setShowScrolldown] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 200) {
@@ -32,16 +32,31 @@ export const ScrollControls: React.FC = () => {
 
   const scrollToTop = () => {
     audioEngine.playSlash();
+
+    // Calculate dynamic duration based on scroll distance
+    const distance = window.scrollY;
+    const duration = Math.min(Math.max(distance * 0.8, 600), 1800);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setShowIchigo(true);
     setTimeout(() => {
       setShowIchigo(false);
-    }, 1800); // 1.8 seconds - roughly the time it takes for the blue burst
+    }, duration);
   };
 
   const scrollToBottom = () => {
     audioEngine.playSlash();
+
+    // Calculate dynamic duration based on remaining scroll distance
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const distance = Math.max(0, maxScroll - window.scrollY);
+    const duration = Math.min(Math.max(distance * 0.8, 600), 1800);
+
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    setShowScrolldown(true);
+    setTimeout(() => {
+      setShowScrolldown(false);
+    }, duration);
   };
 
   return (
@@ -82,9 +97,21 @@ export const ScrollControls: React.FC = () => {
           initial={{ opacity: 0, scale: 0.5, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 1.2, y: -50 }}
-          src="/assets/gif/Ichigo.gif"
-          alt="Ichigo burst"
-          className="fixed bottom-20 right-4 sm:right-6 z-50 w-48 h-48 object-contain pointer-events-none drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] mix-blend-screen"
+          src="/assets/Ichigo.gif"
+          alt="Ichigo Ascent"
+          className="fixed bottom-[56px] right-6 sm:bottom-18 sm:right-8 z-50 w-32 h-32 sm:w-48 sm:h-48 object-contain pointer-events-none drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] mix-blend-screen"
+        />
+      )}
+
+      {/* Scrolldown Easter Egg (Positioned beside the scroll buttons) */}
+      {showScrolldown && (
+        <motion.img
+          initial={{ opacity: 0, scale: 0.5, x: 20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          exit={{ opacity: 0, scale: 1.2, x: 20 }}
+          src="/assets/scrolldown.gif"
+          alt="Scroll Down Burst"
+          className="fixed -bottom-4 right-8 sm:-bottom-4 sm:right-12 z-50 w-32 h-32 sm:w-40 sm:h-40 object-contain pointer-events-none drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] mix-blend-screen origin-bottom-right"
         />
       )}
     </AnimatePresence>

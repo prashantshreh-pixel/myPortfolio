@@ -22,23 +22,30 @@ export const TechStackZanpakuto: React.FC = () => {
   const filteredSkills = SKILL_ITEMS.filter((s) => filter === 'all' || s.category === filter);
 
   return (
-    <section id="zanpakuto" className="py-20 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+    <section id="zanpakuto" className={`py-20 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto relative ${selectedSkill ? 'z-50' : 'z-10'}`}>
       {/* Section Title */}
-      <div className="mb-12 sm:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
-        <div>
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.4em] text-red-500 mb-2 font-bold">
+      <div className="mb-12 sm:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8 relative">
+        <div className="relative">
+
+          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.4em] text-red-500 mb-2 font-bold relative z-10">
             <span>02 // ARSENAL</span>
           </div>
           <motion.h2
             initial={{ x: -30, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight text-white font-display"
+            className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight text-white font-display relative w-fit z-10"
           >
+            {/* ICHIGOZ GIF before the text */}
+            <motion.img 
+              src="/assets/ICHIGOZ.gif"
+              alt="Ichigo Skills"
+              className="absolute right-[75%] sm:right-[85%] mr-2 top-1/2 -translate-y-[60%] w-56 sm:w-[350px] opacity-40 pointer-events-none mix-blend-screen -z-10"
+            />
             SKILLS
           </motion.h2>
-          <div className="h-1 w-24 sm:w-32 bg-red-600 mt-3 shadow-[0_0_15px_rgba(220,38,38,0.8)]" />
-          <p className="text-zinc-400 mt-3 sm:mt-4 uppercase font-mono tracking-widest text-xs sm:text-sm">
+          <div className="h-1 w-24 sm:w-32 bg-red-600 mt-3 shadow-[0_0_15px_rgba(220,38,38,0.8)] relative z-10" />
+          <p className="text-zinc-400 mt-3 sm:mt-4 uppercase font-mono tracking-widest text-xs sm:text-sm relative z-10">
             My Technical Blade & Infrastructure Arsenal
           </p>
         </div>

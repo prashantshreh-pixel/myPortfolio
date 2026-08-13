@@ -21,6 +21,12 @@ export const ZanpakutoDrawer: React.FC<ZanpakutoDrawerProps> = ({ skill, onClose
     if (skill && scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = 0;
     }
+    
+    // Dispatch event to hide navbar when drawer is open
+    window.dispatchEvent(new CustomEvent('modal-state-change', { detail: { isOpen: !!skill } }));
+    return () => {
+      window.dispatchEvent(new CustomEvent('modal-state-change', { detail: { isOpen: false } }));
+    };
   }, [skill]);
 
   if (!skill) return null;
@@ -55,7 +61,7 @@ export const ZanpakutoDrawer: React.FC<ZanpakutoDrawerProps> = ({ skill, onClose
               <div>
                 <div className="flex items-center gap-2 text-xs font-mono text-red-500 tracking-widest uppercase mb-1.5 font-bold">
                   <Flame size={14} className="text-red-500 animate-pulse" />
-                  <span>ZANPAKUTO SPECIFICATION // {skill.category}</span>
+                  <span>{skill.category}</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight font-display leading-snug">
                   {skill.name}
@@ -69,7 +75,7 @@ export const ZanpakutoDrawer: React.FC<ZanpakutoDrawerProps> = ({ skill, onClose
                   onClose();
                 }}
                 className="p-2.5 bg-zinc-900 hover:bg-red-600 text-zinc-300 hover:text-white border border-white/20 hover:border-red-500 transition-all shrink-0 active:scale-95 shadow-lg"
-                title="Close Specification"
+                title="Close"
               >
                 <X size={20} />
               </button>
@@ -130,7 +136,7 @@ export const ZanpakutoDrawer: React.FC<ZanpakutoDrawerProps> = ({ skill, onClose
               }}
               className="w-full py-3.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-[0.3em] transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] active:scale-[0.99]"
             >
-              CLOSE SPECIFICATION
+              CLOSE
             </button>
           </div>
         </motion.div>

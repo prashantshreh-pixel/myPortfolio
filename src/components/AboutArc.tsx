@@ -45,7 +45,7 @@ export const AboutArc: React.FC = () => {
             initial={{ x: -30, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight text-white font-display"
+            className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight text-white font-display relative w-fit"
           >
             THE ARC
           </motion.h2>

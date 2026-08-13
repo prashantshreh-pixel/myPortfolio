@@ -3,8 +3,8 @@
 <!-- Bleach Aizen Hado 99 Animated Header Banner -->
 <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTFsZHprdjltbGNodmIwMmczODI1aXozaWFleXVpc3JubHp2N3lxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jz47ZIBP0YWAnByQl0/giphy.gif" width="100%" alt="Aizen Hado 99 Banner" style="border-radius: 4px; border: 1px solid #dc2626;" />
 
-# ⚔️ PRASHANT SHRESTHA // SHINIGAMI DEVELOPER
-### Software Engineer · .NET & FinTech Specialist · 4.5+ Years Experience
+# ⚔️ PRASHANT SHRESTHA (SHINIGAMI)
+### Software Engineer · Dot NET & FinTech · 4.5+ Years Experience
 
 <p align="center">
   <a href="https://dotnet.microsoft.com/"><img src="https://img.shields.io/badge/C%23_%2F_.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET" /></a>
@@ -40,6 +40,16 @@
 
 ---
 
+## 🌟 Key Features
+
+- **Immersive Audio Engine:** Procedural Web Audio API synthesizer triggering dynamic sword slashes and hover effects.
+- **Bleach/Anime Aesthetics:** Brutalist, high-contrast red/black theme featuring Easter eggs like an animated Ichigo scroll-up graphic and a smooth Kurotsuchi Mayuri quote modal in the footer.
+- **Dynamic Content & Parallax:** Fluid scrolling, staggered `Framer Motion` entry animations, and a React 19 architecture with a responsive layout designed for both mobile and desktop.
+- **Integrated Contact Form:** Seamless client-side email delivery system via `EmailJS` configured in the footer.
+- **Recent Project Highlight:** Features recently added projects like **FlexPulse**, complete with automated pulsing badges and dynamic `data.ts` fetching.
+
+---
+
 ## 📁 Repository Structure
 
 ```
@@ -54,7 +64,7 @@
     ├── 📄 data.ts                      # Resume timeline, Zanpakuto skill arsenal & FinTech project metrics
     ├── 📄 types.ts                     # TypeScript domain interfaces
     ├── 📁 assets/
-    │   └── 📄 DgHub.png                # Asset images
+    │   └── 📄 DgHub.png                # Asset images, GIFs, Banners, Badges
     ├── 📁 utils/
     │   ├── 📄 AudioEngine.ts           # Web Audio API procedural sound synthesizer
     │   └── 📄 scrollLock.ts            # Viewport scroll freeze hook
@@ -62,15 +72,15 @@
         ├── 📄 ReiatsuPreloader.tsx     # Staggered vertical screen slit reveal animation
         ├── 📄 ReiatsuCanvas.tsx        # Interactive HTML5 background particle canvas
         ├── 📄 Navbar.tsx               # Fixed centered header with mobile drawer
-        ├── 📄 Hero.tsx                 # Centerpiece typography & Transmit Mission action
+        ├── 📄 Hero.tsx                 # Centerpiece typography, Name toggler & Mayuri Graphic
         ├── 📄 AboutArc.tsx             # 4.5+ Year engineering timeline with parallax
         ├── 📄 MemoryFragmentModal.tsx  # C# architecture code inspector modal
         ├── 📄 TechStackZanpakuto.tsx   # Skill bento grid with category filters
         ├── 📄 ZanpakutoDrawer.tsx      # Slide-out blade specification drawer
-        ├── 📄 Projects.tsx             # High-pressure mission showcase cards
+        ├── 📄 Projects.tsx             # High-pressure mission showcase cards & Recently Added badge
         ├── 📄 ProjectModal.tsx         # System metrics & architecture flow case study
-        ├── 📄 BankaiFooter.tsx         # Direct contact portal, resume download, socials & credentials
-        ├── 📄 ScrollControls.tsx       # Floating quick scroll-to-top & bottom buttons
+        ├── 📄 BankaiFooter.tsx         # EmailJS Contact portal, Mayuri Quote modal & Socials
+        ├── 📄 ScrollControls.tsx       # Floating quick scroll buttons & Ichigo Easter Egg
         └── 📄 HollowMaskLogo.tsx       # Custom vector Bleach Hollow Mask badge
 ```
 
@@ -111,6 +121,6 @@ npm run build
 
 <br/>
 
-<sub>Crafted with C#, .NET 9, React 19, TypeScript, and Tailwind CSS · © 2026 Prashant Shrestha</sub>
+<sub>Crafted with React 19, TypeScript, and Tailwind CSS · © 2026 Prashant Shrestha</sub>
 
 </div>

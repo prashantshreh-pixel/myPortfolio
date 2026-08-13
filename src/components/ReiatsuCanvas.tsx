@@ -115,8 +115,7 @@ export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) 
       }
 
       // Update & Render particles
-      const len = particles.length;
-      for (let i = 0; i < len; i++) {
+      for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         p.life++;
         // Add sine wave wobble based on life to mimic floating bubbles
