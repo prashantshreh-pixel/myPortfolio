@@ -3,42 +3,40 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
-interface HeroProps {
-  isBankaiActive: boolean;
-}
-
 const useTypewriter = (texts: string[], typingSpeed = 150, deletingSpeed = 100, pauseDelay = 3000) => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
 
   useEffect(() => {
+    let timer: number;
+
     const handleTyping = () => {
       const currentText = texts[loopNum % texts.length];
-      
+
       if (isDeleting) {
         setText(currentText.substring(0, text.length - 1));
         if (text.length === 0) {
           setIsDeleting(false);
-          setLoopNum(loopNum + 1);
+          setLoopNum((prev) => prev + 1);
         }
       } else {
         setText(currentText.substring(0, text.length + 1));
         if (text.length === currentText.length) {
-          setTimeout(() => setIsDeleting(true), pauseDelay);
+          timer = window.setTimeout(() => setIsDeleting(true), pauseDelay);
           return;
         }
       }
     };
 
-    const timer = setTimeout(handleTyping, isDeleting ? deletingSpeed : typingSpeed);
+    timer = window.setTimeout(handleTyping, isDeleting ? deletingSpeed : typingSpeed);
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, texts, typingSpeed, deletingSpeed, pauseDelay]);
 
   return text;
 };
 
-export const Hero: React.FC<HeroProps> = ({ isBankaiActive }) => {
+export const Hero: React.FC = () => {
   const typedText = useTypewriter(['PRASHANT SHRESTHA', 'प्रशान्त श्रेष्ठ']);
   const spaceIndex = typedText.indexOf(' ');
   const firstName = spaceIndex !== -1 ? typedText.substring(0, spaceIndex) : typedText;

@@ -101,6 +101,30 @@ class AudioSynthesizer {
       // Audio fallback
     }
   }
+
+  // Play Bleach Sonido / Shunpo high-speed teleportation sound effect
+  private sonidoAudio: HTMLAudioElement | null = null;
+
+  public playSonido() {
+    if (this.isMuted) return;
+    try {
+      if (!this.sonidoAudio) {
+        this.sonidoAudio = new Audio('/assets/sonido-sound.mp3');
+        this.sonidoAudio.volume = 0.65;
+        this.sonidoAudio.preload = 'auto';
+      }
+      this.sonidoAudio.currentTime = 0;
+      const promise = this.sonidoAudio.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // Fallback to procedural slash if audio element playback is restricted
+          this.playSlash();
+        });
+      }
+    } catch {
+      this.playSlash();
+    }
+  }
 }
 
 export const audioEngine = new AudioSynthesizer();

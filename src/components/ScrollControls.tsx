@@ -31,7 +31,7 @@ export const ScrollControls: React.FC = () => {
   }, []);
 
   const scrollToTop = () => {
-    audioEngine.playSlash();
+    audioEngine.playSonido();
 
     // Calculate dynamic duration based on scroll distance
     const distance = window.scrollY;
@@ -50,7 +50,7 @@ export const ScrollControls: React.FC = () => {
   };
 
   const scrollToBottom = () => {
-    audioEngine.playSlash();
+    audioEngine.playSonido();
 
     // Calculate dynamic duration based on remaining scroll distance
     const maxScroll = document.body.scrollHeight - window.innerHeight;

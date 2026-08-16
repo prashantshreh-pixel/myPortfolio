@@ -464,5 +464,33 @@ export const PROJECTS_DATA: ProjectItem[] = [
     [ Dynamic State Management ]       [ Persistent LocalStorage ]
                    |                             |
     [ Live Workout Sessions ]          [ Universal Unit Conversion ]`
+  },
+  {
+    id: 'project-visitnepal',
+    code: 'PROJECT_006',
+    title: 'Visit Nepal 2022 / Himalayan Tourism & Hotel OS',
+    tagline: 'Full-Stack Tourism Platform, Hotel Reservation Engine & AI Rasa NLP Chatbot',
+    description: 'A full-stack tourism & travel guide web application for exploring the Himalayas across Nepal. Features real-time hotel room booking with automated date conflict validation, interactive community discussion boards with threaded comments, a user photo gallery, and an intelligent Rasa NLP AI chatbot interface.',
+    category: 'Full-Stack Web App & AI NLP',
+    techStack: ['Python', 'Django 4', 'Rasa NLP', 'SQLite', 'JavaScript', 'HTML5 / CSS3', 'REST API'],
+    metrics: [
+      { label: 'ARCHITECTURE', value: 'Django + Rasa Dual-Server' },
+      { label: 'BOOKING ENGINE', value: 'Conflict-Free Date Validation' },
+      { label: 'AI CHATBOT', value: 'Conversational Intent Pipeline' }
+    ],
+    image: '/assets/Pokhara bg.jpg',
+    imagePosition: 'object-cover object-center',
+    liveUrls: [
+      { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/Visit-Nepal-2022' }
+    ],
+    liveUrl: 'https://github.com/prashantshreh-pixel/Visit-Nepal-2022',
+    kanjiOverlay: '旅',
+    architectureDiagram: `[ Travel Web Portal & UI ] ---> [ Django 4 Application Core ]
+                                          |
+                           +--------------+--------------+
+                           |                             |
+            [ Hotel Reservation Engine ]       [ Rasa NLP AI Chatbot Engine ]
+                           |                             |
+            [ Threaded Forum & Media DB ]      [ Intent & Stories Dialogue Pipeline ]`
   }
 ];

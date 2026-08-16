@@ -4,14 +4,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { audioEngine } from '../utils/AudioEngine';
 
 interface NavbarProps {
-  isBankaiActive: boolean;
-  onToggleBankai: () => void;
   activeSection: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  isBankaiActive,
-  onToggleBankai,
   activeSection
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);

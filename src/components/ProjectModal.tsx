@@ -161,7 +161,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     key={link.url}
                     href={link.url}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     onClick={() => audioEngine.playSlash()}
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95 text-center"
                   >
@@ -175,7 +175,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <a
                   href={project.liveUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   onClick={() => audioEngine.playSlash()}
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-500 transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] active:scale-95 text-center"
                 >
@@ -189,7 +189,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <a
                   href={project.githubUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   onClick={() => audioEngine.playSlash()}
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-white/20 transition-all shadow-md active:scale-95 text-center"
                 >

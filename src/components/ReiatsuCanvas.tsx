@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 interface ReiatsuCanvasProps {
-  isBankaiActive: boolean;
+  isBankaiActive?: boolean;
 }
 
 interface Particle {
@@ -16,7 +16,7 @@ interface Particle {
   life: number;
 }
 
-export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive }) => {
+export const ReiatsuCanvas: React.FC<ReiatsuCanvasProps> = ({ isBankaiActive = false }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mousePos = useRef({ x: -1000, y: -1000, speed: 0 });
 

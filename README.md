@@ -42,11 +42,11 @@
 
 ## 🌟 Key Features
 
-- **Immersive Audio Engine:** Procedural Web Audio API synthesizer triggering dynamic sword slashes and hover effects.
+- **Immersive Audio Engine:** Procedural Web Audio API synthesizer triggering dynamic sword slashes, hover effects, and authentic Bleach Sonido high-speed teleportation sound effects on scroll controls.
 - **Bleach/Anime Aesthetics:** Brutalist, high-contrast red/black theme featuring Easter eggs like an animated Ichigo scroll-up graphic and a smooth Kurotsuchi Mayuri quote modal in the footer.
 - **Dynamic Content & Parallax:** Fluid scrolling, staggered `Framer Motion` entry animations, and a React 19 architecture with a responsive layout designed for both mobile and desktop.
-- **Integrated Contact Form:** Seamless client-side email delivery system via `EmailJS` configured in the footer.
-- **Recent Project Highlight:** Features recently added projects like **FlexPulse**, complete with automated pulsing badges and dynamic `data.ts` fetching.
+- **Integrated Contact Form:** Seamless client-side email delivery system via `EmailJS` with automatic fallback and mail client dispatching.
+- **Recent Project Highlights:** Features showcase missions including **Visit Nepal 2022** (Himalayan Tourism & AI Rasa NLP Chatbot) and **FlexPulse** (Local-First Fitness OS), complete with automated pulsing badges and dynamic `data.ts` fetching.
 
 ---
 

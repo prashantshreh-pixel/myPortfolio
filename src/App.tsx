@@ -12,7 +12,6 @@ import { ScrollControls } from './components/ScrollControls';
 
 export default function App() {
   const [isPreloading, setIsPreloading] = useState(true);
-  const [isBankaiActive, setIsBankaiActive] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   const { scrollYProgress } = useScroll();
@@ -52,21 +51,13 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleBankai = () => {
-    setIsBankaiActive((prev) => !prev);
-  };
-
   return (
-    <div
-      className={`relative min-h-screen bg-[#050505] text-zinc-300 font-sans selection:bg-red-600 selection:text-white transition-colors duration-700 ${
-        isBankaiActive ? 'bg-[#030304]' : 'bg-[#050505]'
-      }`}
-    >
+    <div className="relative min-h-screen bg-[#050505] text-zinc-300 font-sans selection:bg-red-600 selection:text-white transition-colors duration-700">
       {/* Reiatsu Preloader Animation */}
       {isPreloading && <ReiatsuPreloader onComplete={() => setIsPreloading(false)} />}
 
       {/* Background Interactive Reiatsu Particle Canvas */}
-      <ReiatsuCanvas isBankaiActive={isBankaiActive} />
+      <ReiatsuCanvas />
 
       {/* Film Grain Noise Overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 bg-manga-lines opacity-15" />
@@ -83,13 +74,11 @@ export default function App() {
       {/* Main Content Sections */}
       <div className="relative z-10">
         <Navbar
-          isBankaiActive={isBankaiActive}
-          onToggleBankai={toggleBankai}
           activeSection={activeSection}
         />
 
         <main>
-          <Hero isBankaiActive={isBankaiActive} />
+          <Hero />
           <AboutArc />
           <TechStackZanpakuto />
           <Projects />

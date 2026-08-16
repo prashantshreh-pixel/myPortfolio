@@ -4,10 +4,10 @@ import emailjs from '@emailjs/browser';
 import { Check, AlertCircle, HelpCircle, Github, Linkedin, Mail, GraduationCap, FileDown, Loader2 } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
-// EmailJS configuration — replace these with your actual keys
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+// EmailJS configuration — replace these with your actual keys or set environment variables in your deployment host
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_qcxtexx';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_frdefyf';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'XE1witpCh4gaIEwLc';
 
 interface FormErrors {
   name?: string;
@@ -105,9 +105,16 @@ export const BankaiFooter: React.FC = () => {
       setIsSubmitted(true);
     } catch (error: any) {
       setIsSubmitting(false);
-      setSubmitError(
-        error?.text || 'Failed to send message. Please try emailing directly.'
-      );
+      const errText = error?.text || error?.message || '';
+      if (errText.toLowerCase().includes('public key') || errText.toLowerCase().includes('invalid')) {
+        setSubmitError(
+          'EmailJS service key is invalid or unconfigured. Please send your message directly via email below.'
+        );
+      } else {
+        setSubmitError(
+          errText || 'Failed to send message automatically. Please use the direct email link below.'
+        );
+      }
     }
   };
 
@@ -251,15 +258,34 @@ export const BankaiFooter: React.FC = () => {
                   />
                 </div>
 
-                {/* Submission Error */}
+                {/* Submission Error with Direct Email Action Fallback */}
                 {submitError && (
                   <motion.div
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-3 bg-red-950/30 border border-red-600/40 text-xs font-mono text-red-400 flex items-start gap-2"
+                    className="p-3.5 bg-red-950/40 border border-red-600/50 text-xs font-mono text-red-300 space-y-2.5"
                   >
-                    <AlertCircle size={14} className="shrink-0 mt-0.5" />
-                    <span>{submitError}</span>
+                    <div className="flex items-start gap-2 text-red-400">
+                      <AlertCircle size={15} className="shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <span className="font-bold text-white block text-[11px] uppercase tracking-wider">TRANSMISSION NOTICE:</span>
+                        <span className="leading-relaxed block">{submitError}</span>
+                      </div>
+                    </div>
+                    <div className="pt-1">
+                      <a
+                        href={`mailto:prashantmessi08@gmail.com?subject=${encodeURIComponent(
+                          `Portfolio Inquiry from ${formData.name || 'Visitor'}`
+                        )}&body=${encodeURIComponent(
+                          `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+                        )}`}
+                        onClick={() => audioEngine.playHover()}
+                        className="inline-flex items-center gap-2 px-3 py-2 bg-red-600 hover:bg-white text-white hover:text-black font-bold uppercase tracking-wider text-[10px] sm:text-xs transition-colors shadow-md"
+                      >
+                        <Mail size={13} />
+                        <span>OPEN EMAIL CLIENT TO SEND DIRECTLY →</span>
+                      </a>
+                    </div>
                   </motion.div>
                 )}
 
@@ -296,7 +322,7 @@ export const BankaiFooter: React.FC = () => {
                   href="./Prashant Shrestha - Executive Resume 2026.pdf"
                   download="Prashant_Shrestha_Resume_2026.pdf"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   onClick={() => audioEngine.playSlash()}
                   className="flex items-center justify-between p-3.5 bg-zinc-950/80 border border-red-600/60 hover:border-red-500 group transition-all backdrop-blur-md"
                 >
@@ -330,7 +356,7 @@ export const BankaiFooter: React.FC = () => {
                   <a
                     href="https://github.com/prashantshreh-pixel"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     onClick={() => audioEngine.playHover()}
                     className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group backdrop-blur-md bg-black/60"
                   >
@@ -344,7 +370,7 @@ export const BankaiFooter: React.FC = () => {
                   <a
                     href="https://linkedin.com/in/prashant-shrestha-dev"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     onClick={() => audioEngine.playHover()}
                     className="p-3 glass-panel border border-white/10 hover:border-red-600/60 transition-all flex items-center justify-between group backdrop-blur-md bg-black/60"
                   >
