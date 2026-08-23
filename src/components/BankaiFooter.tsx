@@ -319,7 +319,7 @@ export const BankaiFooter: React.FC = () => {
               <div className="space-y-3">
                 {/* DIRECT RESUME PDF DOWNLOAD */}
                 <a
-                  href="./Prashant Shrestha - Executive Resume 2026.pdf"
+                  href="/Prashant Shrestha - Executive Resume 2026.pdf"
                   download="Prashant_Shrestha_Resume_2026.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
