@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import emailjs from '@emailjs/browser';
 import { Check, AlertCircle, HelpCircle, Github, Linkedin, Mail, GraduationCap, FileDown, Loader2 } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
+import { SectionHeader } from './SectionHeader';
 
 // EmailJS configuration — replace these with your actual keys or set environment variables in your deployment host
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_qcxtexx';
@@ -140,18 +141,13 @@ export const BankaiFooter: React.FC = () => {
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.4em] text-red-500 mb-2 font-bold">
-            <span>04 // CONTACT & CREDENTIALS</span>
-          </div>
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-display tracking-tight text-white uppercase">
-            CONTACT
-          </h2>
-          <div className="h-[2px] w-12 bg-red-600 my-3 sm:my-4" />
-          <p className="text-xs sm:text-sm font-mono text-red-500 uppercase tracking-[0.2em] sm:tracking-[0.3em] font-semibold">
-            PRASHANT SHRESTHA · DIRECT LINE · KATHMANDU, NEPAL
-          </p>
-        </div>
+        <SectionHeader
+          number="04"
+          category="CONTACT & CREDENTIALS"
+          title="CONTACT"
+          subtitle="PRASHANT SHRESTHA · DIRECT LINE · KATHMANDU, NEPAL"
+          lineColor="bg-red-600 shadow-[0_0_15px_rgba(204,0,0,0.8)]"
+        />
 
         {/* Content Grid (Form Left, Social/Credentials Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">

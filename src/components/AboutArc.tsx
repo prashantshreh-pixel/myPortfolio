@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { TIMELINE_DATA } from '../data';
 import { TimelineItem } from '../types';
 import { MemoryFragmentModal } from './MemoryFragmentModal';
+import { SectionHeader } from './SectionHeader';
+import { TechTag } from './TechTag';
 import { Terminal, ChevronRight } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
@@ -24,7 +26,7 @@ export const AboutArc: React.FC = () => {
       id="thearc"
       className={`py-20 sm:py-28 px-4 sm:px-6 max-w-7xl mx-auto relative overflow-hidden text-zinc-100 ${selectedFragment ? 'z-50' : 'z-10'}`}
     >
-      {/* Background Smooth Gradient Blends (Top & Bottom) */}
+      {/* Background Smooth Gradient Blends */}
       <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />
 
@@ -36,28 +38,15 @@ export const AboutArc: React.FC = () => {
 
       {/* Section Content */}
       <div className="relative z-10">
-        {/* Section Title */}
-        <div className="mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.4em] text-red-500 mb-2 font-bold">
-            <span>01 // CHRONICLES</span>
-          </div>
-          <motion.h2
-            initial={{ x: -30, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tight text-white font-display relative w-fit"
-          >
-            THE ARC
-          </motion.h2>
-          <div className="h-1 w-24 sm:w-32 bg-red-600 mt-3 shadow-[0_0_15px_rgba(204,0,0,0.8)]" />
-          <p className="text-zinc-400 mt-3 sm:mt-4 uppercase font-mono tracking-widest text-xs sm:text-sm">
-            4.5 Years of Professional Evolution // From C# Fundamentals to Distributed Systems
-          </p>
-        </div>
+        <SectionHeader
+          number="01"
+          category="CHRONICLES"
+          title="THE ARC"
+          subtitle="4.5 Years of Professional Evolution // From C# Fundamentals to Distributed Systems"
+        />
 
         {/* Vertical Timeline with Continuous Visible Spine Line */}
         <div className="relative ml-3 sm:ml-6 md:ml-8 my-10 sm:my-12">
-          {/* Unbroken High-Visibility Vertical Spine Line */}
           <div className="absolute top-3 bottom-8 left-0 w-[2px] bg-gradient-to-b from-red-600 via-zinc-700 to-red-600/30 z-0 shadow-[0_0_8px_rgba(220,38,38,0.3)]" />
 
           {TIMELINE_DATA.map((item, index) => {
@@ -70,7 +59,7 @@ export const AboutArc: React.FC = () => {
                 transition={{ duration: 0.7, delay: index * 0.1 }}
                 className="relative pl-6 sm:pl-8 md:pl-12 pb-14 sm:pb-20 last:pb-0 group z-10"
               >
-                {/* Timeline Red Diamond Anchor Node (Centered exactly on spine) */}
+                {/* Diamond Anchor Node */}
                 <div className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-red-600 rotate-45 border-2 border-black group-hover:scale-125 group-hover:bg-white group-hover:shadow-[0_0_15px_rgba(204,0,0,0.9)] transition-all duration-300 z-10" />
 
                 <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start justify-between">
@@ -101,7 +90,7 @@ export const AboutArc: React.FC = () => {
                       {item.description}
                     </p>
 
-                    {/* Highlights Bullet List */}
+                    {/* Highlights */}
                     <ul className="space-y-1.5 pt-1 sm:pt-2">
                       {item.highlights.map((h, hIdx) => (
                         <li key={hIdx} className="text-xs text-zinc-300 flex items-start gap-2 font-mono">
@@ -111,15 +100,10 @@ export const AboutArc: React.FC = () => {
                       ))}
                     </ul>
 
-                    {/* Tech Stack Pills */}
+                    {/* Tech Stack Tags */}
                     <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2 sm:pt-3">
                       {item.techUsed.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[10px] font-mono px-2 sm:px-2.5 py-0.5 sm:py-1 bg-zinc-900 border border-white/10 text-zinc-300 uppercase tracking-wider"
-                        >
-                          {tech}
-                        </span>
+                        <TechTag key={tech} tech={tech} />
                       ))}
                     </div>
 
@@ -138,7 +122,7 @@ export const AboutArc: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Right Block: Image / Logo Exhibit (Non-link, turns colorful on hover) */}
+                  {/* Right Block: Image Exhibit */}
                   <div className="lg:w-1/4 w-full h-44 sm:h-56 relative overflow-hidden group/img border border-white/10 hover:border-red-600/60 transition-all duration-500 bg-zinc-950 flex items-center justify-center p-3 select-none">
                     <img
                       src={item.imagePlaceholder}
