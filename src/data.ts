@@ -494,5 +494,63 @@ export const PROJECTS_DATA: ProjectItem[] = [
             [ Hotel Reservation Engine ]       [ Rasa NLP AI Chatbot Engine ]
                            |                             |
             [ Threaded Forum & Media DB ]      [ Intent & Stories Dialogue Pipeline ]`
+  },
+  {
+    id: 'project-bleachtree',
+    code: 'PROJECT_007',
+    title: 'Bleach Tree / Character Intelligence Network',
+    tagline: 'Hardware-Accelerated Force-Directed Universe Relationship Graph & Dossier OS',
+    description: 'An interactive, high-performance character relationship intelligence database for the Bleach universe. Visualizes 189 canonical characters and 368 relationships with a hardware-accelerated D3.js force-directed physics engine, 5 lore-accurate tier node hierarchies, unified 192px WebP sprite rendering, tactical radar minimap, shortest path tracing, and frosted-glass character dossiers.',
+    category: 'Interactive Graph & D3.js',
+    techStack: ['D3.js', 'HTML5 Canvas', 'JavaScript', 'Python', 'WebP Sprites', 'CSS3 Shaders'],
+    metrics: [
+      { label: 'DATABASE SIZE', value: '189 Characters · 368 Links' },
+      { label: 'PHYSICS ENGINE', value: '60-120 FPS D3.js Force' },
+      { label: 'GRAPHICS PIPELINE', value: 'Canvas & WebP Sprites' }
+    ],
+    image: '/assets/bleach-tree-bg.png',
+    imagePosition: 'object-cover object-center',
+    liveUrls: [
+      { label: 'BLEACH TREE (LIVE)', url: 'https://prashantshreh-pixel.github.io/Bleach-Tree/' }
+    ],
+    liveUrl: 'https://prashantshreh-pixel.github.io/Bleach-Tree/',
+    githubUrl: 'https://github.com/prashantshreh-pixel/Bleach-Tree',
+    kanjiOverlay: '系譜',
+    architectureDiagram: `[ User Interaction & HUD ] ---> [ HTML5 Canvas Glow Pipeline ]
+                                        |
+                         +--------------+--------------+
+                         |                             |
+          [ D3.js Force Simulation ]       [ WebP Sprite Sheet Engine ]
+                         |                             |
+          [ 189 Nodes · 368 Links ]        [ Shortest Path Tracing ]`
+  },
+  {
+    id: 'project-hisabflow',
+    code: 'PROJECT_008',
+    title: 'HisabFlow / Retail Shop Management & Khata OS',
+    tagline: 'Production-Grade Next.js POS, Customer Credit Ledger & Financial System',
+    description: 'A modern, frontend-first retail and grocery shop management platform replacing physical paper Khata notebooks. Features a high-speed countertop POS billing terminal with instant credit balance calculations, comprehensive customer credit ledgers with running balances, stock movement auditing, operating expense tracking, profit & loss accounting, and offline backup.',
+    category: 'Next.js / FinTech POS',
+    techStack: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'TanStack Query', 'Zod', 'Recharts'],
+    metrics: [
+      { label: 'CORE LEDGER', value: 'Debit/Credit Khata Tracking' },
+      { label: 'POS TERMINAL', value: 'High-Speed Retail Billing' },
+      { label: 'ARCHITECTURE', value: 'Decoupled Service Layer' }
+    ],
+    image: '/assets/hisabflow-bg.jpg',
+    imagePosition: 'object-cover object-center',
+    liveUrls: [
+      { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/HisabFlow' }
+    ],
+    liveUrl: 'https://github.com/prashantshreh-pixel/HisabFlow',
+    githubUrl: 'https://github.com/prashantshreh-pixel/HisabFlow',
+    kanjiOverlay: '帳簿',
+    architectureDiagram: `[ POS Terminal & Billing UI ] ---> [ TanStack Query Server State ]
+                                          |
+                           +--------------+--------------+
+                           |                             |
+            [ Khata Credit Ledger ]            [ Inventory & P&L Engine ]
+                           |                             |
+            [ Abstracted API Services ]        [ REST API / Dapper Gateway ]`
   }
 ];
