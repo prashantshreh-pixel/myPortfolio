@@ -321,9 +321,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: '/assets/anime-bg-cover.png',
     imagePosition: 'object-cover object-center',
     liveUrls: [
-      { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/Shiori' }
+      { label: 'SHIORI (LIVE)', url: 'https://shiori-seven.vercel.app/' }
     ],
-    liveUrl: 'https://github.com/prashantshreh-pixel/Shiori',
+    liveUrl: 'https://shiori-seven.vercel.app/',
+    githubUrl: 'https://github.com/prashantshreh-pixel/Shiori',
     kanjiOverlay: '栞',
     architectureDiagram: `[ Next.js 15 App Router ] ---> [ Glassmorphism UI (Tailwind) ]
                                       |
@@ -453,9 +454,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     image: '/assets/DumbellV2.jpg',
     imagePosition: 'object-cover object-center',
     liveUrls: [
-      { label: 'GITHUB REPOSITORY', url: 'https://github.com/prashantshreh-pixel/FlexPulse' }
+      { label: 'FLEXPULSE (LIVE)', url: 'https://flexpulse-gu9q.onrender.com/' }
     ],
-    liveUrl: 'https://github.com/prashantshreh-pixel/FlexPulse',
+    liveUrl: 'https://flexpulse-gu9q.onrender.com/',
+    githubUrl: 'https://github.com/prashantshreh-pixel/FlexPulse',
     kanjiOverlay: '力',
     architectureDiagram: `[ React 19 Client ] ---> [ Custom CSS Animations ]
                                   |
