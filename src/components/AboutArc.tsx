@@ -1,16 +1,35 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { TIMELINE_DATA } from '../data';
 import { TimelineItem } from '../types';
 import { MemoryFragmentModal } from './MemoryFragmentModal';
 import { SectionHeader } from './SectionHeader';
 import { TechTag } from './TechTag';
-import { Terminal, ChevronRight } from 'lucide-react';
+import { Terminal, ChevronRight, Eye, ArrowUpRight } from 'lucide-react';
 import { audioEngine } from '../utils/AudioEngine';
 
 export const AboutArc: React.FC = () => {
   const [selectedFragment, setSelectedFragment] = useState<TimelineItem | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Listen for timeline selection events (e.g. from ProjectModal)
+  useEffect(() => {
+    const handleSelectTimelineEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ timelineId: string }>;
+      const targetId = customEvent.detail?.timelineId;
+      if (!targetId) return;
+
+      const found = TIMELINE_DATA.find((t) => t.id === targetId);
+      if (found) {
+        setSelectedFragment(found);
+      }
+    };
+
+    window.addEventListener('select-timeline-item', handleSelectTimelineEvent);
+    return () => {
+      window.removeEventListener('select-timeline-item', handleSelectTimelineEvent);
+    };
+  }, []);
 
   // Parallax Scroll Tracking
   const { scrollYProgress } = useScroll({
@@ -107,8 +126,8 @@ export const AboutArc: React.FC = () => {
                       ))}
                     </div>
 
-                    {/* Trigger Memory Fragment Inspection */}
-                    <div className="pt-2">
+                    {/* Trigger Actions */}
+                    <div className="pt-2 flex flex-wrap items-center gap-4">
                       <button
                         onClick={() => {
                           audioEngine.playSlash();
@@ -119,6 +138,24 @@ export const AboutArc: React.FC = () => {
                         <Terminal size={14} />
                         <span>INSPECT MEMORY FRAGMENT</span>
                       </button>
+
+                      {item.projectId && (
+                        <button
+                          onClick={() => {
+                            audioEngine.playSlash();
+                            window.dispatchEvent(
+                              new CustomEvent('select-project', {
+                                detail: { projectId: item.projectId, openModal: true }
+                              })
+                            );
+                          }}
+                          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-zinc-400 hover:text-red-400 uppercase tracking-widest transition-colors group/link"
+                        >
+                          <Eye size={13} className="text-red-500 group-hover/link:scale-110 transition-transform" />
+                          <span>VIEW PROJECT</span>
+                          <ArrowUpRight size={13} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                        </button>
+                      )}
                     </div>
                   </div>
 

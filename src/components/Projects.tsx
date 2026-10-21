@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { PROJECTS_DATA } from '../data';
 import { ProjectItem } from '../types';
 import { ProjectModal } from './ProjectModal';
@@ -115,7 +115,7 @@ export const Projects: React.FC = () => {
     };
   }, []);
 
-  const handleSelectProject = (i: number) => {
+  const handleSelectProject = useCallback((i: number) => {
     const pin = pinRef.current;
     if (!pin) return;
     audioEngine.playSlash();
@@ -125,7 +125,49 @@ export const Projects: React.FC = () => {
     const divisor = Math.max(1, PROJECTS_DATA.length - 1);
     const targetScrollY = pinTop + (i / divisor) * span;
     window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-  };
+  }, []);
+
+  // Listen for programmatic project selection (e.g., from The Arc "VIEW PROJECT MISSION" or hash navigation)
+  useEffect(() => {
+    const handleSelectProjectEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ projectId: string; openModal?: boolean }>;
+      const targetId = customEvent.detail?.projectId;
+      if (!targetId) return;
+
+      const idx = PROJECTS_DATA.findIndex((p) => p.id === targetId);
+      if (idx === -1) return;
+
+      // 1. Immediately highlight and scroll to this project's position in the pinned section
+      setActiveIndex(idx);
+      handleSelectProject(idx);
+
+      // 2. Open project case study modal if requested
+      if (customEvent.detail?.openModal !== false) {
+        setTimeout(() => {
+          setActiveProject(PROJECTS_DATA[idx]);
+        }, 650);
+      }
+    };
+
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const idx = PROJECTS_DATA.findIndex((p) => p.id === hash);
+        if (idx !== -1) {
+          setActiveIndex(idx);
+          handleSelectProject(idx);
+        }
+      }
+    };
+
+    window.addEventListener('select-project', handleSelectProjectEvent);
+    window.addEventListener('hashchange', handleHash);
+
+    return () => {
+      window.removeEventListener('select-project', handleSelectProjectEvent);
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, [handleSelectProject]);
 
   return (
     <section

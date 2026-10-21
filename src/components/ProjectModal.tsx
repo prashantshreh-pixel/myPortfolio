@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, Github, Cpu, BarChart2, Layers, ExternalLink } from 'lucide-react';
+import { X, Github, Cpu, BarChart2, Layers, ExternalLink, Terminal } from 'lucide-react';
 import { ProjectItem } from '../types';
+import { TIMELINE_DATA } from '../data';
 import { audioEngine } from '../utils/AudioEngine';
 import { BaseModal } from './BaseModal';
 import { TechTag } from './TechTag';
@@ -12,6 +13,8 @@ interface ProjectModalProps {
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   if (!project) return null;
+
+  const linkedTimeline = TIMELINE_DATA.find((t) => t.projectId === project.id);
 
   return (
     <BaseModal isOpen={!!project} onClose={onClose} align="center">
@@ -159,6 +162,29 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <Github size={15} />
                 <span>SOURCE REPOSITORY</span>
               </a>
+            )}
+
+            {linkedTimeline && (
+              <button
+                type="button"
+                onClick={() => {
+                  audioEngine.playSlash();
+                  onClose();
+                  setTimeout(() => {
+                    const arc = document.getElementById('thearc');
+                    if (arc) arc.scrollIntoView({ behavior: 'smooth' });
+                    window.dispatchEvent(
+                      new CustomEvent('select-timeline-item', {
+                        detail: { timelineId: linkedTimeline.id }
+                      })
+                    );
+                  }, 150);
+                }}
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-900 hover:bg-white text-white hover:text-black font-black uppercase text-xs tracking-widest border border-red-600/40 hover:border-red-500 transition-all shadow-md active:scale-95 text-center"
+              >
+                <Terminal size={15} className="text-red-500" />
+                <span>VIEW MEMORY FRAGMENT</span>
+              </button>
             )}
           </div>
 

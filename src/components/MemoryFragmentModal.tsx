@@ -14,19 +14,18 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
   if (!item) return null;
 
   const handleJumpToProject = () => {
-    if (!item) return;
+    if (!item?.projectId) return;
+    const targetProjectId = item.projectId;
     audioEngine.playSlash();
-    const targetId = item.projectId || 'projects';
     onClose();
+    // Allow modal close animation and body scroll lock to release before scrolling
     setTimeout(() => {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        const sec = document.getElementById('projects');
-        if (sec) sec.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 120);
+      window.dispatchEvent(
+        new CustomEvent('select-project', {
+          detail: { projectId: targetProjectId, openModal: true }
+        })
+      );
+    }, 150);
   };
 
   return (
