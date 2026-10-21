@@ -16,7 +16,7 @@ export interface TimelineItem {
 export interface SkillItem {
   id: string;
   name: string;
-  category: 'core' | 'devops' | 'architecture' | 'database';
+  category: 'core' | 'devops' | 'architecture' | 'database' | 'frontend';
   commandPhrase: string;
   proficiency: number; // 0 - 100
   kanji: string;

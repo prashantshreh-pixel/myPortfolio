@@ -13,27 +13,40 @@
 
 ---
 
+## 🚀 Featured Projects
+
+| Project | Category | Live / Repository |
+| :--- | :--- | :--- |
+| **Shiori** | Offline-First Anime & Manga Library | [Live App](https://shiori-seven.vercel.app/) · [GitHub](https://github.com/prashantshreh-pixel/Shiori) |
+| **HisabFlow** | Grocery & Retail Khata / POS System | [GitHub](https://github.com/prashantshreh-pixel/HisabFlow) |
+| **Bleach Tree** | Interactive Anime Skill Tree | [Live App](https://prashantshreh-pixel.github.io/Bleach-Tree/) · [GitHub](https://github.com/prashantshreh-pixel/Bleach-Tree) |
+| **FlexPulse** | Fitness & Workout Tracker | [Live App](https://flexpulse-gu9q.onrender.com/) |
+| **IME Remittance** | High-Volume Financial Corridor Engine | [Live Portal](https://imeremit.com.np/) |
+| **PrabhuPay** | Digital Banking & Multi-Tenant Wallet | [Live Portal](https://prabhupay.com/) |
+
+---
+
 ## 🛠️ Core Tech Stack
 
-- **Backend & Core:** C#, .NET Core, ASP.NET Core, Entity Framework Core, SQL Server, PostgreSQL, REST & SOAP APIs
+- **Backend & FinTech:** C#, .NET Core, ASP.NET Core, Entity Framework Core, SQL Server, PostgreSQL, REST & SOAP APIs
 - **Architecture:** Clean Architecture, Factory Pattern, Repository Pattern, Package-Based Modular Design
 - **Frontend & UI:** React 19, TypeScript 5.8, Vite 6, Tailwind CSS v4, Motion, Web Audio API
 
 ---
 
-## ⚡ Highlights & Features
+## ⚡ Key Highlights
 
-- 💳 **FinTech Architecture:** Core remittance processing engines (IME Nepal) and nationwide digital wallets (PrabhuPay, MyPay, Thaili).
-- 🔊 **Procedural Audio Engine:** Custom Web Audio API synthesizer triggering sound effects & Bleach *Sonido* teleports.
-- 🎨 **Bleach-Themed Aesthetics:** High-contrast brutalist UI featuring interactive particle canvas and responsive glassmorphism.
-- 📄 **Official Resume PDF:** Direct in-app executive resume download.
+- 💳 **High-Volume FinTech:** Core remittance processing engines (IME Nepal) and nationwide digital wallets (PrabhuPay, MyPay, Thaili).
+- 📜 **Vertical Pinned Project Rail:** Smooth pinned-scroll viewport featuring interactive timeline index and dynamic card translation.
+- 🔊 **Procedural Web Audio:** Real-time synthesized anime sound effects & Bleach *Sonido* soundscapes.
+- 🎨 **Bleach-Themed Brutalism:** High-contrast aesthetics with interactive canvas particles and glassmorphic UI.
 
 ---
 
-## 🚀 Quick Start
+## 💻 Quick Start
 
 ```bash
-# 1. Clone repo
+# 1. Clone repository
 git clone https://github.com/prashantshreh-pixel/myPortfolio.git
 cd myPortfolio
 
@@ -41,7 +54,8 @@ cd myPortfolio
 npm install
 npm run dev
 
-# 3. Build for production
+# 3. Type check & build for production
+npm run lint
 npm run build
 ```
 
