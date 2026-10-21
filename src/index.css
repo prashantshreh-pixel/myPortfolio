@@ -2,7 +2,7 @@
 
 @layer base {
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
     max-width: 100vw;
   }
@@ -162,10 +162,11 @@
    ========================================================================== */
 .projects-pin {
   position: relative;
-  min-height: 400vh;
+  min-height: 100vh;
 }
 
 .projects-stick {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -310,6 +311,11 @@
 .projects-card.now {
   border-color: rgba(220, 38, 38, 0.85);
   box-shadow: 0 0 35px rgba(220, 38, 38, 0.25), 0 10px 35px rgba(0, 0, 0, 0.7);
+}
+
+.projects-card:not(.now):hover {
+  border-color: rgba(220, 38, 38, 0.5);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
 }
 
 .projects-card-vis {

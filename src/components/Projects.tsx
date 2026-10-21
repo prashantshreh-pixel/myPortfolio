@@ -96,11 +96,20 @@ export const Projects: React.FC = () => {
       measure();
     };
 
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => {
+        measure();
+      });
+      ro.observe(win);
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
     measure();
 
     return () => {
+      ro?.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
     };
@@ -113,7 +122,8 @@ export const Projects: React.FC = () => {
     const rect = pin.getBoundingClientRect();
     const pinTop = window.scrollY + rect.top;
     const span = pin.offsetHeight - window.innerHeight;
-    const targetScrollY = pinTop + (i / (PROJECTS_DATA.length - 1)) * span;
+    const divisor = Math.max(1, PROJECTS_DATA.length - 1);
+    const targetScrollY = pinTop + (i / divisor) * span;
     window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
   };
 
@@ -121,14 +131,14 @@ export const Projects: React.FC = () => {
     <section
       ref={pinRef}
       id="projects"
-      className={`projects-pin relative overflow-hidden bg-[#050505] ${activeProject ? 'z-50' : 'z-10'}`}
+      className={`projects-pin relative bg-[#050505] ${activeProject ? 'z-50' : 'z-10'}`}
     >
-      {/* Background Top & Bottom Smooth Gradient Blends */}
-      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-20" />
-      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-20" />
-
       {/* Sticky Viewport Container */}
       <div className="projects-stick">
+        {/* Subtle Viewport Edge Vignette Blends */}
+        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-20" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-20" />
+
         {/* Left Side: Section Info & Scroll Index List */}
         <div className="projects-side">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.4em] text-red-500 mb-2 font-bold">
@@ -192,8 +202,10 @@ export const Projects: React.FC = () => {
                   key={project.id}
                   id={project.id}
                   onClick={() => {
-                    audioEngine.playSlash();
-                    setActiveProject(project);
+                    handleSelectProject(index);
+                    if (isNow) {
+                      setActiveProject(project);
+                    }
                   }}
                   className={`projects-card group ${isNow ? 'now' : ''}`}
                 >
