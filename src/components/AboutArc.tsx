@@ -145,7 +145,7 @@ export const AboutArc: React.FC = () => {
                             audioEngine.playSlash();
                             window.dispatchEvent(
                               new CustomEvent('select-project', {
-                                detail: { projectId: item.projectId, openModal: true }
+                                detail: { projectId: item.projectId, openModal: false }
                               })
                             );
                           }}

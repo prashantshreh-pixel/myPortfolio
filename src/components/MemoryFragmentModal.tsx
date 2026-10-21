@@ -22,7 +22,7 @@ export const MemoryFragmentModal: React.FC<MemoryFragmentModalProps> = ({ item, 
     setTimeout(() => {
       window.dispatchEvent(
         new CustomEvent('select-project', {
-          detail: { projectId: targetProjectId, openModal: true }
+          detail: { projectId: targetProjectId, openModal: false }
         })
       );
     }, 150);

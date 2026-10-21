@@ -141,8 +141,8 @@ export const Projects: React.FC = () => {
       setActiveIndex(idx);
       handleSelectProject(idx);
 
-      // 2. Open project case study modal if requested
-      if (customEvent.detail?.openModal !== false) {
+      // 2. Only open project case study modal if explicitly requested (defaults to false)
+      if (customEvent.detail?.openModal === true) {
         setTimeout(() => {
           setActiveProject(PROJECTS_DATA[idx]);
         }, 650);
@@ -245,9 +245,6 @@ export const Projects: React.FC = () => {
                   id={project.id}
                   onClick={() => {
                     handleSelectProject(index);
-                    if (isNow) {
-                      setActiveProject(project);
-                    }
                   }}
                   className={`projects-card group ${isNow ? 'now' : ''}`}
                 >
