@@ -157,4 +157,236 @@
   text-shadow: 2px 0 #cc0000, -2px 0 #ffffff;
 }
 
+/* ==========================================================================
+   Projects Vertical Pinned Scroll Section (matches projects-vertical-demo)
+   ========================================================================== */
+.projects-pin {
+  position: relative;
+  min-height: 400vh;
+}
+
+.projects-stick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: env(safe-area-inset-top, 0px) 24px 0;
+}
+
+.projects-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 90vh;
+  z-index: 10;
+}
+
+.projects-idx {
+  position: relative;
+  list-style: none;
+  margin: 16px 0 0 0;
+  padding: 0 0 0 24px;
+}
+
+.projects-idx::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: #1c2029;
+}
+
+.projects-fill {
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(180deg, #dc2626, #ef4444, #f59e0b);
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.7);
+  transition: height 0.05s ease-out;
+}
+
+.projects-idx-item {
+  position: relative;
+  padding: 8px 0;
+  color: #71717a;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  transition: color 0.3s;
+  cursor: pointer;
+  user-select: none;
+}
+
+.projects-idx-item::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #050505;
+  border: 2px solid #27272a;
+  transition: 0.3s;
+}
+
+.projects-idx-item.done {
+  color: #d4d4d8;
+}
+
+.projects-idx-item.done::before {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.projects-idx-item.now {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.projects-idx-item.now::before {
+  background: #050505;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.3), 0 0 12px rgba(220, 38, 38, 0.7);
+  transform: scale(1.15);
+}
+
+.projects-idx-item small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #52525b;
+}
+
+.projects-idx-item.now small {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.projects-win {
+  position: relative;
+  height: 86vh;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+}
+
+.projects-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.projects-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #0b0c10;
+  border: 1px solid #1c2029;
+  border-radius: 26px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  gap: 20px;
+  transform-origin: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.projects-card.now {
+  border-color: rgba(220, 38, 38, 0.85);
+  box-shadow: 0 0 35px rgba(220, 38, 38, 0.25), 0 10px 35px rgba(0, 0, 0, 0.7);
+}
+
+.projects-card-vis {
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+  background: #12141a;
+}
+
+@media(max-width: 1024px) {
+  .projects-stick {
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+  }
+}
+
+@media(max-width: 768px) {
+  .projects-stick {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: env(safe-area-inset-top, 0px) 16px 0;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+  }
+  .projects-side {
+    padding-top: 16px;
+  }
+  .projects-idx {
+    display: none;
+  }
+  .projects-win {
+    height: 74vh;
+  }
+  .projects-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 20px;
+  }
+  .projects-card-vis {
+    min-height: 130px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  .projects-pin {
+    height: auto !important;
+    min-height: auto !important;
+  }
+  .projects-stick {
+    position: static !important;
+    height: auto !important;
+    display: block !important;
+    padding: 40px 16px !important;
+  }
+  .projects-win {
+    height: auto !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    overflow: visible !important;
+  }
+  .projects-track {
+    position: static !important;
+    transform: none !important;
+  }
+  .projects-card {
+    position: static !important;
+    margin-bottom: 24px !important;
+    opacity: 1 !important;
+    transform: none !important;
+    height: auto !important;
+  }
+  .projects-idx {
+    display: none !important;
+  }
+}
+
+
 
